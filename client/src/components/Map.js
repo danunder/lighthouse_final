@@ -15,8 +15,8 @@ export class MapContainer extends Component {
       activeMarker: {},
       selectedPlace: {},
       mapCenter: {
-        lat: 49.2827291,
-        lng: -123.1207375,
+        lat: 43.6425662,
+        lng: -79.3870568,
       },
     };
   }
@@ -31,7 +31,6 @@ export class MapContainer extends Component {
       .then(results => getLatLng(results[0]))
       .then(latLng => {
         console.log('Success', latLng);
-
         // update center state
         this.setState({ mapCenter: latLng });
       })
