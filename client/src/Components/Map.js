@@ -3,11 +3,7 @@ import { Map, GoogleApiWrapper } from 'google-maps-react';
 
 const mapStyles = {
   width: '100%',
-  height: '100%',
-  stylers: [
-    {
-      color: '#dceafa'
-    }]
+  height: '100%'
 };
 
 export class MapContainer extends Component {
