@@ -16,13 +16,25 @@ export class MapContainer extends Component {
       <Map
         google={this.props.google}
         zoom={14}
-        style={mapStyles}
+        // style={mapStyles}
         initialCenter={
           {
             lat: -1.2884,
             lng: 36.8233
           }
         }
+        defaultOptions={{
+          styles: mapStyles,
+         // these following 7 options turn certain controls off see link below
+          streetViewControl: false,
+          scaleControl: false,
+          mapTypeControl: false,
+          panControl: false,
+          zoomControl: false,
+          rotateControl: false,
+          fullscreenControl: false
+        }}
+        disableDefaultUI 
       />
     );
   }
