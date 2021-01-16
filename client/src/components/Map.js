@@ -5,6 +5,15 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 
+const mapStyles = {
+  width: '100%',
+  height: '100%',
+  stylers: [
+    {
+      color: '#dceafa'
+    }]
+};
+
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
@@ -85,14 +94,26 @@ export class MapContainer extends Component {
         </PlacesAutocomplete>
         <Map
           google={this.props.google}
-          initialCenter={{
-            lat: this.state.mapCenter.lat,
-            lng: this.state.mapCenter.lng,
+          zoom={14}
+          // style={mapStyles}
+          initialCenter={
+            {
+              lat: -1.2884,
+              lng: 36.8233
+            }
+          }
+          defaultOptions={{
+            styles: mapStyles,
+           // these following 7 options turn certain controls off see link below
+            streetViewControl: false,
+            scaleControl: false,
+            mapTypeControl: false,
+            panControl: false,
+            zoomControl: false,
+            rotateControl: false,
+            fullscreenControl: false
           }}
-          center={{
-            lat: this.state.mapCenter.lat,
-            lng: this.state.mapCenter.lng,
-          }}
+          disableDefaultUI
         >
           <Marker
             position={{
