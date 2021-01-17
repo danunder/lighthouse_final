@@ -23,6 +23,7 @@ export default function Reviews() {
   const mapData = fakeReview.map(data => {
     return (
       <div className='review-block'>
+        <h1>*****</h1>
         <h1>{data.name}</h1>
         <p>{data.stars} stars</p>
         <p>View More ...</p>
