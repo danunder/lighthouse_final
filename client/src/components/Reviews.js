@@ -1,10 +1,11 @@
 import React from 'react';
+import AddReview from './AddReview';
 
 export default function Reviews() {
   const fakeReview = [
     {
       name: 'Jared',
-      stars: '4',
+      stars: 4,
     },
     {
       name: 'Jimmy',
@@ -23,9 +24,14 @@ export default function Reviews() {
     return (
       <div className='review-block'>
         <h1>{data.name}</h1>
-        <p>{data.stars}</p>
+        <p>{data.stars} stars</p>
       </div>
     );
   });
-  return mapData;
+  return (
+    <>
+      {mapData}
+      <AddReview />
+    </>
+  );
 }
