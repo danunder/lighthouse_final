@@ -6,13 +6,21 @@ import PlacesAutocomplete, {
 } from 'react-places-autocomplete';
 
 const mapStyles = {
+  position: 'absolute',
+  top: '0',
+  left: '0',
   width: '100%',
   height: '100%',
-  stylers: [
-    {
-      color: '#dceafa'
-    }]
+  zIndex: '-10',
 };
+
+const inputStyles = {
+  position: 'absolute',
+  width: '80vw',
+  top: '10vw',
+  left: '10vw',
+  zIndex: '10',
+ };
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -50,7 +58,9 @@ export class MapContainer extends Component {
   render() {
     return (
       <div id='googleMaps'>
+        
         <PlacesAutocomplete
+          
           value={this.state.address}
           onChange={this.handleChange}
           onSelect={this.handleSelect}
@@ -61,12 +71,13 @@ export class MapContainer extends Component {
             getSuggestionItemProps,
             loading,
           }) => (
-            <div>
+            <div style={inputStyles}>
               <input
                 {...getInputProps({
                   placeholder: 'Search Places ...',
                   className: 'location-search-input',
                 })}
+                style={{width:'100%'}}
               />
               <div className='autocomplete-dropdown-container'>
                 {loading && <div>Loading...</div>}
@@ -94,6 +105,7 @@ export class MapContainer extends Component {
           )}
         </PlacesAutocomplete>
         <Map
+          
           google={this.props.google}
           zoom={14}
           initialCenter={{
@@ -107,6 +119,7 @@ export class MapContainer extends Component {
           defaultOptions={{ styles: mapStyles }}
           disableDefaultUI
         >
+          
           <Marker
             position={{
               lat: this.state.mapCenter.lat,
@@ -114,11 +127,12 @@ export class MapContainer extends Component {
             }}
           />
         </Map>
+        
       </div>
     );
   }
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyCjLpjNfRTtyozA2bmC4Uva8LrYc-L-Pi8',
+  apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
 })(MapContainer);
