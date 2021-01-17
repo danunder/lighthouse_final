@@ -15,8 +15,10 @@ export default function ReviewInput() {
         <Card.Body>
           <Wrapper>
             <input placeholder='Enter Your Review' />
-            <Button variant='primary'>Skip</Button>
-            <Button variant='primary'>Next</Button>
+            <div className='card-buttons'>
+              <Button variant='primary'>Skip</Button>
+              <Button variant='primary'>Next</Button>
+            </div>
           </Wrapper>
         </Card.Body>
       </Card>
