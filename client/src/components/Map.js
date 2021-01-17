@@ -5,22 +5,13 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 
-const mapStyles = {
-  width: '100%',
-  height: '100%',
-  stylers: [
-    {
-      color: '#dceafa'
-    }]
-};
-
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       // for google map places autocomplete
       address: '',
-      showingInfoWindow: true,
+      showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {},
       mapCenter: {
@@ -39,7 +30,6 @@ export class MapContainer extends Component {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
-        console.log('Success', latLng);
         // update center state
         this.setState({ mapCenter: latLng });
       })
@@ -94,26 +84,14 @@ export class MapContainer extends Component {
         </PlacesAutocomplete>
         <Map
           google={this.props.google}
-          zoom={14}
-          // style={mapStyles}
-          initialCenter={
-            {
-              lat: -1.2884,
-              lng: 36.8233
-            }
-          }
-          defaultOptions={{
-            styles: mapStyles,
-           // these following 7 options turn certain controls off see link below
-            streetViewControl: false,
-            scaleControl: false,
-            mapTypeControl: false,
-            panControl: false,
-            zoomControl: false,
-            rotateControl: false,
-            fullscreenControl: false
+          initialCenter={{
+            lat: this.state.mapCenter.lat,
+            lng: this.state.mapCenter.lng,
           }}
-          disableDefaultUI
+          center={{
+            lat: this.state.mapCenter.lat,
+            lng: this.state.mapCenter.lng,
+          }}
         >
           <Marker
             position={{
