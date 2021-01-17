@@ -4,11 +4,13 @@
 
 .review-block {
   border-radius: 25px;
-  background: lightblue;
+  border: 1px solid black;
+  background: white;
   padding: 20px;
   margin: 10px;
   width: 200px;
   height: 150px;
+  box-shadow: 2px 2px black;
 }
 
 .review-container > .row {

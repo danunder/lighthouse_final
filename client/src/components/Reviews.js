@@ -25,6 +25,7 @@ export default function Reviews() {
       <div className='review-block'>
         <h1>{data.name}</h1>
         <p>{data.stars} stars</p>
+        <p>View More ...</p>
       </div>
     );
   });
