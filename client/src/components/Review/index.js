@@ -1,6 +1,7 @@
 import React from "react";
 
 import ReviewForm from "./ReviewForm"
+import "./styles.css";
 
 export default function Review(props) {
 
