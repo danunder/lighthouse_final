@@ -1,33 +1,19 @@
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Form from 'react-bootstrap/Form';
-
-import StarRating from '../StarRating'
-
 import React from 'react';
-// import StarRating from 'react-bootstrap-star-rating';
+import StarRating from '../StarRating'
 
 
 export default function ReviewForm(props) {
 
   return ( <section classname="card">
-    <Card>
-      <Card.Header as="h5">Rate this property</Card.Header>
-      <Card.Body>
-      <Card.Title><StarRating/>
-        </Card.Title>
-
-        <Form>
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Next Review
-          </Button>
-        </Form>
-
-      </Card.Body>
-    </Card>
+    <div class='card'>
+      <h5 class='card-header'>Rate this {props.category}</h5>
+      <div class='card-body'>
+        <StarRating/>
+        <div class="form-group">
+          <textarea class="form-control" rows="5" id="comment" placeholder="Write a review"></textarea>
+          <button type="button" class="btn btn-outline-dark">Next Review{props.button}</button>
+        </div>
+      </div>
+    </div>
   </section>)
 }
