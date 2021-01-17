@@ -18,6 +18,10 @@ export class MapContainer extends Component {
         lat: 49.2827291,
         lng: -123.1207375,
       },
+      style: {
+        width: '100%',
+        height: '100%'
+      }
     };
   }
 
