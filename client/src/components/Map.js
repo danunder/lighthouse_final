@@ -20,7 +20,7 @@ export class MapContainer extends Component {
     this.state = {
       // for google map places autocomplete
       address: '',
-      showingInfoWindow: false,
+      showingInfoWindow: true,
       activeMarker: {},
       selectedPlace: {},
       mapCenter: {
