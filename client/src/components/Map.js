@@ -41,7 +41,7 @@ export class MapContainer extends Component {
       .then(results => getLatLng(results[0]))
       .then(latLng => {
         console.log('Success', latLng);
-
+        console.log('address', address);
         // update center state
         this.setState({ mapCenter: latLng });
       })
