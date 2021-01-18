@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import StarRatingShow from '../StarRatingShow'
-import { IoThumbsUpOutline } from 'react-icons/io5'
+import Like from '../Like'
 import { IoThumbsDownOutline } from 'react-icons/io5'
 
 
@@ -12,33 +12,26 @@ export default function ReviewShow(props) {
 
   return ( <section classname="card">
     <div class='card'>
-      <h5 class='card-header'>{props.user}This guy's review</h5>
+      <h5 class='card-header'>props.user's review</h5>
       <div class='card-body'>
         <div class="property-review">
           <h5>Property Review</h5>
           <StarRatingShow />
-          <p>This place sux!!!</p>
+          <p>Text props</p>
         </div>
         <div class="landlord-review">
           <h5>Landlord Review</h5>
           <StarRatingShow />
-          <p>This guy sux!!!</p>
+          <p>Text props</p>
         </div>
         <div class="neighbourhood-review">
           <h5>Property Review</h5>
           <StarRatingShow />
-          <p>This area sux!!!</p>
+          <p>Text props</p>
         </div>
         <p>Was this review helpful?</p>
         <div class='help'>
-        <IoThumbsUpOutline
-        className='thumbs-up'
-        color={hover ? "rgb(0, 228, 38)" : "black"}
-        size={30}
-        onMouseEnter={() => setHover(1)}
-        onMouseLeave={() => setHover(null)}
-        />
-        
+        <Like />
         <IoThumbsDownOutline
         className='thumbs-down'
         color={hover ? "red" : "black"}
