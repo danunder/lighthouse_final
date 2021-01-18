@@ -1,6 +1,7 @@
 import React from 'react';
 import AddReview from './AddReview';
-import { Card } from 'react-bootstrap';
+import { FaStar } from 'react-icons/fa';
+// import { Card } from 'react-bootstrap';
 
 export default function Reviews() {
   const fakeReview = [
@@ -24,9 +25,11 @@ export default function Reviews() {
   const mapData = fakeReview.map(data => {
     return (
       <div className='review-block'>
-        <h1>*****</h1>
+        {/* <h1>*****</h1> */}
+        <FaStar />
+        <FaStar />
+        <FaStar />
         <h1>{data.name}</h1>
-        <p>{data.stars} stars</p>
         <p>View More ...</p>
       </div>
     );

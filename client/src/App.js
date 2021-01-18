@@ -1,13 +1,16 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Map from './components/Map';
 import Reviews from './components/Reviews';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import ReviewInput from './components/ReviewInput';
+// import ReviewInput from './components/ReviewInput';
+// Review component not yet apprearing on page
+import Review from './components/Review';
 
 function App() {
   return (
     <div className='App'>
-      <ReviewInput />
+      <Review />
+      {/* <ReviewInput /> */}
       <h1>Rentopedia</h1>
       <div className='container-fluid review-container'>
         <div className='row'>
