@@ -9,7 +9,7 @@ export default function ReviewForm(props) {
       <div className='card'>
         <div className='card-body-processing'>
           <p></p>
-          <h5>Processing</h5>
+          <h5>Processing{props.title}</h5>
           <Spinner />
         </div>
       </div>
