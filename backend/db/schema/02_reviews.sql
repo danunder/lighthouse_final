@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS reviews CASCADE;
+
+CREATE TABLE reviews(
+  id SERIAL PRIMARY KEY NOT NULL,
+  review TEXT VARCHAR(1000) NOT NULL,
+  rating TINYINT NOT NULL,
+  date_of_review DATE NOT NULL,
+  helpfulness BIT DEFAULT NULL,
+  is_verified BOOLEAN DEFAULT FALSE,
+  tenancy_id INTEGER REFERENCES tenancies(id) ON DELETE CASCADE,
+  category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  property_id INTEGER REFERENCES properties(id) ON DELETE CASCADE,
+);
