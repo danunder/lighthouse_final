@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import StarRatingShow from '../StarRatingShow'
 import Like from '../Like'
-import { IoThumbsDownOutline } from 'react-icons/io5'
+import Dislike from '../Dislike'
 
 
 // The button needs fixing to work as a form submitter
@@ -32,13 +32,7 @@ export default function ReviewShow(props) {
         <p>Was this review helpful?</p>
         <div class='help'>
         <Like />
-        <IoThumbsDownOutline
-        className='thumbs-down'
-        color={hover ? "red" : "black"}
-        size={30}
-        onMouseEnter={() => setHover(1)}
-        onMouseLeave={() => setHover(null)}
-        />
+        <Dislike />
         </div>
       </div>
     </div>
