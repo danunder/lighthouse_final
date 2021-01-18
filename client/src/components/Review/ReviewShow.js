@@ -15,9 +15,9 @@ export default function ReviewShow(props) {
     <div class='card'>
       <h5 class='card-header'>props.user's review</h5>
       <div class='card-body'>
-        <div>
+        {/* <div>
         <PhotoCarousel />
-        </div>
+        </div> */}
         <div class="property-review">
           <h5>Property Review</h5>
           <StarRatingShow />
