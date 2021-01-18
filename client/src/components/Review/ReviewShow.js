@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import StarRatingShow from '../StarRatingShow'
 import Like from '../Like'
 import Dislike from '../Dislike'
+import PhotoCarousel from '../PhotoCarousel'
 
 
 // The button needs fixing to work as a form submitter
@@ -14,6 +15,9 @@ export default function ReviewShow(props) {
     <div class='card'>
       <h5 class='card-header'>props.user's review</h5>
       <div class='card-body'>
+        <div>
+        <PhotoCarousel />
+        </div>
         <div class="property-review">
           <h5>Property Review</h5>
           <StarRatingShow />
@@ -29,11 +33,11 @@ export default function ReviewShow(props) {
           <StarRatingShow />
           <p>Text props</p>
         </div>
-        <p>Was this review helpful?</p>
+        {/* <p>Was this review helpful?</p>
         <div class='help'>
         <Like />
         <Dislike />
-        </div>
+        </div> */}
       </div>
     </div>
   </section>
