@@ -6,6 +6,8 @@ const logger = require('morgan');
 const app = express();
 
 const db = require('./db');
+const dbHelpers = require('./helpers/dbHelpers')(db);
+app.use('/api/', usersRouter(dbHelpers));
 
 app.use(logger('dev'));
 app.use(express.json());

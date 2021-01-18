@@ -1,45 +1,15 @@
 module.exports = db => {
-  const getUsers = () => {
+  const getReviews = address => {
     const query = {
-      text: 'SELECT * FROM users',
-    };
-
-    return db
-      .query(query)
-      .then(result => result.rows)
-      .catch(err => err);
-  };
-
-  const getUserByEmail = email => {
-    const query = {
-      text: `SELECT * FROM users WHERE email = $1`,
-      values: [email],
-    };
-
-    return db
-      .query(query)
-      .then(result => result.rows[0])
-      .catch(err => err);
-  };
-
-  const addUser = (firstName, lastName, email, password) => {
-    const query = {
-      text: `INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *`,
-      values: [firstName, lastName, email, password],
-    };
-
-    return db
-      .query(query)
-      .then(result => result.rows[0])
-      .catch(err => err);
-  };
-
-  const getUsersPosts = () => {
-    const query = {
-      text: `SELECT users.id as user_id, first_name, last_name, email, posts.id as post_id, title, content
+      text: `SELECT reviews.review, reviews.rating, users.username
       FROM users
-      INNER JOIN posts
-      ON users.id = posts.user_id`,
+      JOIN tenancies ON users.id = tenancies.user_id
+      JOIN reviews ON tenancies.id = reviews.tenancy_id
+      JOIN properties ON reviews.property_id = properties.id
+      JOIN categories ON reviews.category_id = categories.id
+      WHERE properties.place_id = $1
+      AND categories.id = 1;`,
+      values: [address],
     };
 
     return db
@@ -49,9 +19,6 @@ module.exports = db => {
   };
 
   return {
-    getUsers,
-    getUserByEmail,
-    addUser,
-    getUsersPosts,
+    getReviews,
   };
 };
