@@ -1,12 +1,19 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './App.css';
-import Map from './components/MapRebuild';
+
+import Map from './components/Map';
+// Review component not yet apprearing on page
+import Review from './components/Review';
+import ReviewForm from './components/Review/ReviewForm';
+
 
 function App() {
   return (
     <div className='App'>
       
+      <ReviewForm />
       <Map>
-      <h1 className='float'>Google Maps App</h1>
 
       </Map>
     </div>
