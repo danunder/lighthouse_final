@@ -39,3 +39,15 @@
 .card-title {
   font-size: large;
 }
+
+.test {
+  position: absolute;
+  z-index: 3;
+  top: 40vh;
+  left: 40vh;
+}
+
+#googleMaps {
+  z-index: -1;
+
+}

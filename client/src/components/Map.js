@@ -4,16 +4,24 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
+import Test from './Test';
 
 const mapStyles = {
+  position: 'absolute',
+  top: '0',
+  left: '0',
   width: '100%',
   height: '100%',
-  stylers: [
-    {
-      color: '#dceafa',
-    },
-  ],
+  zIndex: '-10',
 };
+
+const inputStyles = {
+  position: 'absolute',
+  width: '80vw',
+  top: '10vw',
+  left: '10vw',
+  zIndex: '10',
+ };
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -21,15 +29,18 @@ export class MapContainer extends Component {
     this.state = {
       // for google map places autocomplete
       address: '',
-      showingInfoWindow: false,
+      showingInfoWindow: true,
       activeMarker: {},
       selectedPlace: {},
+      placeID:'',
       mapCenter: {
         lat: 49.2827291,
         lng: -123.1207375,
       },
     };
   }
+
+  // onSelect = () => this.props.onSelect
 
   handleChange = address => {
     this.setState({ address });
@@ -38,10 +49,17 @@ export class MapContainer extends Component {
   handleSelect = address => {
     this.setState({ address });
     geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
+      .then(results => {
+        console.log('Results [0]', results[0]);
+        console.log(this);
+        this.setState({placeID: results[0].place_id})
+        return getLatLng(results[0]);
+      })
+      
       .then(latLng => {
         console.log('Success', latLng);
-        console.log('address', address);
+        console.log('Address', address)
+        this.props.onSelect(address)
         // update center state
         this.setState({ mapCenter: latLng });
       })
@@ -51,7 +69,9 @@ export class MapContainer extends Component {
   render() {
     return (
       <div id='googleMaps'>
+        
         <PlacesAutocomplete
+          
           value={this.state.address}
           onChange={this.handleChange}
           onSelect={this.handleSelect}
@@ -62,12 +82,13 @@ export class MapContainer extends Component {
             getSuggestionItemProps,
             loading,
           }) => (
-            <div>
+            <div style={inputStyles}>
               <input
                 {...getInputProps({
                   placeholder: 'Search Places ...',
                   className: 'location-search-input',
                 })}
+                style={{width:'100%'}}
               />
               <div className='autocomplete-dropdown-container'>
                 {loading && <div>Loading...</div>}
@@ -95,19 +116,22 @@ export class MapContainer extends Component {
           )}
         </PlacesAutocomplete>
         <Map
+          
           google={this.props.google}
           zoom={14}
           initialCenter={{
             lat: this.state.mapCenter.lat,
-            lng: this.state.mapCenter.lng,
+            lng: this.state.mapCenter.lng
           }}
           center={{
             lat: this.state.mapCenter.lat,
-            lng: this.state.mapCenter.lng,
+            lng: this.state.mapCenter.lng
           }}
           defaultOptions={{ styles: mapStyles }}
           disableDefaultUI
         >
+          <Test
+          address={this.state.address? this.state.address : 'Test'}/>
           <Marker
             position={{
               lat: this.state.mapCenter.lat,
@@ -115,6 +139,7 @@ export class MapContainer extends Component {
             }}
           />
         </Map>
+        
       </div>
     );
   }
