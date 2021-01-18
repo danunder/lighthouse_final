@@ -1,6 +1,8 @@
 INSERT INTO categories(name)
-VALUES(
-  'Property',
-  'Neighbourhood',
-  'Landlord'
-)
+VALUES('Property');
+
+INSERT INTO categories(name)
+VALUES('Neighbourhood');
+
+INSERT INTO categories(name)
+VALUES('Landlord');
