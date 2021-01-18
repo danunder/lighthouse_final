@@ -2,12 +2,12 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
+const address = require('./routes/address');
 const app = express();
 
 const db = require('./db');
 const dbHelpers = require('./helpers/dbHelpers')(db);
-app.use('/api/', usersRouter(dbHelpers));
+app.use('/api/', address(dbHelpers));
 
 app.use(logger('dev'));
 app.use(express.json());
