@@ -12,7 +12,7 @@ import Test from './components/Test';
 
 function App() {
 
-  const [place, setPlace] = useState('');
+  const [place, setPlace] = useState({});
 
   return (
     <div className='App'>
@@ -20,7 +20,7 @@ function App() {
         onSelect={setPlace}>
 
       </Map>
-        
+      <Test address={place.address ? place.address : 'No address has been selected'} />
     </div>
   );
 }

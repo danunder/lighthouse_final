@@ -4,7 +4,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
-import Test from './Test';
+
 
 const mapStyles = {
   position: 'absolute',
@@ -50,8 +50,7 @@ export class MapContainer extends Component {
     this.setState({ address });
     geocodeByAddress(address)
       .then(results => {
-        console.log('Results [0]', results[0]);
-        console.log(this);
+       // populates placeID
         this.setState({placeID: results[0].place_id})
         return getLatLng(results[0]);
       })
@@ -59,7 +58,12 @@ export class MapContainer extends Component {
       .then(latLng => {
         console.log('Success', latLng);
         console.log('Address', address)
-        this.props.onSelect(address)
+        // passes relevant address data UP to app state.
+        this.props.onSelect({
+          address: this.state.address,
+          latLng: latLng,
+          placeID: this.state.placeID
+        })
         // update center state
         this.setState({ mapCenter: latLng });
       })
@@ -68,10 +72,8 @@ export class MapContainer extends Component {
 
   render() {
     return (
-      <div id='googleMaps'>
-        
+      <div id='googleMaps'>        
         <PlacesAutocomplete
-          
           value={this.state.address}
           onChange={this.handleChange}
           onSelect={this.handleSelect}
@@ -116,9 +118,8 @@ export class MapContainer extends Component {
           )}
         </PlacesAutocomplete>
         <Map
-          
           google={this.props.google}
-          zoom={14}
+          zoom={18}
           initialCenter={{
             lat: this.state.mapCenter.lat,
             lng: this.state.mapCenter.lng
@@ -130,8 +131,7 @@ export class MapContainer extends Component {
           defaultOptions={{ styles: mapStyles }}
           disableDefaultUI
         >
-          <Test
-          address={this.state.address? this.state.address : 'Test'}/>
+          
           <Marker
             position={{
               lat: this.state.mapCenter.lat,
