@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-import ReviewForm from './ReviewForm';
-import './styles.css';
+import ReviewForm from "./ReviewForm"
+import ReviewShow from "./ReviewShow"
+import "./styles.css";
 
 // taken from Scheduler project, needs to be modified to fit this project, and tucked into helper file
 
@@ -45,10 +46,8 @@ export default function Review(props) {
   // scheduler code
   const { mode } = useVisualMode();
 
-  return (
-    <article classname='review' data-testid='review'>
-      {mode === REVIEW1 && <ReviewForm />}
-      <ReviewForm />
-    </article>
-  );
-}
+  return <article classname="review" data-testid="review">
+    {mode === REVIEW1 && <ReviewShow />}
+    <ReviewShow />
+  </article>
+};
