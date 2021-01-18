@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -10,6 +11,11 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+// Sets URL for axios requests to database
+if (process.env.REACT_APP_API_BASE_URL) {
+  axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

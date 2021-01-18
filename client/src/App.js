@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaMapSigns } from 'react-icons/fa';
 import './App.css';
 import Map, { MapContainer } from './components/Map';
 import Test from './components/Test';
+import axios from 'axios'
 
 // import Reviews from './components/Reviews';
 // // import ReviewInput from './components/ReviewInput';
@@ -13,6 +14,19 @@ import Test from './components/Test';
 function App() {
 
   const [place, setPlace] = useState({});
+
+   useEffect(() => {
+     console.log('USING EFFECT')   
+     axios({
+                method: 'GET',
+                url: '/api/',
+            })
+            .then(({
+                data
+            }) => console.log(data))
+            .catch((err) => console.log(err))
+    }, [place]);
+
 
   return (
     <div className='App'>
