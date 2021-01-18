@@ -1,5 +1,5 @@
 import React from 'react';
-// import AddReview from './AddReview';
+import AddReview from './AddReview';
 import { FaStar } from 'react-icons/fa';
 import { Card } from 'react-bootstrap';
 
@@ -44,7 +44,7 @@ export default function Reviews() {
   return (
     <>
       {mapData}
-      {/* <AddReview /> */}
+      <AddReview />
     </>
   );
 }
