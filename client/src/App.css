@@ -35,3 +35,7 @@
   flex-direction: row;
   justify-content: space-evenly;
 }
+
+.card-title {
+  font-size: large;
+}

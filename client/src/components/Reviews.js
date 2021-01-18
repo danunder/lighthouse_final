@@ -1,7 +1,7 @@
 import React from 'react';
-import AddReview from './AddReview';
+// import AddReview from './AddReview';
 import { FaStar } from 'react-icons/fa';
-// import { Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 export default function Reviews() {
   const fakeReview = [
@@ -36,18 +36,19 @@ export default function Reviews() {
   });
   return (
     <>
-      {mapData}
-      <AddReview />
+      {/* {mapData} */}
+      {/* <AddReview /> */}
+      <Card style={{ width: '18rem' }}>
+        <Card.Body>
+          <Card.Title>Jared F</Card.Title>
+          <Card.Subtitle className='mb-2 text-muted'>5 Stars</Card.Subtitle>
+          <Card.Text>
+            Here we would input a snipped from the user's review of the
+            property.
+          </Card.Text>
+          <Card.Link href='#'>View More</Card.Link>
+        </Card.Body>
+      </Card>
     </>
-    // <Card style={{ width: '18rem' }}>
-    //   <Card.Body>
-    //     <Card.Title>Jared F</Card.Title>
-    //     <Card.Subtitle className='mb-2 text-muted'>5 Stars</Card.Subtitle>
-    //     <Card.Text>
-    //       Here we would input a snipped from the user's review of the property.
-    //     </Card.Text>
-    //     <Card.Link href='#'>View More</Card.Link>
-    //   </Card.Body>
-    // </Card>
   );
 }
