@@ -1,0 +1,34 @@
+.card {
+  font-size: large;
+  font-family: 'Montserrat', sans-serif;
+  margin: 30px;
+}
+
+.card-header {
+  font-size: large;
+}
+h5 {
+  font-size: large;
+}
+
+.card-body {
+  font-size: large;
+}
+
+textarea {
+  resize: none;
+}
+
+.form-control {
+  font-size: large;
+}
+
+.btn {
+  font-size: large;
+  margin: 10px;
+}
+
+.help {
+  display: flex;
+  justify-content: space-evenly;
+}

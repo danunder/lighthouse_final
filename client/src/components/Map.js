@@ -10,8 +10,9 @@ const mapStyles = {
   height: '100%',
   stylers: [
     {
-      color: '#dceafa'
-    }]
+      color: '#dceafa',
+    },
+  ],
 };
 
 export class MapContainer extends Component {
@@ -98,11 +99,11 @@ export class MapContainer extends Component {
           zoom={14}
           initialCenter={{
             lat: this.state.mapCenter.lat,
-            lng: this.state.mapCenter.lng
+            lng: this.state.mapCenter.lng,
           }}
           center={{
             lat: this.state.mapCenter.lat,
-            lng: this.state.mapCenter.lng
+            lng: this.state.mapCenter.lng,
           }}
           defaultOptions={{ styles: mapStyles }}
           disableDefaultUI
@@ -120,5 +121,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyCjLpjNfRTtyozA2bmC4Uva8LrYc-L-Pi8',
+  apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
 })(MapContainer);
