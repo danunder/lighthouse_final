@@ -11,7 +11,7 @@ module.exports = db => {
       WHERE properties.longitude = $1
       AND properties.latitude = $2
       AND categories.id = 1`,
-      values: [lat, lng],
+      values: [lng, lat],
     };
 
     return db

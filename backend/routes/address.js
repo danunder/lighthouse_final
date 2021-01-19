@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = ({ getReviews }) => {
-  router.get('/:lng/:lat', (req, res) => {
+  router.get('/:lat/:lng', (req, res) => {
     const lng = req.params.lng;
     const lat = req.params.lat;
     getReviews(lng, lat)
