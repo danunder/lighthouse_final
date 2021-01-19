@@ -19,7 +19,30 @@ module.exports = db => {
       .then(result => result.rows)
       .catch(err => err);
   };
+
+  const login = (username, password) => {
+    const query = {
+      text: `SELECT * FROM users where username = $1`,
+      values: [username],
+    };
+    return db
+      .query(query)
+      .then(res => {
+        // eslint-disable-next-line no-undef
+        const passwordCheck = bcrypt.compareSync(
+          password,
+          res.rows[0].password
+        );
+        if (passwordCheck) {
+          return res.rows[0];
+        } else {
+          return null;
+        }
+      })
+      .catch(err => err);
+  };
   return {
     getReviews,
+    login,
   };
 };
