@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "node ./db/index.js",
     "db:reset": "node ./db/reset.js"
   },
   "dependencies": {
@@ -17,6 +16,7 @@
   },
   "devDependencies": {
     "chalk": "^4.1.0",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.7"
   }
 }
