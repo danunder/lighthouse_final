@@ -5,19 +5,19 @@ import StarRating from '../StarRating';
 
 export default function ReviewForm(props) {
   return (
-    <section classname='card'>
-      <div class='card'>
-        <h5 class='card-header'>Rate this {props.promt}</h5>
-        <div class='card-body'>
+    <section className='card'>
+      <div className='card'>
+        <h5 className='card-header'>Rate this {props.promt}</h5>
+        <div className='card-body'>
           <StarRating />
-          <div class='form-group'>
+          <div className='form-group'>
             <textarea
-              class='form-control'
+              className='form-control'
               rows='5'
               id='comment'
               placeholder='Write a review'
             ></textarea>
-            <button type='submit' class='btn btn-outline-dark'>
+            <button type='submit' className='btn btn-outline-dark'>
               Next Review{props.button}
             </button>
           </div>
