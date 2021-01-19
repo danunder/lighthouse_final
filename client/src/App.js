@@ -34,12 +34,12 @@ function App() {
 
   return (
     <div className='App'>
-      {/* <ReviewInput />
-      <Reviews /> */}
-      <Map onSelect={setPlace}></Map>
+      <ReviewInput />
+      {/* <Reviews /> */}
+      {/* <Map onSelect={setPlace}></Map>
       <Test
         address={place.address ? place.address : 'No address has been selected'}
-      />
+      /> */}
     </div>
   );
 }
