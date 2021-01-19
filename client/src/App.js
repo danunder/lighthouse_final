@@ -16,19 +16,19 @@ function App() {
 
   //const review = {
   //      userID: 45345,
- //        latLng: {
-//            lat: 65.44433
+  //        latLng: {
+  //            lat: 65.44433
   //          lng: -35.22452
- //           }
-  //      tenancy: { 
+  //           }
+  //      tenancy: {
   //         start_date: Mar 2017
   //         end_date: Mar 2019
-//                }
-//        property: {
+  //                }
+  //        property: {
   //            review: "blah blah blah"
   //            stars: 5
   //               }
-   //     neighbourhood: {
+  //     neighbourhood: {
   //            review: "blah blah blah"
   //            stars: 5
   //               }
@@ -36,13 +36,12 @@ function App() {
   //            review: "blah blah blah"
   //            stars: 5
   //               }
-//
-//
-//
-//
-//
-
-          }
+  //
+  //
+  //
+  //
+  //
+  // }
 
   const getReviewsFromCoords = () => {
     const lat = parseFloat(place.latLng.lat).toFixed(5);
@@ -67,7 +66,7 @@ function App() {
     <div className='App'>
       <Login />
       <Map onSelect={setPlace}></Map>
-     
+
       <Reviews data={reviewData} />
     </div>
   );
