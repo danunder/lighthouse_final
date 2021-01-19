@@ -4,7 +4,9 @@ import { FaMapSigns } from 'react-icons/fa';
 import './App.css';
 import Map, { MapContainer } from './components/Map';
 import Test from './components/Test';
+
 import axios from 'axios'
+
 
 import Reviews from './components/Reviews';
 import ReviewInput from './components/ReviewInput';
@@ -12,7 +14,6 @@ import ReviewInput from './components/ReviewInput';
 // import Review from './components/Review';
 
 function App() {
-
   const [place, setPlace] = useState({});
   
   useEffect(() => {
@@ -22,15 +23,23 @@ function App() {
       .then(data => console.log(data))
   }, [place])
 
+  useEffect(() => {
+    axios({
+      method: 'GET',
+      url: '/api/',
+    }).then(({ data }) => {
+      console.log(data);
+    });
+  }, []);
+
   return (
     <div className='App'>
       {/* <ReviewInput />
       <Reviews /> */}
-      <Map
-        onSelect={setPlace}>
-
-      </Map>
-      <Test address={place.address ? place.address : 'No address has been selected'} />
+      <Map onSelect={setPlace}></Map>
+      <Test
+        address={place.address ? place.address : 'No address has been selected'}
+      />
     </div>
   );
 }
