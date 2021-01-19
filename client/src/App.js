@@ -5,8 +5,10 @@ import './App.css';
 import Map, { MapContainer } from './components/Map';
 import Test from './components/Test';
 import axios from 'axios';
-import Reviews from './components/Reviews';
+
 import Login from './components/ReviewInput/Login';
+
+import VisualModeBox from './components/VisualModeBox';
 // // Review component not yet apprearing on page
 // import Review from './components/Review';
 
@@ -37,8 +39,11 @@ function App() {
     <div className='App'>
       <Login />
       <Map onSelect={setPlace}></Map>
-     
-      <Reviews data={reviewData} />
+      <VisualModeBox
+        reviewData={reviewData}
+      />
+        
+      
     </div>
   );
 }
