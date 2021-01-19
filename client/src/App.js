@@ -4,7 +4,9 @@ import { FaMapSigns } from 'react-icons/fa';
 import './App.css';
 import Map, { MapContainer } from './components/Map';
 import Test from './components/Test';
-import axios from 'axios';
+
+import axios from 'axios'
+
 
 import Reviews from './components/Reviews';
 import ReviewInput from './components/ReviewInput';
@@ -13,6 +15,13 @@ import ReviewInput from './components/ReviewInput';
 
 function App() {
   const [place, setPlace] = useState({});
+  
+  useEffect(() => {
+    Promise.all([
+      axios.get("http://localhost:3001/api")
+    ])
+      .then(data => console.log(data))
+  }, [place])
 
   useEffect(() => {
     axios({

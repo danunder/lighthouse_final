@@ -2,14 +2,15 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require('cors');
 
 const address = require('./routes/address');
 
 const app = express();
-
 const db = require('./db');
 const dbHelpers = require('./helpers/dbHelpers')(db);
 // console.log(dbHelpers);
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
