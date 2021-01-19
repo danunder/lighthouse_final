@@ -5,7 +5,6 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 
-
 const mapStyles = {
   position: 'absolute',
   top: '0',
@@ -21,7 +20,7 @@ const inputStyles = {
   top: '10vw',
   left: '10vw',
   zIndex: '10',
- };
+};
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -32,7 +31,7 @@ export class MapContainer extends Component {
       showingInfoWindow: true,
       activeMarker: {},
       selectedPlace: {},
-      placeID:'',
+      placeID: '',
       mapCenter: {
         lat: 49.2827291,
         lng: -123.1207375,
@@ -50,20 +49,20 @@ export class MapContainer extends Component {
     this.setState({ address });
     geocodeByAddress(address)
       .then(results => {
-       // populates placeID
-        this.setState({placeID: results[0].place_id})
+        // populates placeID
+        this.setState({ placeID: results[0].place_id });
         return getLatLng(results[0]);
       })
-      
+
       .then(latLng => {
         console.log('Success', latLng);
-        console.log('Address', address)
+        console.log('Address', address);
         // passes relevant address data UP to app state.
         this.props.onSelect({
           address: this.state.address,
           latLng: latLng,
-          placeID: this.state.placeID
-        })
+          placeID: this.state.placeID,
+        });
         // update center state
         this.setState({ mapCenter: latLng });
       })
@@ -72,7 +71,7 @@ export class MapContainer extends Component {
 
   render() {
     return (
-      <div id='googleMaps'>        
+      <div id='googleMaps'>
         <PlacesAutocomplete
           value={this.state.address}
           onChange={this.handleChange}
@@ -90,7 +89,7 @@ export class MapContainer extends Component {
                   placeholder: 'Search Places ...',
                   className: 'location-search-input',
                 })}
-                style={{width:'100%'}}
+                style={{ width: '100%' }}
               />
               <div className='autocomplete-dropdown-container'>
                 {loading && <div>Loading...</div>}
@@ -122,16 +121,15 @@ export class MapContainer extends Component {
           zoom={18}
           initialCenter={{
             lat: this.state.mapCenter.lat,
-            lng: this.state.mapCenter.lng
+            lng: this.state.mapCenter.lng,
           }}
           center={{
             lat: this.state.mapCenter.lat,
-            lng: this.state.mapCenter.lng
+            lng: this.state.mapCenter.lng,
           }}
           defaultOptions={{ styles: mapStyles }}
           disableDefaultUI
         >
-          
           <Marker
             position={{
               lat: this.state.mapCenter.lat,
@@ -139,7 +137,6 @@ export class MapContainer extends Component {
             }}
           />
         </Map>
-        
       </div>
     );
   }
