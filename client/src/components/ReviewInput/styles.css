@@ -1,7 +1,7 @@
 .card {
   font-size: large;
   font-family: 'Montserrat', sans-serif;
-  margin: 30px;
+  /* margin: 30px; */
 }
 
 .card-header {
@@ -31,4 +31,8 @@ textarea {
 .help {
   display: flex;
   justify-content: space-evenly;
+}
+
+.card-body-processing {
+  background-color: rgb(230, 230, 230);
 }
