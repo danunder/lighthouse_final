@@ -44,12 +44,12 @@ function App() {
 
   return (
     <div className='App'>
-      <ReviewInput />
-      {/* <Map onSelect={setPlace}></Map>
+      {/* <ReviewInput /> */}
+      <Map onSelect={setPlace}></Map>
       <Test
         address={place.address ? place.address : 'No address has been selected'}
       />
-      <Reviews data={reviewData} /> */}
+      <Reviews data={reviewData} />
     </div>
   );
 }
