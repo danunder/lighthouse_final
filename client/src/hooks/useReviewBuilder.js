@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useReducer } from 'react';
 
 export default function useReviewBuilder(initial) {
     
@@ -14,12 +14,12 @@ export default function useReviewBuilder(initial) {
         return {
           ...review,
           tenancy: action.tenancy
-      }
+        }
       case SET_PROPERTY:
         return {
           ...review,
           property: action.property
-      }
+        }
       case SET_LANDLORD:
         return {
           ...review,
@@ -35,8 +35,8 @@ export default function useReviewBuilder(initial) {
         throw new Error(
           `Tried to reduce with unsupported action type: ${action.type}`
         );
-      } 
     }
+  }
 
   const [review, setReview] = useReducer(reducer, {
     tenancy: {
@@ -57,7 +57,7 @@ export default function useReviewBuilder(initial) {
     }
   })
 
-  //** to use : setReview({type: "NEIGHBOURHOOD", neighbourhood : {
+  //** to use : setReview({type: "SET_NEIGHBOURHOOD", neighbourhood : {
   //          rating: 5
   //          review: "we loved it the coffe shops are plentiful"
 //                      })

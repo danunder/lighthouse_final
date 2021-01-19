@@ -5,8 +5,10 @@ import './App.css';
 import Map, { MapContainer } from './components/Map';
 import Test from './components/Test';
 import axios from 'axios';
-import Reviews from './components/Reviews';
+
 import Login from './components/ReviewInput/Login';
+
+import VisualModeBox from './components/VisualModeBox';
 // // Review component not yet apprearing on page
 // import Review from './components/Review';
 
@@ -16,19 +18,19 @@ function App() {
 
   //const review = {
   //      userID: 45345,
- //        latLng: {
-//            lat: 65.44433
+  //        latLng: {
+  //            lat: 65.44433
   //          lng: -35.22452
- //           }
-  //      tenancy: { 
+  //           }
+  //      tenancy: {
   //         start_date: Mar 2017
   //         end_date: Mar 2019
-//                }
-//        property: {
+  //                }
+  //        property: {
   //            review: "blah blah blah"
   //            stars: 5
   //               }
-   //     neighbourhood: {
+  //     neighbourhood: {
   //            review: "blah blah blah"
   //            stars: 5
   //               }
@@ -36,13 +38,12 @@ function App() {
   //            review: "blah blah blah"
   //            stars: 5
   //               }
-//
-//
-//
-//
-//
-
-          }
+  //
+  //
+  //
+  //
+  //
+  // }
 
   const getReviewsFromCoords = () => {
     const lat = parseFloat(place.latLng.lat).toFixed(5);
@@ -67,10 +68,8 @@ function App() {
     <div className='App'>
       <Login />
       <Map onSelect={setPlace}></Map>
-     
-      <Reviews data={reviewData} />
-    </div>
-  );
+<<<<<<< HEAD
+
 }
 
 export default App;
