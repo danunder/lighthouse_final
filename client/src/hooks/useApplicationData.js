@@ -39,19 +39,24 @@ export default function useApplicationData(initial) {
           ...state,
           newReview: action.newReview
         }
-      }
+    }
+    default:
+    throw new Error(
+      `Tried to reduce with unsupported action type: ${action.type}`
+    );
+  }
   }
 
 
-// sets initial state for the application
-  const [ state, dispatch ] = useReducer(reducer, {
+  // sets initial state for the application
+  const [state, dispatch] = useReducer(reducer, {
     userID: null,
     place: null,
     placeReviewData: [],
     newReview: {}
   })
       
-  const setPlace = place = dispatch({type: "SET_PLACE", place})   
+  const setPlace = place = dispatch({ type: "SET_PLACE", place })
       
   
   
@@ -75,4 +80,4 @@ export default function useApplicationData(initial) {
   // };
   // useDidMountEffect(getReviewsFromCoords, [place]);
 
-// }
+}

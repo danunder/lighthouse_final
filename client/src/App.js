@@ -14,36 +14,6 @@ function App() {
   const [place, setPlace] = useState({});
   const [reviewData, setReviewData] = useState([]);
 
-  //const review = {
-  //      userID: 45345,
- //        latLng: {
-//            lat: 65.44433
-  //          lng: -35.22452
- //           }
-  //      tenancy: { 
-  //         start_date: Mar 2017
-  //         end_date: Mar 2019
-//                }
-//        property: {
-  //            review: "blah blah blah"
-  //            stars: 5
-  //               }
-   //     neighbourhood: {
-  //            review: "blah blah blah"
-  //            stars: 5
-  //               }
-  //      landlord: {
-  //            review: "blah blah blah"
-  //            stars: 5
-  //               }
-//
-//
-//
-//
-//
-
-          }
-
   const getReviewsFromCoords = () => {
     const lat = parseFloat(place.latLng.lat).toFixed(5);
     const lng = parseFloat(place.latLng.lng).toFixed(5);
