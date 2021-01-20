@@ -38,7 +38,7 @@ export default function useReviewBuilder(initial) {
     }
   }
 
-  const [review, setReview] = useReducer(reducer, {
+  const [review, dispatch] = useReducer(reducer, {
     tenancy: {
       startDate: null,
       endDate: null,
@@ -57,10 +57,13 @@ export default function useReviewBuilder(initial) {
     }
   })
 
-  return { setReview }
-  //** to use : setReview({type: "SET_NEIGHBOURHOOD", neighbourhood : {
-  //          rating: 5
-  //          review: "we loved it the coffe shops are plentiful"
-//                      })
+  const setTenancy = tenancy => dispatch({ type: SET_TENANCY, tenancy })
+  const setProperty = property => dispatch({ type: SET_PROPERTY, property })
+  const setLandlord = landlord => dispatch({ type: SET_LANDLORD, landlord })
+  const setNeighbourhood = neighbourhood => dispatch({ type: SET_NEIGHBOURHOOD, neighbourhood })
+  
+
+  return { review, setTenancy, setProperty, setLandlord, setNeighbourhood }
+
 
 };

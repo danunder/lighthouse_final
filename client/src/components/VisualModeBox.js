@@ -4,7 +4,8 @@ import Reviews from './Reviews';
 import ReviewForm from './ReviewInput/ReviewForm';
 import useVisualMode from '../hooks/useVisualMode'
 import { setUserID, setPlace, setPlaceReviewData, setNewReview } from '../hooks/useApplicationData'
-import { setReview } from '../hooks/useReviewBuilder'
+import { review, setTenancy, setProperty, setLandlord, setNeighbourhood } from '../hooks/useReviewBuilder'
+import TenancyForm from './ReviewInput/TenancyForm';
 
 export default function VisualModeBox(props) {
 
@@ -25,8 +26,13 @@ export default function VisualModeBox(props) {
   const CREATE_NEIGHBOURHOOD_REVIEW = "CREATE_NEIGHBOURHOOD_REVIEW";
   const SUBMIT_REVIEW = "SUBMIT_REVIEW";
   
-  const { mode, transition, show } = useVisualMode(SHOW_REVIEWS)
+  const { mode, transition, back } = useVisualMode(SHOW_REVIEWS)
   
+  const onTenancySubmit = tenancy => {
+    setTenancy(tenancy)
+    transition(CREATE_PROPERTY_REVIEW)
+  }
+
   return (
     <Container style={containerStyle} >
       {mode === SHOW_REVIEWS && props.selectedPlace &&
@@ -35,8 +41,10 @@ export default function VisualModeBox(props) {
         addNew={() => transition(CREATE_TENANCY)}
         />}
       {mode === CREATE_TENANCY &&
-        <ReviewForm
-        header="Tenancy"
+        <TenancyForm
+        startDate={review.tenancy.startDate || null}
+        endDate={review.tenancy.endDate || null}
+        onSubmit={() => onTenancySubmit}
         />}
     </Container>
   )
