@@ -24,7 +24,8 @@ export default function Reviews(props) {
   return (
     <>
       {mapData}
-      <AddReview />
+      <AddReview
+      onClick={props.addNew}/>
     </>
   );
 }

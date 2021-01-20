@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import Reviews from './Reviews';
+import ReviewForm from './ReviewInput/ReviewForm';
 import useVisualMode from '../hooks/useVisualMode'
 import { setUserID, setPlace, setPlaceReviewData, setNewReview } from '../hooks/useApplicationData'
 import { setReview } from '../hooks/useReviewBuilder'
@@ -29,7 +30,14 @@ export default function VisualModeBox(props) {
   return (
     <Container style={containerStyle} >
       {mode === SHOW_REVIEWS && props.selectedPlace &&
-        <Reviews data={props.reviewData} />}
+        <Reviews
+        data={props.reviewData}
+        addNew={() => transition(CREATE_TENANCY)}
+        />}
+      {mode === CREATE_TENANCY &&
+        <ReviewForm
+        header="Tenancy"
+        />}
     </Container>
   )
 }
