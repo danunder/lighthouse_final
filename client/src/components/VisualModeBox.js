@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 import Reviews from './Reviews';
 import ReviewForm from './ReviewInput/ReviewForm';
 import useVisualMode from '../hooks/useVisualMode'
-
+import axios from 'axios';
 import useReviewBuilder from '../hooks/useReviewBuilder'
 import TenancyForm from './ReviewInput/TenancyForm';
 
@@ -14,6 +14,8 @@ export default function VisualModeBox(props) {
     top: '60vh',
     zIndex: '1',
   }
+
+
 
   
   const LOG_IN = "LOG_IN";
@@ -28,8 +30,18 @@ export default function VisualModeBox(props) {
   
   // declare helper functions from hooks
   const { mode, transition, back } = useVisualMode(SHOW_REVIEWS)
-  const { state, setTenancy, setProperty, setLandlord, setNeighbourhood } = useReviewBuilder()
+  const { state, setTenancyStartDate, setTenancyEndDate, setPropertyRating, setPropertyReview, setLandlordRating, setLandlordReview, setNeighbourhoodRating, setNeighbourhoodReview } = useReviewBuilder()
   
+  const handleSubmit = e => {
+    e.preventDefault();
+    // console.log(state);
+    const reviewData = state;
+    //Need state object
+    axios.post(`http://localhost:3001/api/review`, { reviewData }).then(res => {
+      console.log('AXIOS PUT SUCCESS ', res);
+    });
+    transition(SHOW_REVIEWS)
+  };
   
   return (
     <Container style={containerStyle}>
@@ -41,9 +53,10 @@ export default function VisualModeBox(props) {
       
       {/* {mode === CREATE_TENANCY &&
         <TenancyForm
-        startDate={review.tenancy.startDate || null}
-        endDate={review.tenancy.endDate || null}
-        onChange={() => setTenancy()}
+        startDate={state.tenancyStartDate || null}
+        endDate={state.tenancyEndDate || null}
+        onStartChange={(value) => setTenancyStartDate(value)}
+        onEndChange={(value) => setTenancyEndDate(value)}
         onNext={() => transition(CREATE_PROPERTY_REVIEW)}
         onBack={() => back}
         />} */}
@@ -51,28 +64,32 @@ export default function VisualModeBox(props) {
         <ReviewForm 
           title={"property"}
           // rating={state.property.rating}
-          review={state.property.review || null}
-          onChange={(value) => setProperty(value)}
+          review={state.propertyReview || null}
+          onChange={(value) => setPropertyReview(value)}
           onNext={() => transition(CREATE_LANDLORD_REVIEW)}
-          onBack={() => back()}
+        onBack={() => back()}
+        buttonName={'Next'}
         />}
       {mode === CREATE_LANDLORD_REVIEW &&
         <ReviewForm 
           title={"landlord"}
           // rating={state.property.rating}
-          review={state.property.review || null}
-          onChange={(value) => setLandlord(value)}
+          review={state.landlordReview || null}
+          onChange={(value) => setLandlordReview(value)}
           onNext={() => transition(CREATE_NEIGHBOURHOOD_REVIEW)}
           onBack={() => back()}
+          buttonName={'Next'}
         />}
       {mode === CREATE_NEIGHBOURHOOD_REVIEW && 
         <ReviewForm 
           title={"neighbourhood"}
           // rating={state.property.rating}
-          review={state.property.review || null}
-          onChange={(value) => setNeighbourhood(value)}
-          onNext={() => transition(CREATE_NEIGHBOURHOOD_REVIEW)}
+          review={state.neighbourhoodReview || null}
+          onChange={(value) => setNeighbourhoodReview(value)}
+          //Call the API
+          onNext={handleSubmit}
           onBack={() => back()}
+          buttonName={'Submit'}
         />
       }
     </Container>
