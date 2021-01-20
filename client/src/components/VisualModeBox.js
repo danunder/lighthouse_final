@@ -2,21 +2,10 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import Reviews from './Reviews';
 import ReviewForm from './ReviewInput/ReviewForm';
-<<<<<<< HEAD
 import useVisualMode from '../hooks/useVisualMode'
 
 import useReviewBuilder from '../hooks/useReviewBuilder'
 import TenancyForm from './ReviewInput/TenancyForm';
-=======
-import useVisualMode from '../hooks/useVisualMode';
-import {
-  setUserID,
-  setPlace,
-  setPlaceReviewData,
-  setNewReview,
-} from '../hooks/useApplicationData';
-import { setReview } from '../hooks/useReviewBuilder';
->>>>>>> 144b9b18c872e57da568b2b495288b1fc9abb31e
 
 export default function VisualModeBox(props) {
   const containerStyle = {
