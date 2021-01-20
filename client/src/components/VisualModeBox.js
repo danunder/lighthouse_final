@@ -3,8 +3,8 @@ import { Container } from 'react-bootstrap';
 import Reviews from './Reviews';
 import ReviewForm from './ReviewInput/ReviewForm';
 import useVisualMode from '../hooks/useVisualMode'
-import { setUserID, setPlace, setPlaceReviewData, setNewReview } from '../hooks/useApplicationData'
-import { review, setTenancy, setProperty, setLandlord, setNeighbourhood } from '../hooks/useReviewBuilder'
+
+import useReviewBuilder from '../hooks/useReviewBuilder'
 import TenancyForm from './ReviewInput/TenancyForm';
 
 export default function VisualModeBox(props) {
@@ -15,7 +15,8 @@ export default function VisualModeBox(props) {
     top: '60vh',    
     zIndex: '1',
   }
-    
+
+  
   const LOG_IN = "LOG_IN";
   const CREATE_ACCOUNT = "CREATE_ACCOUNT";
   const SHOW_REVIEWS = "SHOW_REVIEWS";
@@ -26,26 +27,54 @@ export default function VisualModeBox(props) {
   const CREATE_NEIGHBOURHOOD_REVIEW = "CREATE_NEIGHBOURHOOD_REVIEW";
   const SUBMIT_REVIEW = "SUBMIT_REVIEW";
   
+  // declare helper functions from hooks
   const { mode, transition, back } = useVisualMode(SHOW_REVIEWS)
+  const { state, setTenancy, setProperty, setLandlord, setNeighbourhood } = useReviewBuilder()
   
-  const onTenancySubmit = tenancy => {
-    setTenancy(tenancy)
-    transition(CREATE_PROPERTY_REVIEW)
-  }
-
+  
   return (
     <Container style={containerStyle} >
       {mode === SHOW_REVIEWS && props.selectedPlace &&
         <Reviews
         data={props.reviewData}
-        addNew={() => transition(CREATE_TENANCY)}
+        addNew={() => transition(CREATE_PROPERTY_REVIEW)}
         />}
-      {mode === CREATE_TENANCY &&
+      {/* {mode === CREATE_TENANCY &&
         <TenancyForm
         startDate={review.tenancy.startDate || null}
         endDate={review.tenancy.endDate || null}
-        onSubmit={() => onTenancySubmit}
+        onChange={() => setTenancy()}
+        onNext={() => transition(CREATE_PROPERTY_REVIEW)}
+        onBack={() => back}
+        />} */}
+      {mode === CREATE_PROPERTY_REVIEW &&
+        <ReviewForm 
+          title={"property"}
+          // rating={state.property.rating}
+          review={state.property.review || null}
+          onChange={(value) => setProperty(value)}
+          onNext={() => transition(CREATE_LANDLORD_REVIEW)}
+          onBack={() => back()}
         />}
+      {mode === CREATE_LANDLORD_REVIEW &&
+        <ReviewForm 
+          title={"landlord"}
+          // rating={state.property.rating}
+          review={state.property.review || null}
+          onChange={(value) => setLandlord(value)}
+          onNext={() => transition(CREATE_NEIGHBOURHOOD_REVIEW)}
+          onBack={() => back()}
+        />}
+      {mode === CREATE_NEIGHBOURHOOD_REVIEW && 
+        <ReviewForm 
+          title={"neighbourhood"}
+          // rating={state.property.rating}
+          review={state.property.review || null}
+          onChange={(value) => setNeighbourhood(value)}
+          onNext={() => transition(CREATE_NEIGHBOURHOOD_REVIEW)}
+          onBack={() => back()}
+        />
+      }
     </Container>
   )
 }
