@@ -1,17 +1,45 @@
 module.exports = db => {
   // eslint-disable-next-line no-unused-vars
-  const getReviews = (lng, lat) => {
+  const getAddress = (lng, lat) => {
     const query = {
-      text: `SELECT reviews.review, reviews.rating, users.username
-      FROM users
-      JOIN tenancies ON users.id = tenancies.user_id
-      JOIN reviews ON tenancies.id = reviews.tenancy_id
-      JOIN properties ON reviews.property_id = properties.id
-      JOIN categories ON reviews.category_id = categories.id
+      text: `SELECT properties.*, array_agg(DISTINCT tenancies.id) AS tenancies
+      FROM properties
+      LEFT JOIN tenancies ON properties.id = tenancies.property_id
       WHERE properties.longitude = $1
       AND properties.latitude = $2
-      AND categories.id = 1`,
+      GROUP BY properties.id
+      ORDER BY properties.id`,
       values: [lng, lat],
+    };
+
+    return db
+      .query(query)
+      .then(result => result.rows)
+      .catch(err => err);
+  };
+
+  const getReviewList = (tenancy) => {
+    const query = {
+      text: `SELECT tenancies.*, array_agg(DISTINCT reviews.id) AS reviews
+      FROM tenancies
+      LEFT JOIN reviews ON tenancies.id = reviews.tenancy_id
+      WHERE tenancies.id = $1
+      GROUP BY tenancies.id
+      ORDER BY tenancies.id;`,
+      values: [tenancy],
+    };
+
+    return db
+      .query(query)
+      .then(result => result.rows)
+      .catch(err => err);
+  };
+
+  const getReview = (review) => {
+    const query = {
+      text: `SELECT * FROM reviews
+      WHERE reviews.id = $1;`,
+      values: [review],
     };
 
     return db
@@ -31,7 +59,9 @@ module.exports = db => {
       .catch(err => err);
   };
   return {
-    getReviews,
-    login,
+    getAddress,
+    getReviewList,
+    getReview,
+    login
   };
 };

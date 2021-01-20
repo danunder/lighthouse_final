@@ -66,10 +66,13 @@ function App() {
 
   return (
     <div className='App'>
-      <Login />
       <Map onSelect={setPlace}></Map>
-<<<<<<< HEAD
-
+      {/* <Test
+        address={place.address ? place.address : 'No address has been selected'}
+      /> */}
+      {/* <Reviews data={reviewData} /> */}
+    </div>
+  );
 }
 
 export default App;
