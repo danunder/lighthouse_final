@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "db:reset": "node ./db/reset.js"
+    "db:reset": "node ./db/reset.js",
+    "dev": "./node_modules/.bin/nodemon node ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

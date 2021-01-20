@@ -41,7 +41,6 @@ export default function useApplicationData(initial) {
     }
   }
 
-
   // sets initial state for the application
   const [state, dispatch] = useReducer(reducer, {
     userID: null,
@@ -51,28 +50,24 @@ export default function useApplicationData(initial) {
   })
   
   //helper functions to modify state
-  const setUserID = userID => dispatch({ type: "SET_USER_ID", userID })
-  
-  const setPlace = place => dispatch({ type: "SET_PLACE", place })
-      
+  const setUserID = userID => dispatch({ type: "SET_USER_ID", userID })  
+  const setPlace = place => dispatch({ type: "SET_PLACE", place })      
   const setPlaceReviewData = placeReviewData => dispatch({ type: "SET_PLACE_REVIEW_DATA", placeReviewData })
-
   const setNewReview = newReview => dispatch({type: "SET_NEW_REVIEW", newReview})
   
   
-  
+  // Passes coords from Maps API to backend  
   const getReviewsFromCoords = () => {
     const lat = parseFloat(state.place.latLng.lat).toFixed(5);
     const lng = parseFloat(state.place.latLng.lng).toFixed(5);
-    console.log(lat, lng);
     Promise.all([
       axios.get(`http://localhost:3001/api/${lat}/${lng}`),
     ]).then(res => setPlaceReviewData(res[0].data));
   };
 
+  // prevents the callback from initiating on page load
   const useDidMountEffect = (func, deps) => {
     const didMount = useRef(false);
-
     useEffect(() => {
       if (didMount.current) func();
       else didMount.current = true;
@@ -80,5 +75,7 @@ export default function useApplicationData(initial) {
   };
 
   useDidMountEffect(getReviewsFromCoords, [state.place]);
+
+  return { state, setUserID, setPlace, setPlaceReviewData, setNewReview }
 
 }
