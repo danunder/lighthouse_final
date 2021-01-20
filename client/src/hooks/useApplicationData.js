@@ -76,6 +76,6 @@ export default function useApplicationData(initial) {
 
   useDidMountEffect(getReviewsFromCoords, [state.place]);
 
-  return { setUserID, setPlace, setPlaceReviewData, setNewReview }
+  return { state, setUserID, setPlace, setPlaceReviewData, setNewReview }
 
 }
