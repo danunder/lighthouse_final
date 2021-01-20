@@ -30,8 +30,37 @@ module.exports = db => {
       .then(result => result.rows)
       .catch(err => err);
   };
+
+  const saveReview = (
+    
+    propertyReview, 
+     
+    landlordReview, 
+    
+    neighbourhoodReview) => {
+      const query = {
+        text: `
+        INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
+        VALUES($1, 1, 3, 1, 1);
+
+        INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
+        VALUES($2, 4, 2, 1, 1);
+
+        INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
+        VALUES($3, 1, 1, 1, 1);
+        
+        `,
+        values: [landlordReview, neighbourhoodReview, propertyReview],
+      }
+    return db
+      .query(query)
+      .then(res => result.rows)
+      .catch(e => e);
+    }
+
   return {
     getReviews,
     login,
+    saveReview,
   };
 };
