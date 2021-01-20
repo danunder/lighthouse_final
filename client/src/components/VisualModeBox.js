@@ -33,11 +33,12 @@ export default function VisualModeBox(props) {
   
   return (
     <Container style={containerStyle}>
-      {mode === SHOW_REVIEWS && props.selectedPlace && (
+      {mode === SHOW_REVIEWS && props.selectedPlace && 
         <Reviews
         data={props.reviewData}
         addNew={() => transition(CREATE_PROPERTY_REVIEW)}
         />}
+      
       {/* {mode === CREATE_TENANCY &&
         <TenancyForm
         startDate={review.tenancy.startDate || null}
