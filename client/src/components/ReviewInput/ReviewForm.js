@@ -7,7 +7,7 @@ export default function ReviewForm(props) {
   return (
     <section className='card'>
       <div className='card'>
-        <h5 className='card-header'>Rate this {props.promt}</h5>
+        <h5 className='card-header'>Rate this {props.header}</h5>
         <div className='card-body'>
           <StarRating />
           <div className='form-group'>
