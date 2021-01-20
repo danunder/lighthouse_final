@@ -17,8 +17,11 @@ export default function ReviewForm(props) {
               id='comment'
               placeholder='Write a review'
             ></textarea>
-            <button type='submit' className='btn btn-outline-dark'>
-              Next Review{props.button}
+            <button className='btn btn-outline-dark' onClick={props.back}>
+              Back
+            </button>
+            <button className='btn btn-outline-dark' onClick={props.onClick}>
+              {props.buttonName}
             </button>
           </div>
         </div>
