@@ -57,6 +57,7 @@ export default function useReviewBuilder(initial) {
     }
   })
 
+  return { setReview }
   //** to use : setReview({type: "SET_NEIGHBOURHOOD", neighbourhood : {
   //          rating: 5
   //          review: "we loved it the coffe shops are plentiful"
