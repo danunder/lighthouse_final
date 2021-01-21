@@ -20,28 +20,23 @@ module.exports = ({ getReviews, login, signup }) => {
     //User has the ID
     //Place has the coordinates
     //Review has property review, landlord review, neighbourhood review, and tenancy dates
-    const {
-      user,
-      place,
-      review
-    } = req.body.reviewData;
+    const { user, place, review } = req.body.reviewData;
 
-    console.log('User ID: ', user)
-    console.log('Place Data: ', place)
-    console.log('Review Data: ', review)
+    console.log('User ID: ', user);
+    console.log('Place Data: ', place);
+    console.log('Review Data: ', review);
 
     // Check if the location is in the Db (lat === this && lng === this)
     // if not, insert the entry (+ return property id)
     // if so return property id
 
-    // insert the tenancy object (startDate, endDate) 
+    // insert the tenancy object (startDate, endDate)
     // linked to property id and user id
     // return tenancy id
 
     // destructure the review components
     // insert three parts into reviews table
     // linked to category id, tenancy id
-
   });
 
   router.post('/signup', (req, res) => {

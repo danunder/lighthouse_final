@@ -28,7 +28,7 @@ const UserAuth = () => {
     // send the username and password to the server
     const response = await axios.post('http://localhost:3001/api/login', user);
     // set the state of the user
-    setUser(response.data);
+    setUser(response.data.username);
     // store the user in localStorage
     localStorage.setItem('user', JSON.stringify(response.data.id));
   };
@@ -44,7 +44,7 @@ const UserAuth = () => {
   if (user) {
     return (
       <div className='loggedIn'>
-        {user.username} is loggged in
+        {user} is loggged in
         <button onClick={handleLogout}>logout</button>
       </div>
     );
