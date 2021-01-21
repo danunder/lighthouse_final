@@ -25,7 +25,7 @@ export default function ReviewForm(props) {
               Back
             </button>
             <button type='submit' className='btn btn-outline-dark' onClick={props.onNext}>
-              {props.buttonName}
+              Next
             </button>
           </div>
         </div>

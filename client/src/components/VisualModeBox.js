@@ -78,7 +78,7 @@ export default function VisualModeBox(props) {
           onBack={() => back}
         />
       )}
-      {mode === CREATE_PROPERTY_REVIEW && (
+      {mode === CREATE_PROPERTY_REVIEW && 
         <ReviewForm
           title={'property'}
           rating={state.propertyRating || null}
@@ -86,31 +86,40 @@ export default function VisualModeBox(props) {
           review={state.propertyReview || null}
           onChange={value => setPropertyReview(value)}
           onNext={() => transition(CREATE_LANDLORD_REVIEW)}
-          onBack={() => back()}
-          buttonName={'Next'}
-        />
-      )}
-      {mode === CREATE_LANDLORD_REVIEW && (
-        <ReviewForm
-          title={'landlord'}
+        onBack={() => back()}
+        
+        />}
+      {mode === CREATE_LANDLORD_REVIEW &&
+        <ReviewForm 
+          title={"landlord"}
           rating={state.landlordRating || null}
           onRatingChange={value => setLandlordRating(value)}
           review={state.landlordReview || null}
           onChange={value => setLandlordReview(value)}
           onNext={() => transition(CREATE_NEIGHBOURHOOD_REVIEW)}
           onBack={() => back()}
-          buttonName={'Next'}
-        />
-      )}
-      {mode === CREATE_NEIGHBOURHOOD_REVIEW && (
+          
+        />}
+      {mode === CREATE_NEIGHBOURHOOD_REVIEW &&
         <ReviewForm
           title={'neighbourhood'}
           rating={state.neighbourhoodRating}
           onRatingChange={value => setNeighbourhoodRating(value)}
           review={state.neighbourhoodReview || null}
-          onChange={value => setNeighbourhoodReview(value)}
-          //Call the API
-          onNext={() => props.onSubmit(state)}
+          onChange={(value) => setNeighbourhoodReview(value)}     
+          onNext={() => transition(SUBMIT_REVIEW)}
+          onBack={() => back()}      
+        />}
+      {mode === SUBMIT_REVIEW && (
+        <ReviewSubmit
+          tenancyStartDate={state.tenancyStartDate}
+          tenancyEndDate={state.tenancyEndDate}
+          propertyRating={state.propertyRating}
+          propertyReview={state.propertyReview}
+          landlordRating={state.landlordRating}
+          landlordReview={state.landlordReview}
+          neighbourhoodRating={state.neighbourhoodRating}
+          neighbourhoodReview={state.neighbourhoodReview}
           onBack={() => back()}
           buttonName={'Submit'}
         />
