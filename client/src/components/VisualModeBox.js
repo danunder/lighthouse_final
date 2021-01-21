@@ -116,7 +116,7 @@ export default function VisualModeBox(props) {
         />
       )}
       {mode === SHOW_FULL_REVIEW && (
-        <ReviewShow />
+        <ReviewShow onClose={() => transition(SHOW_REVIEWS)} />
       )}
       {mode === LOG_IN && (
         <UserAuth />
