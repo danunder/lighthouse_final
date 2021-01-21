@@ -3,7 +3,7 @@ import { FaStar } from 'react-icons/fa';
 import './StarRating.css';
 
 export default function StarRating(props) {
-  const [rating, setRating] = useState(null);
+  const [rating, setRating] = useState(props.rating || null);
   const [hover, setHover] = useState(null);
 
   return (
@@ -16,7 +16,10 @@ export default function StarRating(props) {
               type='radio'
               name='rating'
               value={ratingValue}
-              onClick={() => setRating(ratingValue)}
+              onClick={() => {
+                setRating(ratingValue);
+                props.onRatingClick(ratingValue)
+              }}
             />
             <FaStar
               className='star'

@@ -9,7 +9,9 @@ export default function ReviewForm(props) {
       <div className='card'>
         <h5 className='card-header'>Rate this {props.title}</h5>
         <div className='card-body'>
-          <StarRating />
+          <StarRating
+            onRatingClick={props.onRatingChange}
+            rating={props.rating}/>
           <div className='form-group'>
             <input
               className='form-control'
