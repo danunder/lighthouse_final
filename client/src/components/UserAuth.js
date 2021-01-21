@@ -30,7 +30,7 @@ const UserAuth = () => {
     // set the state of the user
     setUser(response.data);
     // store the user in localStorage
-    localStorage.setItem('user', JSON.stringify(response.data));
+    localStorage.setItem('user', JSON.stringify(response.data.id));
   };
 
   const handleSignup = async e => {

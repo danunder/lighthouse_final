@@ -30,42 +30,39 @@ module.exports = db => {
       .catch(err => err);
   };
 
-  const saveReview = (propertyReview, landlordReview, neighbourhoodReview) => {
-    const query = {
-      text: `
-        INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
-        VALUES($1, 1, 3, 1, 1);
+  // const saveReview = (propertyReview, landlordReview, neighbourhoodReview) => {
+  //   const query = {
+  //     text: `
+  //       INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
+  //       VALUES($1, 1, 3, 1, 1);
 
-        INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
-        VALUES($2, 4, 2, 1, 1);
+  //       INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
+  //       VALUES($2, 4, 2, 1, 1);
 
-        INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
-        VALUES($3, 1, 1, 1, 1);
+  //       INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
+  //       VALUES($3, 1, 1, 1, 1);
         
-        `,
-      values: [landlordReview, neighbourhoodReview, propertyReview],
-    };
-    return db
-      .query(query)
-      .then(result => result.rows)
-      .catch(e => e);
-  };
+  //       `,
+  //     values: [landlordReview, neighbourhoodReview, propertyReview],
+  //   };
+  //   return db
+  //     .query(query)
+  //     .then(result => result.rows)
+  //     .catch(e => e);
+  // };
 
   const signup = (signupUser, signupPass) => {
     const query = {
       text: `INSERT INTO users(username, password) VALUES($1, $2)
+      RETURNING *
       `,
       values: [signupUser, signupPass],
     };
-    const query2 = {
-      text: `SELECT * FROM users where username = $1 and password = $2
-      `,
-      values: [signupUser, signupPass],
-    };
+    
     return (
       db
-        .query(query, query2)
-        // .then(query(query2))
+        .query(query)
+        
         .then(result => result.rows)
         .catch(e => e)
     );
@@ -74,7 +71,7 @@ module.exports = db => {
   return {
     getReviews,
     login,
-    saveReview,
+    // saveReview,
     signup,
   };
 };
