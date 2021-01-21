@@ -9,34 +9,27 @@ import useReviewBuilder from '../hooks/useReviewBuilder'
 import TenancyForm from './ReviewInput/TenancyForm';
 
 export default function VisualModeBox(props) {
-  
   // Keeps container overtop of map
   const containerStyle = {
     width: '100%',
     position: 'absolute',
     top: '60vh',
     zIndex: '1',
-  }
+  };
 
-  // VISUALMODE DEFINITIONS
-  const LOG_IN = "LOG_IN";
-  const CREATE_ACCOUNT = "CREATE_ACCOUNT";
-  const SHOW_REVIEWS = "SHOW_REVIEWS";
-  const SHOW_FULL_REVIEW = "SHOW_FULL_REVIEW";
-  const CREATE_TENANCY = "CREATE_TENANCY";
-  const CREATE_PROPERTY_REVIEW = "CREATE_PROPERTY_REVIEW";
-  const CREATE_LANDLORD_REVIEW = "CREATE_LANDLORD_REVIEW";
-  const CREATE_NEIGHBOURHOOD_REVIEW = "CREATE_NEIGHBOURHOOD_REVIEW";
-  const SUBMIT_REVIEW = "SUBMIT_REVIEW";
-  
+  const LOG_IN = 'LOG_IN';
+  const CREATE_ACCOUNT = 'CREATE_ACCOUNT';
+  const SHOW_REVIEWS = 'SHOW_REVIEWS';
+  const SHOW_FULL_REVIEW = 'SHOW_FULL_REVIEW';
+  const CREATE_TENANCY = 'CREATE_TENANCY';
+  const CREATE_PROPERTY_REVIEW = 'CREATE_PROPERTY_REVIEW';
+  const CREATE_LANDLORD_REVIEW = 'CREATE_LANDLORD_REVIEW';
+  const CREATE_NEIGHBOURHOOD_REVIEW = 'CREATE_NEIGHBOURHOOD_REVIEW';
+  const SUBMIT_REVIEW = 'SUBMIT_REVIEW';
+
   // declare helper functions from hooks
-  const {
-    mode,
-    transition,
-    back
-  }
-    = useVisualMode(SHOW_REVIEWS)
-  
+  const { mode, transition, back } = useVisualMode(SHOW_REVIEWS);
+
   const {
     state,
     setTenancyStartDate,
@@ -46,15 +39,12 @@ export default function VisualModeBox(props) {
     setLandlordRating,
     setLandlordReview,
     setNeighbourhoodRating,
-    setNeighbourhoodReview
-  }
-    = useReviewBuilder()
-  
-  
-  
+    setNeighbourhoodReview,
+  } = useReviewBuilder();
+
   // const handleSubmit = e => {
   //   e.preventDefault();
-    
+
   //   // push review to parent state with props.
 
   //   // MOVE THIS to useApplicationData
@@ -64,55 +54,74 @@ export default function VisualModeBox(props) {
   //     console.log('AXIOS PUT SUCCESS ', res);
   //   });
 
-
   //   transition(SHOW_REVIEWS)
   // };
-  
+
   return (
     <Container style={containerStyle}>
-      {mode === SHOW_REVIEWS && props.selectedPlace && 
+      {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
-        data={props.reviewData}
-        addNew={() => transition(CREATE_TENANCY)}
-        />}
-      
-      {mode === CREATE_TENANCY &&
+          data={props.reviewData}
+          addNew={() => transition(CREATE_TENANCY)}
+        />
+      )}
+
+      {mode === CREATE_TENANCY && (
         <TenancyForm
-        startDate={state.tenancyStartDate || ""}
-        endDate={state.tenancyEndDate || ""}
-        onStartChange={(value) => setTenancyStartDate(value)}
-        onEndChange={(value) => setTenancyEndDate(value)}
-        onNext={() => transition(CREATE_PROPERTY_REVIEW)}
-        onBack={() => back}
-        />}
-      {mode === CREATE_PROPERTY_REVIEW &&
-        <ReviewForm 
-          title={"property"}
+          startDate={state.tenancyStartDate || ''}
+          endDate={state.tenancyEndDate || ''}
+          onStartChange={value => setTenancyStartDate(value)}
+          onEndChange={value => setTenancyEndDate(value)}
+          onNext={() => transition(CREATE_PROPERTY_REVIEW)}
+          onBack={() => back}
+        />
+      )}
+      {mode === CREATE_PROPERTY_REVIEW && (
+        <ReviewForm
+          title={'property'}
           rating={state.propertyRating || null}
-          onRatingChange={(value) => setPropertyRating(value)}
+          onRatingChange={value => setPropertyRating(value)}
           review={state.propertyReview || null}
-          onChange={(value) => setPropertyReview(value)}
+          onChange={value => setPropertyReview(value)}
           onNext={() => transition(CREATE_LANDLORD_REVIEW)}
+<<<<<<< HEAD
         onBack={() => back()}
         
         />}
       {mode === CREATE_LANDLORD_REVIEW &&
         <ReviewForm 
           title={"landlord"}
+=======
+          onBack={() => back()}
+          buttonName={'Next'}
+        />
+      )}
+      {mode === CREATE_LANDLORD_REVIEW && (
+        <ReviewForm
+          title={'landlord'}
+>>>>>>> 80ee1894a46dfa70286f55400a2c3a8a0b2bbf07
           rating={state.landlordRating || null}
-          onRatingChange={(value) => setLandlordRating(value)}
+          onRatingChange={value => setLandlordRating(value)}
           review={state.landlordReview || null}
-          onChange={(value) => setLandlordReview(value)}
+          onChange={value => setLandlordReview(value)}
           onNext={() => transition(CREATE_NEIGHBOURHOOD_REVIEW)}
           onBack={() => back()}
+<<<<<<< HEAD
           
         />}
       {mode === CREATE_NEIGHBOURHOOD_REVIEW &&
+=======
+          buttonName={'Next'}
+        />
+      )}
+      {mode === CREATE_NEIGHBOURHOOD_REVIEW && (
+>>>>>>> 80ee1894a46dfa70286f55400a2c3a8a0b2bbf07
         <ReviewForm
-          title={"neighbourhood"}
+          title={'neighbourhood'}
           rating={state.neighbourhoodRating}
-          onRatingChange={(value) => setNeighbourhoodRating(value)}
+          onRatingChange={value => setNeighbourhoodRating(value)}
           review={state.neighbourhoodReview || null}
+<<<<<<< HEAD
           onChange={(value) => setNeighbourhoodReview(value)}     
           onNext={() => transition(SUBMIT_REVIEW)}
           onBack={() => back()}      
@@ -130,6 +139,15 @@ export default function VisualModeBox(props) {
           onBack={() => back()}
           onSubmit={() => props.onSubmit(state)}
         />}
+=======
+          onChange={value => setNeighbourhoodReview(value)}
+          //Call the API
+          onNext={() => props.onSubmit(state)}
+          onBack={() => back()}
+          buttonName={'Submit'}
+        />
+      )}
+>>>>>>> 80ee1894a46dfa70286f55400a2c3a8a0b2bbf07
     </Container>
   );
 }
