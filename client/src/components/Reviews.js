@@ -16,7 +16,7 @@ export default function Reviews(props) {
             <FaStar />
           ))}
           <Card.Text>{data.review}</Card.Text>
-          <Card.Link href='#'>View More</Card.Link>
+          <Card.Link href='#' onClick={props.onClick}>View More</Card.Link>
         </Card.Body>
       </Card>
     );
