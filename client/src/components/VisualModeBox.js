@@ -3,12 +3,13 @@ import { Container } from 'react-bootstrap';
 import Reviews from './Reviews';
 import ReviewForm from './ReviewInput/ReviewForm';
 import ReviewShow from './ReviewInput/ReviewShow';
-import ReviewSubmit from './ReviewInput/ReviewSubmit'
+import ReviewSubmit from './ReviewInput/ReviewSubmit';
 import UserAuth from './UserAuth';
 import useVisualMode from '../hooks/useVisualMode';
 
 import useReviewBuilder from '../hooks/useReviewBuilder';
 import TenancyForm from './ReviewInput/TenancyForm';
+import ReviewSubmit from '../components/ReviewInput/ReviewSubmit';
 
 export default function VisualModeBox(props) {
   // Keeps container overtop of map
@@ -44,36 +45,22 @@ export default function VisualModeBox(props) {
     setNeighbourhoodReview,
   } = useReviewBuilder();
 
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-
-  //   // push review to parent state with props.
-
-  //   // MOVE THIS to useApplicationData
-  //   const reviewData = state;
-  //   //Need state object
-  //   axios.post(`http://localhost:3001/api/review`, { reviewData }).then(res => {
-  //     console.log('AXIOS PUT SUCCESS ', res);
-  //   });
-
-  //   transition(SHOW_REVIEWS)
-  // };
-
   return (
     <Container style={containerStyle}>
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
           data={props.reviewData}
-          addNew={() => transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)}
+          addNew={() =>
+            // transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)
+            transition(CREATE_TENANCY)
+          }
           onClick={() => transition(SHOW_FULL_REVIEW)}
         />
       )}
       {mode === SHOW_FULL_REVIEW && (
         <ReviewShow onClose={() => transition(SHOW_REVIEWS)} />
       )}
-      {mode === LOG_IN && (
-        <UserAuth />
-      )}
+      {mode === LOG_IN && <UserAuth />}
       {mode === CREATE_TENANCY && (
         <TenancyForm
           startDate={state.tenancyStartDate || ''}
@@ -81,10 +68,10 @@ export default function VisualModeBox(props) {
           onStartChange={value => setTenancyStartDate(value)}
           onEndChange={value => setTenancyEndDate(value)}
           onNext={() => transition(CREATE_PROPERTY_REVIEW)}
-          onBack={() => back}
+          onBack={() => back()}
         />
       )}
-      {mode === CREATE_PROPERTY_REVIEW && 
+      {mode === CREATE_PROPERTY_REVIEW && (
         <ReviewForm
           title={'property'}
           rating={state.propertyRating || null}
@@ -92,30 +79,31 @@ export default function VisualModeBox(props) {
           review={state.propertyReview || null}
           onChange={value => setPropertyReview(value)}
           onNext={() => transition(CREATE_LANDLORD_REVIEW)}
-        onBack={() => back()}
-        
-        />}
-      {mode === CREATE_LANDLORD_REVIEW &&
-        <ReviewForm 
-          title={"landlord"}
+          onBack={() => back()}
+        />
+      )}
+      {mode === CREATE_LANDLORD_REVIEW && (
+        <ReviewForm
+          title={'landlord'}
           rating={state.landlordRating || null}
           onRatingChange={value => setLandlordRating(value)}
           review={state.landlordReview || null}
           onChange={value => setLandlordReview(value)}
           onNext={() => transition(CREATE_NEIGHBOURHOOD_REVIEW)}
           onBack={() => back()}
-          
-        />}
-      {mode === CREATE_NEIGHBOURHOOD_REVIEW &&
+        />
+      )}
+      {mode === CREATE_NEIGHBOURHOOD_REVIEW && (
         <ReviewForm
           title={'neighbourhood'}
           rating={state.neighbourhoodRating}
           onRatingChange={value => setNeighbourhoodRating(value)}
           review={state.neighbourhoodReview || null}
-          onChange={(value) => setNeighbourhoodReview(value)}     
+          onChange={value => setNeighbourhoodReview(value)}
           onNext={() => transition(SUBMIT_REVIEW)}
-          onBack={() => back()}      
-        />}
+          onBack={() => back()}
+        />
+      )}
       {mode === SUBMIT_REVIEW && (
         <ReviewSubmit
           tenancyStartDate={state.tenancyStartDate}
@@ -129,9 +117,13 @@ export default function VisualModeBox(props) {
           onSubmit={() => props.onSubmit(state)}
           onBack={() => back()}
           buttonName={'Submit'}
+          onSubmit={() => props.onSubmit(state)}
         />
       )}
-     
+      {mode === SHOW_FULL_REVIEW && (
+        <ReviewShow onClose={() => transition(SHOW_REVIEWS)} />
+      )}
+      {/* {mode === LOG_IN && <UserAuth />} */}
     </Container>
   );
 }
