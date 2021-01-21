@@ -46,7 +46,7 @@ export default function useApplicationData(initial) {
     userID: null,
     place: null,
     placeReviewData: [],
-    newReview: {}
+    newReview: null
   })
   
   //helper functions to modify state
@@ -65,16 +65,39 @@ export default function useApplicationData(initial) {
     ]).then(res => setPlaceReviewData(res[0].data));
   };
 
-  // prevents the callback from initiating on page load
-  const useDidMountEffect = (func, deps) => {
-    const didMount = useRef(false);
-    useEffect(() => {
-      if (didMount.current) func();
-      else didMount.current = true;
-    }, deps);
-  };
+  
+    // push review to parent state with props.
 
-  useDidMountEffect(getReviewsFromCoords, [state.place]);
+    // MOVE THIS to useApplicationData
+  const postNewReview = () => {
+    const reviewData = {
+      //localStorage.getItem('user').id
+      user: localStorage.getItem('user'),
+      place: state.place,
+      review: state.newReview
+    }
+    console.log(reviewData)
+      axios.post(`http://localhost:3001/api/review`, { reviewData }).then(res => {
+      console.log('AXIOS PUT SUCCESS ', res);
+    });
+  };
+   
+  
+
+  
+  useEffect(() => {
+    if (state.place) {
+      getReviewsFromCoords()
+    } 
+  
+  }, [state.place]);
+
+  useEffect(() => {
+    if (state.newReview) {
+      postNewReview()
+    } 
+  
+  }, [state.newReview]);
 
   return { state, setUserID, setPlace, setPlaceReviewData, setNewReview }
 
