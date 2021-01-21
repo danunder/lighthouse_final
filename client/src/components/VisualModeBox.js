@@ -2,8 +2,9 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import Reviews from './Reviews';
 import ReviewForm from './ReviewInput/ReviewForm';
+import ReviewSubmit from './ReviewInput/ReviewSubmit'
 import useVisualMode from '../hooks/useVisualMode'
-import axios from 'axios';
+
 import useReviewBuilder from '../hooks/useReviewBuilder'
 import TenancyForm from './ReviewInput/TenancyForm';
 
@@ -93,7 +94,7 @@ export default function VisualModeBox(props) {
           onChange={(value) => setPropertyReview(value)}
           onNext={() => transition(CREATE_LANDLORD_REVIEW)}
         onBack={() => back()}
-        buttonName={'Next'}
+        
         />}
       {mode === CREATE_LANDLORD_REVIEW &&
         <ReviewForm 
@@ -104,7 +105,7 @@ export default function VisualModeBox(props) {
           onChange={(value) => setLandlordReview(value)}
           onNext={() => transition(CREATE_NEIGHBOURHOOD_REVIEW)}
           onBack={() => back()}
-          buttonName={'Next'}
+          
         />}
       {mode === CREATE_NEIGHBOURHOOD_REVIEW &&
         <ReviewForm
@@ -112,13 +113,23 @@ export default function VisualModeBox(props) {
           rating={state.neighbourhoodRating}
           onRatingChange={(value) => setNeighbourhoodRating(value)}
           review={state.neighbourhoodReview || null}
-          onChange={(value) => setNeighbourhoodReview(value)}
-          //Call the API
-          onNext={ () => props.onSubmit(state)}
+          onChange={(value) => setNeighbourhoodReview(value)}     
+          onNext={() => transition(SUBMIT_REVIEW)}
+          onBack={() => back()}      
+        />}
+      {mode === SUBMIT_REVIEW &&
+        <ReviewSubmit
+          tenancyStartDate={state.tenancyStartDate}
+          tenancyEndDate={state.tenancyEndDate}
+          propertyRating={state.propertyRating}
+          propertyReview={state.propertyReview}
+          landlordRating={state.landlordRating}
+          landlordReview={state.landlordReview}
+          neighbourhoodRating={state.neighbourhoodRating}
+          neighbourhoodReview={state.neighbourhoodReview}
           onBack={() => back()}
-          buttonName={'Submit'}
-        />
-      }
+          onSubmit={() => props.onSubmit(state)}
+        />}
     </Container>
   );
 }
