@@ -6,10 +6,8 @@ import ReviewShow from './ReviewInput/ReviewShow';
 import ReviewSubmit from './ReviewInput/ReviewSubmit';
 import UserAuth from './UserAuth';
 import useVisualMode from '../hooks/useVisualMode';
-
 import useReviewBuilder from '../hooks/useReviewBuilder';
 import TenancyForm from './ReviewInput/TenancyForm';
-import ReviewSubmit from '../components/ReviewInput/ReviewSubmit';
 
 export default function VisualModeBox(props) {
   // Keeps container overtop of map
