@@ -13,25 +13,28 @@ export default function ReviewShow(props) {
 
   return ( <section className="card">
     <div className='card'>
-      <h5 className='card-header'>props.user's review</h5>
+      <h5 className='card-header'>{props.user}'s review</h5>
+      <button type="button" class="close" aria-label="Close" onClick={props.onClose}>
+        <span aria-hidden="true">&times;</span>
+      </button>
       <div className='card-body'>
         {/* <div>
         <PhotoCarousel />
         </div> */}
         <div className="property-review">
           <h5>Property Review</h5>
-          <StarRatingShow />
-          <p>Text props</p>
+          <StarRatingShow rating={props.propertyRating} />
+          <p>{props.propertyReview}</p>
         </div>
         <div className="landlord-review">
           <h5>Landlord Review</h5>
-          <StarRatingShow />
-          <p>Text props</p>
+          <StarRatingShow rating={props.landlordRating} />
+          <p>{props.landlordReview}</p>
         </div>
         <div className="neighbourhood-review">
-          <h5>Property Review</h5>
-          <StarRatingShow />
-          <p>Text props</p>
+          <h5>Neighbourhood Review</h5>
+          <StarRatingShow rating={props.neighbourhoodRating} />
+          <p>{props.neighbourhoodReview}</p>
         </div>
         {/* <p>Was this review helpful?</p>
         <div className='help'>
