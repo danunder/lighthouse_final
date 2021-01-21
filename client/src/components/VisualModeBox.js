@@ -48,18 +48,18 @@ export default function VisualModeBox(props) {
       {mode === SHOW_REVIEWS && props.selectedPlace && 
         <Reviews
         data={props.reviewData}
-        addNew={() => transition(CREATE_PROPERTY_REVIEW)}
+        addNew={() => transition(CREATE_TENANCY)}
         />}
       
-      {/* {mode === CREATE_TENANCY &&
+      {mode === CREATE_TENANCY &&
         <TenancyForm
-        startDate={state.tenancyStartDate || null}
-        endDate={state.tenancyEndDate || null}
+        startDate={state.tenancyStartDate || ""}
+        endDate={state.tenancyEndDate || ""}
         onStartChange={(value) => setTenancyStartDate(value)}
         onEndChange={(value) => setTenancyEndDate(value)}
         onNext={() => transition(CREATE_PROPERTY_REVIEW)}
         onBack={() => back}
-        />} */}
+        />}
       {mode === CREATE_PROPERTY_REVIEW &&
         <ReviewForm 
           title={"property"}
