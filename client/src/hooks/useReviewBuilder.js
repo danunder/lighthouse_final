@@ -63,13 +63,13 @@ export default function useReviewBuilder(initial) {
   }
 
   const [state, dispatch] = useReducer(reducer, {
-      // tenancyStartDate: null,
-      // tenancyEndDate: null,
-      // propertyRating: null,
+      tenancyStartDate: "",
+      tenancyEndDate: "",
+      propertyRating: null,
       propertyReview: '',
-      // landlordRating: null,
+      landlordRating: null,
       landlordReview: '',
-      // neighbourhoodRating: null,
+      neighbourhoodRating: null,
       neighbourhoodReview: ''
   })
 
