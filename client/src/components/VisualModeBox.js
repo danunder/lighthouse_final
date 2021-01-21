@@ -51,21 +51,21 @@ export default function VisualModeBox(props) {
   
   
   
-  const handleSubmit = e => {
-    e.preventDefault();
+  // const handleSubmit = e => {
+  //   e.preventDefault();
     
-    // push review to parent state with props.
+  //   // push review to parent state with props.
 
-    // MOVE THIS to useApplicationData
-    const reviewData = state;
-    //Need state object
-    axios.post(`http://localhost:3001/api/review`, { reviewData }).then(res => {
-      console.log('AXIOS PUT SUCCESS ', res);
-    });
+  //   // MOVE THIS to useApplicationData
+  //   const reviewData = state;
+  //   //Need state object
+  //   axios.post(`http://localhost:3001/api/review`, { reviewData }).then(res => {
+  //     console.log('AXIOS PUT SUCCESS ', res);
+  //   });
 
 
-    transition(SHOW_REVIEWS)
-  };
+  //   transition(SHOW_REVIEWS)
+  // };
   
   return (
     <Container style={containerStyle}>
@@ -106,15 +106,15 @@ export default function VisualModeBox(props) {
           onBack={() => back()}
           buttonName={'Next'}
         />}
-      {mode === CREATE_NEIGHBOURHOOD_REVIEW && 
-        <ReviewForm 
+      {mode === CREATE_NEIGHBOURHOOD_REVIEW &&
+        <ReviewForm
           title={"neighbourhood"}
           rating={state.neighbourhoodRating}
           onRatingChange={(value) => setNeighbourhoodRating(value)}
           review={state.neighbourhoodReview || null}
           onChange={(value) => setNeighbourhoodReview(value)}
           //Call the API
-          onNext={state => props.onSubmit({ ...state })}
+          onNext={ () => props.onSubmit(state)}
           onBack={() => back()}
           buttonName={'Submit'}
         />

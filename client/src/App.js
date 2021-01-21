@@ -21,7 +21,7 @@ function App() {
       <VisualModeBox
         selectedPlace={state.place}
         reviewData={state.placeReviewData}
-        onSubmit={setNewReview}
+        onSubmit={(val) => setNewReview(val)}
       />
     </div>
   );
