@@ -13,7 +13,6 @@ module.exports = db => {
       AND categories.id = 1`,
       values: [lng, lat],
     };
-
     return db
       .query(query)
       .then(result => result.rows)
@@ -27,19 +26,13 @@ module.exports = db => {
     };
     return db
       .query(query)
-      .then(result => result.rows)
+      .then(result => result.rows[0])
       .catch(err => err);
   };
 
-  const saveReview = (
-    
-    propertyReview, 
-     
-    landlordReview, 
-    
-    neighbourhoodReview) => {
-      const query = {
-        text: `
+  const saveReview = (propertyReview, landlordReview, neighbourhoodReview) => {
+    const query = {
+      text: `
         INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
         VALUES($1, 1, 3, 1, 1);
 
@@ -50,17 +43,38 @@ module.exports = db => {
         VALUES($3, 1, 1, 1, 1);
         
         `,
-        values: [landlordReview, neighbourhoodReview, propertyReview],
-      }
+      values: [landlordReview, neighbourhoodReview, propertyReview],
+    };
     return db
       .query(query)
-      .then(res => result.rows)
+      .then(result => result.rows)
       .catch(e => e);
-    }
+  };
+
+  const signup = (signupUser, signupPass) => {
+    const query = {
+      text: `INSERT INTO users(username, password) VALUES($1, $2)
+      `,
+      values: [signupUser, signupPass],
+    };
+    const query2 = {
+      text: `SELECT * FROM users where username = $1 and password = $2
+      `,
+      values: [signupUser, signupPass],
+    };
+    return (
+      db
+        .query(query, query2)
+        // .then(query(query2))
+        .then(result => result.rows)
+        .catch(e => e)
+    );
+  };
 
   return {
     getReviews,
     login,
     saveReview,
+    signup,
   };
 };
