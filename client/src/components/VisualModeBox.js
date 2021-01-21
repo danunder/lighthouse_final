@@ -76,7 +76,7 @@ export default function VisualModeBox(props) {
           onBack={() => back}
         />
       )}
-      {mode === CREATE_PROPERTY_REVIEW && (
+      {mode === CREATE_PROPERTY_REVIEW && 
         <ReviewForm
           title={'property'}
           rating={state.propertyRating || null}
@@ -84,44 +84,26 @@ export default function VisualModeBox(props) {
           review={state.propertyReview || null}
           onChange={value => setPropertyReview(value)}
           onNext={() => transition(CREATE_LANDLORD_REVIEW)}
-<<<<<<< HEAD
         onBack={() => back()}
         
         />}
       {mode === CREATE_LANDLORD_REVIEW &&
         <ReviewForm 
           title={"landlord"}
-=======
-          onBack={() => back()}
-          buttonName={'Next'}
-        />
-      )}
-      {mode === CREATE_LANDLORD_REVIEW && (
-        <ReviewForm
-          title={'landlord'}
->>>>>>> 80ee1894a46dfa70286f55400a2c3a8a0b2bbf07
           rating={state.landlordRating || null}
           onRatingChange={value => setLandlordRating(value)}
           review={state.landlordReview || null}
           onChange={value => setLandlordReview(value)}
           onNext={() => transition(CREATE_NEIGHBOURHOOD_REVIEW)}
           onBack={() => back()}
-<<<<<<< HEAD
           
         />}
       {mode === CREATE_NEIGHBOURHOOD_REVIEW &&
-=======
-          buttonName={'Next'}
-        />
-      )}
-      {mode === CREATE_NEIGHBOURHOOD_REVIEW && (
->>>>>>> 80ee1894a46dfa70286f55400a2c3a8a0b2bbf07
         <ReviewForm
           title={'neighbourhood'}
           rating={state.neighbourhoodRating}
           onRatingChange={value => setNeighbourhoodRating(value)}
           review={state.neighbourhoodReview || null}
-<<<<<<< HEAD
           onChange={(value) => setNeighbourhoodReview(value)}     
           onNext={() => transition(SUBMIT_REVIEW)}
           onBack={() => back()}      
@@ -139,15 +121,6 @@ export default function VisualModeBox(props) {
           onBack={() => back()}
           onSubmit={() => props.onSubmit(state)}
         />}
-=======
-          onChange={value => setNeighbourhoodReview(value)}
-          //Call the API
-          onNext={() => props.onSubmit(state)}
-          onBack={() => back()}
-          buttonName={'Submit'}
-        />
-      )}
->>>>>>> 80ee1894a46dfa70286f55400a2c3a8a0b2bbf07
     </Container>
   );
 }
