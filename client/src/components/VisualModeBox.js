@@ -2,10 +2,11 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import Reviews from './Reviews';
 import ReviewForm from './ReviewInput/ReviewForm';
-import ReviewSubmit from './ReviewInput/ReviewSubmit'
-import useVisualMode from '../hooks/useVisualMode'
-
-import useReviewBuilder from '../hooks/useReviewBuilder'
+import ReviewShow from './ReviewInput/ReviewShow';
+import UserAuth from './UserAuth';
+import useVisualMode from '../hooks/useVisualMode';
+import axios from 'axios';
+import useReviewBuilder from '../hooks/useReviewBuilder';
 import TenancyForm from './ReviewInput/TenancyForm';
 
 export default function VisualModeBox(props) {
@@ -62,7 +63,8 @@ export default function VisualModeBox(props) {
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
           data={props.reviewData}
-          addNew={() => transition(CREATE_TENANCY)}
+          addNew={() => transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)}
+          onClick={() => transition(SHOW_FULL_REVIEW)}
         />
       )}
 
@@ -108,7 +110,7 @@ export default function VisualModeBox(props) {
           onNext={() => transition(SUBMIT_REVIEW)}
           onBack={() => back()}      
         />}
-      {mode === SUBMIT_REVIEW &&
+      {mode === SUBMIT_REVIEW && (
         <ReviewSubmit
           tenancyStartDate={state.tenancyStartDate}
           tenancyEndDate={state.tenancyEndDate}
@@ -119,8 +121,15 @@ export default function VisualModeBox(props) {
           neighbourhoodRating={state.neighbourhoodRating}
           neighbourhoodReview={state.neighbourhoodReview}
           onBack={() => back()}
-          onSubmit={() => props.onSubmit(state)}
-        />}
+          buttonName={'Submit'}
+        />
+      )}
+      {mode === SHOW_FULL_REVIEW && (
+        <ReviewShow onClose={() => transition(SHOW_REVIEWS)} />
+      )}
+      {mode === LOG_IN && (
+        <UserAuth />
+      )}
     </Container>
   );
 }
