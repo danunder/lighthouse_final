@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const cookieSession = require('cookie-session');
 
-module.exports = ({ getReviews, login, saveReview, signup }) => {
+module.exports = ({ getReviews, login, signup }) => {
   router.get('/:lat/:lng', (req, res) => {
     const lng = req.params.lng;
     const lat = req.params.lat;
@@ -17,22 +17,31 @@ module.exports = ({ getReviews, login, saveReview, signup }) => {
       .catch(e => console.log('Backend error ', e.message));
   });
   router.post('/review', (req, res) => {
+    //User has the ID
+    //Place has the coordinates
+    //Review has property review, landlord review, neighbourhood review, and tenancy dates
     const {
-      propertyReview,
-
-      landlordReview,
-
-      neighbourhoodReview,
+      user,
+      place,
+      review
     } = req.body.reviewData;
-    saveReview(
-      propertyReview,
 
-      landlordReview,
+    console.log('User ID: ', user)
+    console.log('Place Data: ', place)
+    console.log('Review Data: ', review)
 
-      neighbourhoodReview
-    )
-      .then(cc => res.json(cc))
-      .catch(e => console.log('save review error ', e.message));
+    // Check if the location is in the Db (lat === this && lng === this)
+    // if not, insert the entry (+ return property id)
+    // if so return property id
+
+    // insert the tenancy object (startDate, endDate) 
+    // linked to property id and user id
+    // return tenancy id
+
+    // destructure the review components
+    // insert three parts into reviews table
+    // linked to category id, tenancy id
+
   });
 
   router.post('/signup', (req, res) => {
