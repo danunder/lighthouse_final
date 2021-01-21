@@ -3,9 +3,10 @@ import { Container } from 'react-bootstrap';
 import Reviews from './Reviews';
 import ReviewForm from './ReviewInput/ReviewForm';
 import ReviewShow from './ReviewInput/ReviewShow';
+import ReviewSubmit from './ReviewInput/ReviewSubmit';
 import UserAuth from './UserAuth';
 import useVisualMode from '../hooks/useVisualMode';
-import axios from 'axios';
+
 import useReviewBuilder from '../hooks/useReviewBuilder';
 import TenancyForm from './ReviewInput/TenancyForm';
 import ReviewSubmit from '../components/ReviewInput/ReviewSubmit';
@@ -56,7 +57,10 @@ export default function VisualModeBox(props) {
           onClick={() => transition(SHOW_FULL_REVIEW)}
         />
       )}
-
+      {mode === SHOW_FULL_REVIEW && (
+        <ReviewShow onClose={() => transition(SHOW_REVIEWS)} />
+      )}
+      {mode === LOG_IN && <UserAuth />}
       {mode === CREATE_TENANCY && (
         <TenancyForm
           startDate={state.tenancyStartDate || ''}
@@ -110,6 +114,7 @@ export default function VisualModeBox(props) {
           landlordReview={state.landlordReview}
           neighbourhoodRating={state.neighbourhoodRating}
           neighbourhoodReview={state.neighbourhoodReview}
+          onSubmit={() => props.onSubmit(state)}
           onBack={() => back()}
           buttonName={'Submit'}
           onSubmit={() => props.onSubmit(state)}
