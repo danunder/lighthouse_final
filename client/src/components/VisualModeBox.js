@@ -8,6 +8,8 @@ import useReviewBuilder from '../hooks/useReviewBuilder'
 import TenancyForm from './ReviewInput/TenancyForm';
 
 export default function VisualModeBox(props) {
+  
+  // Keeps container overtop of map
   const containerStyle = {
     width: '100%',
     position: 'absolute',
@@ -15,9 +17,7 @@ export default function VisualModeBox(props) {
     zIndex: '1',
   }
 
-
-
-  
+  // VISUALMODE DEFINITIONS
   const LOG_IN = "LOG_IN";
   const CREATE_ACCOUNT = "CREATE_ACCOUNT";
   const SHOW_REVIEWS = "SHOW_REVIEWS";
@@ -29,17 +29,41 @@ export default function VisualModeBox(props) {
   const SUBMIT_REVIEW = "SUBMIT_REVIEW";
   
   // declare helper functions from hooks
-  const { mode, transition, back } = useVisualMode(SHOW_REVIEWS)
-  const { state, setTenancyStartDate, setTenancyEndDate, setPropertyRating, setPropertyReview, setLandlordRating, setLandlordReview, setNeighbourhoodRating, setNeighbourhoodReview } = useReviewBuilder()
+  const {
+    mode,
+    transition,
+    back
+  }
+    = useVisualMode(SHOW_REVIEWS)
+  
+  const {
+    state,
+    setTenancyStartDate,
+    setTenancyEndDate,
+    setPropertyRating,
+    setPropertyReview,
+    setLandlordRating,
+    setLandlordReview,
+    setNeighbourhoodRating,
+    setNeighbourhoodReview
+  }
+    = useReviewBuilder()
+  
+  
   
   const handleSubmit = e => {
     e.preventDefault();
-    // console.log(state);
+    
+    // push review to parent state with props.
+
+    // MOVE THIS to useApplicationData
     const reviewData = state;
     //Need state object
     axios.post(`http://localhost:3001/api/review`, { reviewData }).then(res => {
       console.log('AXIOS PUT SUCCESS ', res);
     });
+
+
     transition(SHOW_REVIEWS)
   };
   
@@ -63,7 +87,8 @@ export default function VisualModeBox(props) {
       {mode === CREATE_PROPERTY_REVIEW &&
         <ReviewForm 
           title={"property"}
-          // rating={state.property.rating}
+          rating={state.propertyRating || null}
+          onRatingChange={(value) => setPropertyRating(value)}
           review={state.propertyReview || null}
           onChange={(value) => setPropertyReview(value)}
           onNext={() => transition(CREATE_LANDLORD_REVIEW)}
@@ -73,7 +98,8 @@ export default function VisualModeBox(props) {
       {mode === CREATE_LANDLORD_REVIEW &&
         <ReviewForm 
           title={"landlord"}
-          // rating={state.property.rating}
+          rating={state.landlordRating || null}
+          onRatingChange={(value) => setLandlordRating(value)}
           review={state.landlordReview || null}
           onChange={(value) => setLandlordReview(value)}
           onNext={() => transition(CREATE_NEIGHBOURHOOD_REVIEW)}
@@ -83,11 +109,12 @@ export default function VisualModeBox(props) {
       {mode === CREATE_NEIGHBOURHOOD_REVIEW && 
         <ReviewForm 
           title={"neighbourhood"}
-          // rating={state.property.rating}
+          rating={state.neighbourhoodRating}
+          onRatingChange={(value) => setNeighbourhoodRating(value)}
           review={state.neighbourhoodReview || null}
           onChange={(value) => setNeighbourhoodReview(value)}
           //Call the API
-          onNext={handleSubmit}
+          onNext={state => props.onSubmit({ ...state })}
           onBack={() => back()}
           buttonName={'Submit'}
         />
