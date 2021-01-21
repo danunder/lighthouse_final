@@ -7,7 +7,12 @@ import useApplicationData from './hooks/useApplicationData';
 import VisualModeBox from './components/VisualModeBox';
 
 function App() {
-  const { state, setPlace } = useApplicationData();
+  const {
+    state,
+    setPlace,
+    setNewReview
+  }
+    = useApplicationData();
 
   return (
     <div className='App'>
@@ -16,6 +21,7 @@ function App() {
       <VisualModeBox
         selectedPlace={state.place}
         reviewData={state.placeReviewData}
+        onSubmit={(val) => setNewReview(val)}
       />
     </div>
   );
