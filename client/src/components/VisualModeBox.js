@@ -117,9 +117,9 @@ export default function VisualModeBox(props) {
           buttonName={'Submit'}
         />
       )}
-      {mode === SHOW_FULL_REVIEW && (
+      {/* {mode === SHOW_FULL_REVIEW && (
         <ReviewShow onClose={() => transition(SHOW_REVIEWS)} />
-      )}
+      )} */}
       {/* {mode === LOG_IN && <UserAuth />} */}
     </Container>
   );

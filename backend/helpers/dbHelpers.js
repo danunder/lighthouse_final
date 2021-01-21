@@ -30,31 +30,11 @@ module.exports = db => {
       .catch(err => err);
   };
 
-  // const saveReview = (propertyReview, landlordReview, neighbourhoodReview) => {
-  //   const query = {
-  //     text: `
-  //       INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
-  //       VALUES($1, 1, 3, 1, 1);
-
-  //       INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
-  //       VALUES($2, 4, 2, 1, 1);
-
-  //       INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
-  //       VALUES($3, 1, 1, 1, 1);
-
-  //       `,
-  //     values: [landlordReview, neighbourhoodReview, propertyReview],
-  //   };
-  //   return db
-  //     .query(query)
-  //     .then(result => result.rows)
-  //     .catch(e => e);
-  // };
 
   const signup = (signupUser, signupPass) => {
     const query = {
       text: `INSERT INTO users(username, password) VALUES($1, $2)
-      RETURNING *
+      RETURNING *;
       `,
       values: [signupUser, signupPass],
     };
@@ -66,7 +46,7 @@ module.exports = db => {
   };
 
   const findPropertyID = (lat, lng) => {
-    const query = `SELECT properties.id FROM properties WHERE latitude = $1 and longitude = $2`;
+    const query = `SELECT properties.id FROM properties WHERE latitude = $1 and longitude = $2;`;
     const values = [lat, lng];
     // returns a property id OR null
     return db.query(query, values);
@@ -75,7 +55,7 @@ module.exports = db => {
   const createProperty = (placeID, lat, lng) => {
     const query = `INSERT INTO properties(place_id, latitude, longitude)
     VALUES ($1, $2, $3)
-    RETURNING id`;
+    RETURNING id;`;
     const values = [placeID, lat, lng];
     return db.query(query, values);
   };
@@ -99,11 +79,11 @@ module.exports = db => {
   ) => {
     const query = `
       INSERT INTO reviews(review, rating, category_id, tenancy_id)
-      VALUES($3, $2, 1, $1) RETURNING*;
+      VALUES($3, $2, 1, $1);
       INSERT INTO reviews(review, rating, category_id, tenancy_id)
-      VALUES($5, $4, 3, $1) RETURNING*;
+      VALUES($5, $4, 3, $1);
       INSERT INTO reviews(review, rating, category_id, tenancy_id)
-      VALUES($7, $6, 2, $1) RETURNING*;
+      VALUES($7, $6, 2, $1);
     `;
     const values = [
       tenancyID,
@@ -112,7 +92,7 @@ module.exports = db => {
       landlordRating,
       landlordReview,
       neighbourhoodRating,
-      neighbourhoodReview,
+      neighbourhoodReview
     ];
     return db.query(query, values);
   };

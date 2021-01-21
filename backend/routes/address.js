@@ -30,9 +30,9 @@ module.exports = ({
     //Review has property review, landlord review, neighbourhood review, and tenancy dates
     const { user, place, review } = req.body.reviewData;
     const userID = user;
-    console.log('User ID: ', userID);
-    console.log('Place Data: ', place);
-    console.log('Review Data: ', review);
+    // console.log('User ID: ', userID);
+    // console.log('Place Data: ', place);
+    // console.log('Review Data: ', review);
 
     const lat = parseFloat(place.latLng.lat).toFixed(5);
     const lng = parseFloat(place.latLng.lng).toFixed(5);
@@ -44,9 +44,9 @@ module.exports = ({
       landlordRating,
       landlordReview,
       neighbourhoodRating,
-      neighbourhoodReview,
+      neighbourhoodReview
     } = review;
-    const { placeID } = place;
+    const placeID = place.placeID;
     // const queryVars = {}
 
     findPropertyID(lat, lng)
@@ -60,20 +60,21 @@ module.exports = ({
           return res;
         }
       })
-      .then(res => {
-        console.log('property id: ', res);
-        console.log('jared test id: ', res.rows[0].id);
+      .then(res => {        
+        const propertyID = res.rows[0].id;
+        console.log('property id: ', propertyID);        
         return createTenancy(
           tenancyStartDate,
           tenancyEndDate,
           userID,
-          res.rows[0].id
+          propertyID
         );
       })
       .then(res => {
-        console.log('tenancy id: ', res.rows[0].id);
+        const tenancyID = res.rows[0].id
+        console.log('tenancy id: ', tenancyID);
         return createReviews(
-          res.rows[0].id,
+          tenancyID,
           propertyRating,
           propertyReview,
           landlordRating,
