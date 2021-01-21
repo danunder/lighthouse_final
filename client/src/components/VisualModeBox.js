@@ -2,6 +2,8 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import Reviews from './Reviews';
 import ReviewForm from './ReviewInput/ReviewForm';
+import ReviewShow from './ReviewInput/ReviewShow';
+import UserAuth from './UserAuth';
 import useVisualMode from '../hooks/useVisualMode';
 import axios from 'axios';
 import useReviewBuilder from '../hooks/useReviewBuilder';
@@ -61,7 +63,8 @@ export default function VisualModeBox(props) {
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
           data={props.reviewData}
-          addNew={() => transition(CREATE_TENANCY)}
+          addNew={() => transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)}
+          onClick={() => transition(SHOW_FULL_REVIEW)}
         />
       )}
 
@@ -111,6 +114,12 @@ export default function VisualModeBox(props) {
           onBack={() => back()}
           buttonName={'Submit'}
         />
+      )}
+      {mode === SHOW_FULL_REVIEW && (
+        <ReviewShow />
+      )}
+      {mode === LOG_IN && (
+        <UserAuth />
       )}
     </Container>
   );
