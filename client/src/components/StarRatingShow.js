@@ -3,6 +3,8 @@ import { FaStar } from 'react-icons/fa';
 import './StarRating.css';
 
 export default function StarRating(props) {
+  const rating = props.rating;
+
   return (
     <div>
       {[...Array(5)].map((star, i) => {
@@ -12,7 +14,7 @@ export default function StarRating(props) {
             <FaStar
               className='star'
               color={
-                ratingValue <= (props.rating || 3)
+                ratingValue <= (props.rating)
                   ? 'gold'
                   : 'rgba(128, 128, 128, 0.246)'
               }
