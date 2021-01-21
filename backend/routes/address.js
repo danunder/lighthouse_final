@@ -8,6 +8,8 @@ module.exports = ({
   signup,
   findPropertyID,
   createProperty,
+  createTenancy,
+  createReviews,
 }) => {
   router.get('/:lat/:lng', (req, res) => {
     const lng = req.params.lng;
@@ -34,56 +36,55 @@ module.exports = ({
 
     const lat = parseFloat(place.latLng.lat).toFixed(5);
     const lng = parseFloat(place.latLng.lng).toFixed(5);
-    const { tenancyStartDate, tenancyEndDate } = review;
+    const {
+      tenancyStartDate,
+      tenancyEndDate,
+      propertyRating,
+      propertyReview,
+      landlordRating,
+      landlordReview,
+      neighbourhoodRating,
+      neighbourhoodReview,
+    } = review;
     const { placeID } = place;
+    // const queryVars = {}
 
-    // Check if the location is in the Db (lat === this && lng === this)
-    // if not, insert the entry (+ return property id)
-    // if so return property id
-
-    // const location = findLocation(lat, lng) => {
-    //   const query = ``;
-    // }
-
-    // if (location) {
-    //   return location
-    // } else {
-    //   insertLocation(lat, lng)
-    // }
-
-    const propertyID = findPropertyID(lat, lng)
+    findPropertyID(lat, lng)
       .then(res => {
         if (!res.rows.length) {
           //It didn't find the ID, create an entry
-          createProperty(placeID, lat, lng).then(res =>
-            console.log('it added a new id: ', res)
-          );
+          createProperty(placeID, lat, lng).then(res => res);
         } else {
           //It did find the property
-          console.log('it found the id ', res);
+          // console.log('it found the id ', res);
           return res;
         }
       })
+      .then(res => {
+        console.log('property id: ', res);
+        console.log('jared test id: ', res.rows[0].id);
+        return createTenancy(
+          tenancyStartDate,
+          tenancyEndDate,
+          userID,
+          res.rows[0].id
+        );
+      })
+      .then(res => {
+        console.log('tenancy id: ', res.rows[0].id);
+        return createReviews(
+          res.rows[0].id,
+          propertyRating,
+          propertyReview,
+          landlordRating,
+          landlordReview,
+          neighbourhoodRating,
+          neighbourhoodReview
+        );
+      })
+      .then(res => console.log('It worked!', res))
+
       .catch(e => e.message);
-    // const createTenancy = (startDate, endDate, propertyID, userID) => {
-    //   const query = ``;
-    //   return db.query(query);
-    // };
-
-    // const tenancyID = createTenancy(
-    //   tenancyStartDate,
-    //   tenancyEndDate,
-    //   propertyID,
-    //   userID
-    // );
-
-    // const insertCommentsQuery = `
-    //   INSERT INTO reviews
-    //   INSERT
-    //   INSERT
-    // `;
-    //3 different text reviews, 3 different number reviews, propertyID, tenancyID
-    // values = [];
 
     // return db.query(insertCommentsQuery, values);
   });
@@ -114,15 +115,6 @@ Review Data:  {
   neighbourhoodRating: 3,
   neighbourhoodReview: 'gsdgsd' }
 */
-
-  // insert the tenancy object (startDate, endDate)
-  // linked to property id and user id
-  // return tenancy id
-
-  // destructure the review components
-  // insert three parts into reviews table
-  // linked to category id, tenancy id
-  //  };
 
   router.post('/signup', (req, res) => {
     const { signupUser, signupPass } = req.body;

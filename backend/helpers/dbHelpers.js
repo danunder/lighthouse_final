@@ -80,6 +80,43 @@ module.exports = db => {
     return db.query(query, values);
   };
 
+  const createTenancy = (startDate, endDate, userID, propertyID) => {
+    const query = `INSERT INTO tenancies(start_date, end_date, user_id, property_id)
+    VALUES($1, $2, $3, $4)
+    RETURNING id;`;
+    const values = [startDate, endDate, userID, propertyID];
+    return db.query(query, values);
+  };
+
+  const createReviews = (
+    tenancyID,
+    propertyRating,
+    propertyReview,
+    landlordRating,
+    landlordReview,
+    neighbourhoodRating,
+    neighbourhoodReview
+  ) => {
+    const query = `
+      INSERT INTO reviews(review, rating, category_id, tenancy_id)
+      VALUES($3, $2, 1, $1) RETURNING*;
+      INSERT INTO reviews(review, rating, category_id, tenancy_id)
+      VALUES($5, $4, 3, $1) RETURNING*;
+      INSERT INTO reviews(review, rating, category_id, tenancy_id)
+      VALUES($7, $6, 2, $1) RETURNING*;
+    `;
+    const values = [
+      tenancyID,
+      propertyRating,
+      propertyReview,
+      landlordRating,
+      landlordReview,
+      neighbourhoodRating,
+      neighbourhoodReview,
+    ];
+    return db.query(query, values);
+  };
+
   return {
     getReviews,
     login,
@@ -87,5 +124,7 @@ module.exports = db => {
     signup,
     findPropertyID,
     createProperty,
+    createTenancy,
+    createReviews,
   };
 };
