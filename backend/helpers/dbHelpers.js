@@ -62,7 +62,6 @@ module.exports = db => {
     return (
       db
         .query(query)
-        
         .then(result => result.rows)
         .catch(e => e)
     );
