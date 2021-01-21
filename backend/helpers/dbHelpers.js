@@ -41,7 +41,7 @@ module.exports = db => {
 
   //       INSERT INTO reviews(review, rating, category_id, property_id, tenancy_id)
   //       VALUES($3, 1, 1, 1, 1);
-        
+
   //       `,
   //     values: [landlordReview, neighbourhoodReview, propertyReview],
   //   };
@@ -58,13 +58,26 @@ module.exports = db => {
       `,
       values: [signupUser, signupPass],
     };
-    
-    return (
-      db
-        .query(query)
-        .then(result => result.rows)
-        .catch(e => e)
-    );
+
+    return db
+      .query(query)
+      .then(result => result.rows)
+      .catch(e => e);
+  };
+
+  const findPropertyID = (lat, lng) => {
+    const query = `SELECT properties.id FROM properties WHERE latitude = $1 and longitude = $2`;
+    const values = [lat, lng];
+    // returns a property id OR null
+    return db.query(query, values);
+  };
+
+  const createProperty = (placeID, lat, lng) => {
+    const query = `INSERT INTO properties(place_id, latitude, longitude)
+    VALUES ($1, $2, $3)
+    RETURNING id`;
+    const values = [placeID, lat, lng];
+    return db.query(query, values);
   };
 
   return {
@@ -72,5 +85,7 @@ module.exports = db => {
     login,
     // saveReview,
     signup,
+    findPropertyID,
+    createProperty,
   };
 };

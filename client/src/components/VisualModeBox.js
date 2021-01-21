@@ -115,7 +115,6 @@ export default function VisualModeBox(props) {
           onSubmit={() => props.onSubmit(state)}
           onBack={() => back()}
           buttonName={'Submit'}
-          onSubmit={() => props.onSubmit(state)}
         />
       )}
       {mode === SHOW_FULL_REVIEW && (
