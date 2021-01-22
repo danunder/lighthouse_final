@@ -40,7 +40,7 @@ export default function Reviews(props) {
           {[...Array(averageStarRating(data.tenancy_id))].map((e, index) => (
             <FaStar />
           ))}
-          <Card.Text className='text'>{data.review}</Card.Text>
+          <Card.Text className='text'>{data.review.substr(0, 80)}</Card.Text>
           <Card.Link href='#' onClick={() => props.onClick(data.tenancy_id)} className='link'>
             View More
           </Card.Link>
