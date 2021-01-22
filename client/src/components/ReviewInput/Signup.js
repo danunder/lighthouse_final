@@ -6,7 +6,7 @@ export default function Signup(props) {
   return (
     <section className='card'>
       <h5 className='card-header'>Create An Account</h5>
-      <p>Please note that your personnal information will not be shared, though your username will appear when you add reviews.☺☺☺</p>
+      <p>Please note that your personal information will not be shared, though your username will appear when you add reviews.☺☺☺</p>
       <form>      
         <div class="form-group">
           <label for="inputEmail4">Email</label>
