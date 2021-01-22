@@ -5,11 +5,12 @@ const cookieSession = require('cookie-session');
 module.exports = ({
   getReviews,
   login,
-  signup,
+  checkUsername,
   findPropertyID,
   createProperty,
   createTenancy,
   createReviews,
+  createAccount,
 }) => {
   router.get('/:lat/:lng', (req, res) => {
     const lng = req.params.lng;
@@ -87,40 +88,24 @@ module.exports = ({
       })
       .then(fff => res.json(fff))
       .catch(e => e.message);
-
-    // return db.query(insertCommentsQuery, values);
   });
-  //We have a property ID assigned to variable propertyID
-  // const query1 = ``; //create tenancy
-  // const query2 = ``; //create review, do 3 idem (its variable will be wtv is stored insiode buffer)
-  // const buffer = {};
-  // db.query(query1)
-  //   .then(query1Answer => {
-  //     buffer.query1 = query1Answer;
-  //     return db.query(query2);
-  //   })
-  //   .then(query2Answer => {
-  //     buffer.query2 = query2Answer;
-  //   });
-  //
-  /*
-Place Data:  { address: 'Herne, Germany',
-  latLng: { lat: 51.5368948, lng: 7.200914699999999 },
-  placeID: 'ChIJFaN4ZIPhuEcRgIdUMYHyJwQ' }
-Review Data:  {
-  tenancyStartDate: '2021-06',
-  tenancyEndDate: '2021-07',
-  propertyRating: 3,
-  propertyReview: 'fsdsd',
-  landlordRating: 4,
-  landlordReview: 'dsg',
-  neighbourhoodRating: 3,
-  neighbourhoodReview: 'gsdgsd' }
-*/
 
   router.post('/signup', (req, res) => {
-    const { firstName, lastName, userName, email, password } = req.body;
-    signup(firstName, lastName, userName, email, password)
+    const { signupUser, signupPass } = req.body;
+    const userName = signupUser;
+    const password = signupPass;
+    const firstName = 'Lindsay';
+    const lastName = 'Hertzman';
+    const email = 'Lindsay@gmail.com';
+    checkUsername(userName)
+      .then(response => {
+        // console.log('DAN RES ', response);
+        if (!response.rows.length) {
+          return createAccount(userName, password, firstName, lastName, email);
+        } else {
+          throw new Error('null');
+        }
+      })
       .then(jj => res.json(jj))
       .catch(e => console.log('Signup error ', e.message));
   });

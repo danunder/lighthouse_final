@@ -6,7 +6,7 @@ const UserAuth = () => {
   const [password, setPassword] = useState('');
   const [signupUser, singU] = useState('');
   const [signupPass, singP] = useState('');
-  const [user, setUser] = useState();
+  const [user, setUser] = useState('');
   useEffect(() => {
     const loggedInUser = localStorage.getItem('user');
     if (loggedInUser) {
@@ -39,8 +39,10 @@ const UserAuth = () => {
     e.preventDefault();
     const user = { signupUser, signupPass };
     const response = await axios.post('http://localhost:3001/api/signup', user);
-    setUser(response.data);
-    localStorage.setItem('user', JSON.stringify(response.data));
+    if (response.data.username) {
+      setUser(response.data.username);
+      localStorage.setItem('user', JSON.stringify(response.data.userid));
+    }
   };
   // if there's a user show the message below
   if (user) {
