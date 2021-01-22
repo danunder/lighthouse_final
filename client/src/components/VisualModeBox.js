@@ -16,7 +16,7 @@ export default function VisualModeBox(props) {
     width: '100%',
     position: 'absolute',
     // top: '60vh',
-    zIndex: '20',
+    // zIndex: '10',
   };
 
   const LOG_IN = 'LOG_IN';
