@@ -30,7 +30,7 @@ export default function VisualModeBox(props) {
   const SUBMIT_REVIEW = 'SUBMIT_REVIEW';
 
   // declare helper functions from hooks
-  const { mode, transition, back } = useVisualMode(LOG_IN);
+  const { mode, transition, back } = useVisualMode(SHOW_REVIEWS);
 
   const [tenancyID, setTenancyID] = useState();
 
@@ -99,7 +99,9 @@ export default function VisualModeBox(props) {
       {mode === CREATE_PROPERTY_REVIEW && (
         <ReviewForm
           title={'property'}
-          previewWarning={'The preview card will only display the first 80 characters... So make them catchy!'}
+          previewWarning={
+            'The preview card will only display the first 80 characters... So make them catchy!'
+          }
           rating={state.propertyRating || null}
           onRatingChange={value => setPropertyRating(value)}
           review={state.propertyReview || null}
