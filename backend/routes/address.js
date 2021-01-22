@@ -9,7 +9,7 @@ module.exports = ({
   findPropertyID,
   createProperty,
   createTenancy,
-  createReviews,
+  createReviews
 }) => {
   router.get('/:lat/:lng', (req, res) => {
     const lng = req.params.lng;
@@ -30,9 +30,9 @@ module.exports = ({
     //Review has property review, landlord review, neighbourhood review, and tenancy dates
     const { user, place, review } = req.body.reviewData;
     const userID = user;
-    // console.log('User ID: ', userID);
-    // console.log('Place Data: ', place);
-    // console.log('Review Data: ', review);
+    console.log('User ID: ', userID);
+    console.log('Place Data: ', place);
+    console.log('Review Data: ', review);
 
     const lat = parseFloat(place.latLng.lat).toFixed(5);
     const lng = parseFloat(place.latLng.lng).toFixed(5);
@@ -50,18 +50,20 @@ module.exports = ({
     // const queryVars = {}
 
     findPropertyID(lat, lng)
-      .then(res => {
-        if (!res.rows.length) {
+      .then(a => {
+        if (!a.rows.length) {
           //It didn't find the ID, create an entry
-          createProperty(placeID, lat, lng).then(res => res);
-        } else {
-          //It did find the property
-          // console.log('it found the id ', res);
-          return res;
+          console.log('creating new property')
+          return createProperty(placeID, lat, lng).then(b => {
+            console.log(b);
+            return b
+          })
         }
+        console.log('this property exists');
+        return a;
       })
-      .then(res => {        
-        const propertyID = res.rows[0].id;
+      .then(c => {        
+        const propertyID = c.rows[0].id;
         console.log('property id: ', propertyID);        
         return createTenancy(
           tenancyStartDate,
@@ -70,8 +72,8 @@ module.exports = ({
           propertyID
         );
       })
-      .then(res => {
-        const tenancyID = res.rows[0].id
+      .then(d => {
+        const tenancyID = d.rows[0].id
         console.log('tenancy id: ', tenancyID);
         return createReviews(
           tenancyID,
@@ -83,8 +85,6 @@ module.exports = ({
           neighbourhoodReview
         );
       })
-      .then(res => console.log('It worked!', res))
-
       .catch(e => e.message);
 
     // return db.query(insertCommentsQuery, values);
