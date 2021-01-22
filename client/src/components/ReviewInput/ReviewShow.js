@@ -8,8 +8,25 @@ import PhotoCarousel from '../PhotoCarousel'
 // The button needs fixing to work as a form submitter
 
 export default function ReviewShow(props) {
-  const [ helpfulness, setHelpfulness ] = useState(null);
-  const [ hover, setHover ] = useState(null);
+  // const [ helpfulness, setHelpfulness ] = useState(null);
+  // const [ hover, setHover ] = useState(null);
+  const reviewData = props.data;
+  
+  const findFullReview = () => {
+    const reviewObj = {};
+    for (let review of reviewData) {
+      if (review.category_id === 1) {
+        reviewObj.propertyReview = review
+      } else if (review.category_id === 2) {
+        reviewObj.neighbourhoodReview = review
+      } else if (review.category_id === 3) {
+        reviewObj.landlordReview = review
+      }
+    }
+    return reviewObj;
+  };
+
+  findFullReview();
 
   return ( <section className="card">
     <div className='card'>
@@ -23,18 +40,18 @@ export default function ReviewShow(props) {
         </div> */}
         <div className="property-review">
           <h5>Property Review</h5>
-          <StarRatingShow rating={props.propertyRating} />
-          <p>{props.propertyReview}</p>
+          <StarRatingShow rating={findFullReview().propertyReview.rating} />
+          <p>{findFullReview().propertyReview.review}</p>
         </div>
         <div className="landlord-review">
           <h5>Landlord Review</h5>
-          <StarRatingShow rating={props.landlordRating} />
-          <p>{props.landlordReview}</p>
+          <StarRatingShow rating={findFullReview().landlordReview.rating} />
+          <p>{findFullReview().landlordReview.review}</p>
         </div>
         <div className="neighbourhood-review">
           <h5>Neighbourhood Review</h5>
-          <StarRatingShow rating={props.neighbourhoodRating} />
-          <p>{props.neighbourhoodReview}</p>
+          <StarRatingShow rating={findFullReview().neighbourhoodReview.rating} />
+          <p>{findFullReview().neighbourhoodReview.review}</p>
         </div>
         {/* <p>Was this review helpful?</p>
         <div className='help'>
