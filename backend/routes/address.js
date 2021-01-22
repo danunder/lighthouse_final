@@ -9,7 +9,7 @@ module.exports = ({
   findPropertyID,
   createProperty,
   createTenancy,
-  createReviews
+  createReviews,
 }) => {
   router.get('/:lat/:lng', (req, res) => {
     const lng = req.params.lng;
@@ -44,7 +44,7 @@ module.exports = ({
       landlordRating,
       landlordReview,
       neighbourhoodRating,
-      neighbourhoodReview
+      neighbourhoodReview,
     } = review;
     const placeID = place.placeID;
     // const queryVars = {}
@@ -53,18 +53,18 @@ module.exports = ({
       .then(a => {
         if (!a.rows.length) {
           //It didn't find the ID, create an entry
-          console.log('creating new property')
+          console.log('creating new property');
           return createProperty(placeID, lat, lng).then(b => {
             console.log(b);
-            return b
-          })
+            return b;
+          });
         }
         console.log('this property exists');
         return a;
       })
-      .then(c => {        
+      .then(c => {
         const propertyID = c.rows[0].id;
-        console.log('property id: ', propertyID);        
+        console.log('property id: ', propertyID);
         return createTenancy(
           tenancyStartDate,
           tenancyEndDate,
@@ -73,7 +73,7 @@ module.exports = ({
         );
       })
       .then(d => {
-        const tenancyID = d.rows[0].id
+        const tenancyID = d.rows[0].id;
         console.log('tenancy id: ', tenancyID);
         return createReviews(
           tenancyID,
@@ -85,6 +85,7 @@ module.exports = ({
           neighbourhoodReview
         );
       })
+      .then(fff => res.json(fff))
       .catch(e => e.message);
 
     // return db.query(insertCommentsQuery, values);
