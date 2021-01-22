@@ -16,13 +16,26 @@ export default function Reviews(props) {
     return propertyReviews
   };
 
+  const averageStarRating = (tenancy) => {
+    const ratingArr = [];
+    let ratingSum = 0;
+    for (let review of reviewData) {
+      if (tenancy === review.tenancy_id) {
+        ratingArr.push(review.rating)
+      }
+    }
+    ratingArr.forEach(num => ratingSum += num);
+    let averageRating = Math.round(ratingSum/ratingArr.length);
+    return averageRating;
+  }
+
   const mapData = (findPropertyReviews()).map(data => {
     return (
-      <Card style={{ width: '18rem' }}>
+      <Card style={{ width: '18rem' }} id={data.id}>
         <Card.Body>
           <Card.Title>{data.user}</Card.Title>
           {/* <Card.Subtitle className='mb-2 text-muted'>5 Stars</Card.Subtitle> */}
-          {[...Array(data.rating)].map((e, index) => (
+          {[...Array(averageStarRating(data.tenancy_id))].map((e, index) => (
             <FaStar />
           ))}
           <Card.Text>{data.review}</Card.Text>

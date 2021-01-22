@@ -59,7 +59,7 @@ export default function VisualModeBox(props) {
         <ReviewShow
           onClose={() => transition(SHOW_REVIEWS)}
           data={props.reviewData}
-          />
+        />
       )}
       {mode === LOG_IN && <UserAuth />}
       {mode === CREATE_TENANCY && (
