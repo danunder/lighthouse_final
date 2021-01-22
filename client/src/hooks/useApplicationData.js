@@ -66,17 +66,20 @@ export default function useApplicationData(initial) {
   // push review to parent state with props.
 
   // MOVE THIS to useApplicationData
-  const postNewReview = () => {
+  const postNewReview = async () => {
     const reviewData = {
-      //localStorage.getItem('user').id
+      //localStorage.getItem(‘user’).id
       user: localStorage.getItem('user'),
       place: state.place,
       review: state.newReview,
     };
     console.log(reviewData);
-    axios.post(`http://localhost:3001/api/review`, { reviewData }).then(res => {
-      console.log('Saved to the DB');
-    });
+    await axios
+      .post(`http://localhost:3001/api/review`, { reviewData })
+      .then(res => {
+        console.log('Saved to the DB');
+      })
+      .then(() => getReviewsFromCoords());
   };
 
   useEffect(() => {

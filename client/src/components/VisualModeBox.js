@@ -45,6 +45,19 @@ export default function VisualModeBox(props) {
     setNeighbourhoodReview,
   } = useReviewBuilder();
 
+
+  const resetForm = () => {
+    setTenancyStartDate('');
+    setTenancyEndDate('');
+    setPropertyRating(null);
+    setPropertyReview('');
+    setLandlordRating(null);
+    setLandlordReview('');
+    setNeighbourhoodRating(null);
+    setNeighbourhoodReview('');
+  }
+
+
   return (
     <Container style={containerStyle}>
       {mode === SHOW_REVIEWS && props.selectedPlace && (
@@ -123,7 +136,11 @@ export default function VisualModeBox(props) {
           landlordReview={state.landlordReview}
           neighbourhoodRating={state.neighbourhoodRating}
           neighbourhoodReview={state.neighbourhoodReview}
-          onSubmit={() => props.onSubmit(state)}
+          onSubmit={() => {
+            props.onSubmit(state);
+            transition(SHOW_REVIEWS);
+            resetForm();
+          }}
           onBack={() => back()}
           buttonName={'Submit'}
         />
