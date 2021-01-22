@@ -21,6 +21,7 @@ module.exports = ({
   });
   router.post('/login', (req, res) => {
     const { username, password } = req.body;
+    // console.log('JARED TEST ', req.body)
     login(username, password)
       .then(bb => res.json(bb))
       .catch(e => console.log('Backend error ', e.message));
@@ -91,12 +92,14 @@ module.exports = ({
   });
 
   router.post('/signup', (req, res) => {
-    const { signupUser, signupPass } = req.body;
-    const userName = signupUser;
-    const password = signupPass;
-    const firstName = 'Lindsay';
-    const lastName = 'Hertzman';
-    const email = 'Lindsay@gmail.com';
+    // const { signupUser, signupPass } = req.body;
+    // const userName = signupUser;
+    // const password = signupPass;
+    // const firstName = 'Lindsay';
+    // const lastName = 'Hertzman';
+    // const email = 'Lindsay@gmail.com';
+    const {userName, firstName, lastName, email, password} = req.body
+    // console.log('register info: ', req.body)
     checkUsername(userName)
       .then(response => {
         // console.log('DAN RES ', response);
