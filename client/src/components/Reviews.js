@@ -3,6 +3,8 @@ import AddReview from './AddReview';
 import { FaStar } from 'react-icons/fa';
 import { Card } from 'react-bootstrap';
 
+import './Reviews.css'
+
 export default function Reviews(props) {
   const reviewData = props.data;
 
@@ -31,15 +33,15 @@ export default function Reviews(props) {
 
   const mapData = findPropertyReviews().map(data => {
     return (
-      <Card style={{ width: '18rem' }} id={data.id}>
+      <Card style={{ width: '18rem' }} id={data.id} className='review-card'>
         <Card.Body>
           <Card.Title>{data.user}</Card.Title>
           {/* <Card.Subtitle className='mb-2 text-muted'>5 Stars</Card.Subtitle> */}
           {[...Array(averageStarRating(data.tenancy_id))].map((e, index) => (
             <FaStar />
           ))}
-          <Card.Text>{data.review}</Card.Text>
-          <Card.Link href='#' onClick={() => props.onClick(data.tenancy_id)}>
+          <Card.Text className='text'>{data.review.substr(0, 80)}</Card.Text>
+          <Card.Link href='#' onClick={() => props.onClick(data.tenancy_id)} className='link'>
             View More
           </Card.Link>
         </Card.Body>

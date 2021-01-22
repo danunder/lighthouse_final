@@ -15,7 +15,7 @@ export default function VisualModeBox(props) {
   const containerStyle = {
     width: '100%',
     position: 'absolute',
-    top: '60vh',
+    // top: '60vh',
     zIndex: '1',
   };
 
@@ -90,12 +90,16 @@ export default function VisualModeBox(props) {
           onStartChange={value => setTenancyStartDate(value)}
           onEndChange={value => setTenancyEndDate(value)}
           onNext={() => transition(CREATE_PROPERTY_REVIEW)}
-          onBack={() => back()}
+          onBack={() => {
+            back();
+            resetForm();
+          }}
         />
       )}
       {mode === CREATE_PROPERTY_REVIEW && (
         <ReviewForm
           title={'property'}
+          previewWarning={'The preview card will only display the first 80 characters... So make them catchy!'}
           rating={state.propertyRating || null}
           onRatingChange={value => setPropertyRating(value)}
           review={state.propertyReview || null}

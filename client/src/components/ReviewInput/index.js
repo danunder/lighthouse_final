@@ -5,7 +5,7 @@ import ReviewShow from './ReviewShow';
 import Processing from './Processing';
 import Signup from './Signup';
 import Login from './Login';
-import './styles.css';
+// import './styles.css';
 
 // taken from Scheduler project, needs to be modified to fit this project, and tucked into helper file
 

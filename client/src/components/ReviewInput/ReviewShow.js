@@ -4,6 +4,8 @@ import StarRatingShow from '../StarRatingShow';
 // import Dislike from '../Dislike';
 // import PhotoCarousel from '../PhotoCarousel';
 
+import './styles.css'
+
 // The button needs fixing to work as a form submitter
 
 export default function ReviewShow(props) {
@@ -31,17 +33,20 @@ export default function ReviewShow(props) {
   findFullReview();
 
   return (
-    <section className='card'>
+    <section className='card-show'>
       <div className='card'>
-        <h5 className='card-header'>{reviewData[0].user}'s review</h5>
+        <div className='header'>
+        <h5 className='card-title'>{reviewData[0].user}'s review</h5>
         <button
           type='button'
-          class='close'
+          className='close'
           aria-label='Close'
           onClick={props.onClose}
         >
           <span aria-hidden='true'>&times;</span>
         </button>
+        </div>
+        
         <div className='card-body'>
           {/* <div>
         <PhotoCarousel />
@@ -51,11 +56,17 @@ export default function ReviewShow(props) {
             <StarRatingShow rating={findFullReview().propertyReview.rating} />
             <p>{findFullReview().propertyReview.review}</p>
           </div>
+          <p>
+            {'---'}
+          </p>
           <div className='landlord-review'>
             <h5>Landlord Review</h5>
             <StarRatingShow rating={findFullReview().landlordReview.rating} />
             <p>{findFullReview().landlordReview.review}</p>
           </div>
+          <p>
+            {'---'}
+          </p>
           <div className='neighbourhood-review'>
             <h5>Neighbourhood Review</h5>
             <StarRatingShow

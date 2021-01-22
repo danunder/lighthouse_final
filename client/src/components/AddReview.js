@@ -4,7 +4,7 @@ import { FaPlus } from 'react-icons/fa';
 
 export default function AddReview(props) {
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card style={{ width: '18rem' }} className='review-card'>
       <Card.Body>
         <Card.Title>Add A Review</Card.Title>
         <Card.Link href='#'>

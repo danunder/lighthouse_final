@@ -5,7 +5,7 @@ import StarRating from '../StarRating';
 
 export default function ReviewForm(props) {
   return (
-    <section className='card'>
+    <section className='card-show'>
       <div className='card'>
         <h5 className='card-header'>Rate this {props.title}</h5>
         <div className='card-body'>
@@ -13,6 +13,7 @@ export default function ReviewForm(props) {
             onRatingClick={props.onRatingChange}
             rating={props.rating}/>
           <div className='form-group'>
+            <p>{props.previewWarning}</p>
             <input
               className='form-control'
               rows='5'

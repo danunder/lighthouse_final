@@ -1,9 +1,11 @@
 import React from 'react';
 
+import './styles.css'
+
 
 export default function TenancyForm(props) {
   return (
-    <section className='card'>
+    <section className='card-show'>
       <div className='card'>
         <h5 className='card-header'>When did you live here?</h5>
         <div className='card-body'>          
