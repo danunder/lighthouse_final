@@ -4,6 +4,7 @@ import Reviews from './Reviews';
 import ReviewForm from './ReviewInput/ReviewForm';
 import ReviewShow from './ReviewInput/ReviewShow';
 import ReviewSubmit from './ReviewInput/ReviewSubmit';
+import LoginCard from './LoginCard';
 import UserAuth from './UserAuth';
 import useVisualMode from '../hooks/useVisualMode';
 import useReviewBuilder from '../hooks/useReviewBuilder';
@@ -29,7 +30,7 @@ export default function VisualModeBox(props) {
   const SUBMIT_REVIEW = 'SUBMIT_REVIEW';
 
   // declare helper functions from hooks
-  const { mode, transition, back } = useVisualMode(SHOW_REVIEWS);
+  const { mode, transition, back } = useVisualMode(LOG_IN);
 
   const [tenancyID, setTenancyID] = useState();
 
@@ -45,7 +46,6 @@ export default function VisualModeBox(props) {
     setNeighbourhoodReview,
   } = useReviewBuilder();
 
-
   const resetForm = () => {
     setTenancyStartDate('');
     setTenancyEndDate('');
@@ -55,17 +55,17 @@ export default function VisualModeBox(props) {
     setLandlordReview('');
     setNeighbourhoodRating(null);
     setNeighbourhoodReview('');
-  }
-
+  };
 
   return (
     <Container style={containerStyle}>
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
           data={props.reviewData}
-          addNew={() =>
-            // transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)
-            transition(CREATE_TENANCY)
+          addNew={
+            () =>
+              transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)
+            // transition(CREATE_TENANCY)
           }
           onClick={tenancyID => {
             setTenancyID(tenancyID);
@@ -82,7 +82,7 @@ export default function VisualModeBox(props) {
           tenancyID={tenancyID}
         />
       )}
-      {mode === LOG_IN && <UserAuth />}
+      {mode === LOG_IN && <LoginCard />}
       {mode === CREATE_TENANCY && (
         <TenancyForm
           startDate={state.tenancyStartDate || ''}

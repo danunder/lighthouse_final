@@ -6,7 +6,7 @@ const UserAuth = () => {
   const [password, setPassword] = useState('');
   const [signupUser, singU] = useState('');
   const [signupPass, singP] = useState('');
-  const [user, setUser] = useState();
+  const [user, setUser] = useState('');
   useEffect(() => {
     const loggedInUser = localStorage.getItem('user');
     if (loggedInUser) {
@@ -19,6 +19,8 @@ const UserAuth = () => {
     setUser('');
     setUsername('');
     setPassword('');
+    singU('');
+    singP('');
     localStorage.clear();
   };
   // login the user
@@ -28,17 +30,21 @@ const UserAuth = () => {
     // send the username and password to the server
     const response = await axios.post('http://localhost:3001/api/login', user);
     // set the state of the user
-    setUser(response.data.username);
-    // store the user in localStorage
-    localStorage.setItem('user', JSON.stringify(response.data.id));
+    if (response.data.username) {
+      setUser(response.data.username);
+      // store the user in localStorage
+      localStorage.setItem('user', JSON.stringify(response.data.id));
+    }
   };
 
   const handleSignup = async e => {
     e.preventDefault();
     const user = { signupUser, signupPass };
     const response = await axios.post('http://localhost:3001/api/signup', user);
-    setUser(response.data);
-    localStorage.setItem('user', JSON.stringify(response.data));
+    if (response.data.username) {
+      setUser(response.data.username);
+      localStorage.setItem('user', JSON.stringify(response.data.userid));
+    }
   };
   // if there's a user show the message below
   if (user) {
