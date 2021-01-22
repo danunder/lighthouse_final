@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState, useRef } from 'react';
+import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 
 export default function useApplicationData(initial) {
@@ -71,15 +71,11 @@ export default function useApplicationData(initial) {
     ]).then(res => setPlaceReviewData(res[0].data));
   };
 
-  // push review to parent state with props.
-
-  // MOVE THIS to useApplicationData
   const postNewReview = async () => {
-    const foundUser = JSON.parse(localStorage.getItem('user'));
-    const { userID } = foundUser;
+    const user = JSON.parse(localStorage.getItem('user')).userID;
     const reviewData = {
       //localStorage.getItem(‘user’).id
-      user: userID,
+      user: user,
       place: state.place,
       review: state.newReview,
     };
@@ -97,7 +93,7 @@ export default function useApplicationData(initial) {
     if (state.place) {
       getReviewsFromCoords();
     }
-  }, [state.place]);
+  }, [state.place, state.newReview]);
 
   useEffect(() => {
     if (state.newReview) {
@@ -106,19 +102,19 @@ export default function useApplicationData(initial) {
   }, [state.newReview]);
 
   // useEffect(() => {
-  //   const checkForUser = () => {
-  //     const loggedInUser = localStorage.getItem('user');
-  //     if (loggedInUser) {
-  //       const foundUser = JSON.parse(loggedInUser);
-  //       const { userID, userName } = foundUser
-  //       setUserID(userID);
-  //       setUserName(userName);
-  //     }
-  //   }
-  //   checkForUser()
-  //   window.addEventListener('storage', checkForUser())
+  // const checkForUser = () => {
+  // const loggedInUser = localStorage.getItem('user');
+  // if (loggedInUser) {
+  //   const foundUser = JSON.parse(loggedInUser);
+  //   const { userID, userName } = foundUser
+  //   setUserID(userID);
+  //   setUserName(userName);
+  // }
+  // }
+  // checkForUser()
+  // window.addEventListener('storage', checkForUser())
 
-  //   return () => window.removeEventListener('storage', checkForUser())
+  // return () => window.removeEventListener('storage', checkForUser())
 
   // }, []);
 
