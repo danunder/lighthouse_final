@@ -31,8 +31,13 @@ module.exports = db => {
         if (
           result.rows.length &&
           bcrypt.compareSync(password, result.rows[0].password)
-        )
-          return result.rows[0];
+        ) {
+          const response = {
+            userID: result.rows[0].id,
+            userName: result.rows[0].username
+          }
+          return response;
+        }
         else {
           throw new Error('Null');
         }
@@ -54,7 +59,7 @@ module.exports = db => {
   const createAccount = (userName, password, firstName, lastName, email) => {
     const insertQuery = {
       text: `INSERT INTO users(username, first_name, last_name, email, password)
-      VALUES($1, $2, $3, $4, $5) RETURNING username, id as userID;`,
+      VALUES($1, $2, $3, $4, $5) RETURNING *;`,
       values: [
         userName,
         firstName,
@@ -65,7 +70,13 @@ module.exports = db => {
     };
     return db
       .query(insertQuery)
-      .then(res => res.rows[0])
+      .then(res => {
+        const response = {
+          userID: res.rows[0].id,
+          userName: res.rows[0].username
+        }
+        return response
+      })
       .catch(e => e.message);
   };
 
