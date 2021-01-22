@@ -28,9 +28,11 @@ const UserAuth = () => {
     // send the username and password to the server
     const response = await axios.post('http://localhost:3001/api/login', user);
     // set the state of the user
-    setUser(response.data.username);
-    // store the user in localStorage
-    localStorage.setItem('user', JSON.stringify(response.data.id));
+    if (response.data.username) {
+      setUser(response.data.username);
+      // store the user in localStorage
+      localStorage.setItem('user', JSON.stringify(response.data.id));
+    }
   };
 
   const handleSignup = async e => {
