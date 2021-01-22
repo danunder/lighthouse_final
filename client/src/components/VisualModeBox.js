@@ -46,7 +46,6 @@ export default function VisualModeBox(props) {
     setNeighbourhoodReview,
   } = useReviewBuilder();
 
-
   const resetForm = () => {
     setTenancyStartDate('');
     setTenancyEndDate('');
@@ -56,16 +55,16 @@ export default function VisualModeBox(props) {
     setLandlordReview('');
     setNeighbourhoodRating(null);
     setNeighbourhoodReview('');
-  }
-
+  };
 
   return (
     <Container style={containerStyle}>
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
           data={props.reviewData}
-          addNew={() =>
-            transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)
+          addNew={
+            () =>
+              transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)
             // transition(CREATE_TENANCY)
           }
           onClick={tenancyID => {

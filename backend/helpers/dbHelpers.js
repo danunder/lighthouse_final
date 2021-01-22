@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 module.exports = db => {
   // eslint-disable-next-line no-unused-vars
   const getReviews = (lng, lat) => {
@@ -20,27 +22,51 @@ module.exports = db => {
 
   const login = (username, password) => {
     const query = {
-      text: `SELECT * FROM users where username = $1 and password = $2`,
-      values: [username, password],
+      text: `SELECT * FROM users where username = $1;`,
+      values: [username],
     };
     return db
       .query(query)
-      .then(result => result.rows[0])
+      .then(result => {
+        if (
+          result.rows.length &&
+          bcrypt.compareSync(password, result.rows[0].password)
+        )
+          return result.rows[0];
+        else {
+          throw new Error('Null');
+        }
+      })
       .catch(err => err);
   };
 
-  const signup = (signupUser, signupPass) => {
+  const checkUsername = userName => {
     const query = {
-      text: `INSERT INTO users(username, password) VALUES($1, $2)
-      RETURNING *;
-      `,
-      values: [signupUser, signupPass],
+      text: `SELECT * FROM users WHERE username = $1;`,
+      values: [userName],
     };
-
     return db
       .query(query)
-      .then(result => result.rows)
+      .then(res => res)
       .catch(e => e);
+  };
+
+  const createAccount = (userName, password, firstName, lastName, email) => {
+    const insertQuery = {
+      text: `INSERT INTO users(username, first_name, last_name, email, password)
+      VALUES($1, $2, $3, $4, $5) RETURNING username, id as userID;`,
+      values: [
+        userName,
+        firstName,
+        lastName,
+        email,
+        bcrypt.hashSync(password, 10),
+      ],
+    };
+    return db
+      .query(insertQuery)
+      .then(res => res.rows[0])
+      .catch(e => e.message);
   };
 
   const findPropertyID = (lat, lng) => {
@@ -94,65 +120,14 @@ module.exports = db => {
     return db.query(text, values);
   };
 
-  /*
-     
-
-  const createReviews = (
-    tenancyID,
-    propertyRating,
-    propertyReview,
-    landlordRating,
-    landlordReview,
-    neighbourhoodRating,
-    neighbourhoodReview
-  ) => {
-    const createPropertyReview = (
-      tenancyID,
-      propertyRating,
-      propertyReview
-    ) => {
-      const query = `
-      INSERT INTO reviews(review, rating, category_id, tenancy_id)
-      VALUES($3, $2, 1, $1);`
-      const values = [tenancyID, propertyRating, propertyReview];
-      return db.query(query, values);
-    }
-    const createLandlordReview = (
-      tenancyID,
-      landlordRating,
-      landlordReview
-    ) => {
-      const query = `
-      INSERT INTO reviews(review, rating, category_id, tenancy_id)
-      VALUES($3, $2, 3, $1);`
-      const values = [tenancyID, landlordRating, landlordReview];
-      return db.query(query, values);
-    }
-    const createNeighbourhoodReview = (
-      tenancyID,
-      neighbourhoodRating,
-      neighbourhoodReview
-    ) => {
-      const query = `
-      INSERT INTO reviews(review, rating, category_id, tenancy_id)
-      VALUES($3, $2, 2, $1);`
-      const values = [tenancyID, neighbourhoodRating, neighbourhoodReview];
-      return db.query(query, values);
-    };
-    createPropertyReview(tenancyID, propertyRating, propertyReview)
-    createLandlordReview(tenancyID, landlordRating, landlordReview)
-    createNeighbourhoodReview(tenancyID, neighbourhoodRating, neighbourhoodReview)
-  };
-  */
-
   return {
     getReviews,
     login,
-    // saveReview,
-    signup,
+    checkUsername,
     findPropertyID,
     createProperty,
     createTenancy,
     createReviews,
+    createAccount,
   };
 };
