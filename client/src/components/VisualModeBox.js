@@ -14,7 +14,7 @@ export default function VisualModeBox(props) {
   const containerStyle = {
     width: '100%',
     position: 'absolute',
-    top: '60vh',
+    // top: '60vh',
     zIndex: '1',
   };
 
