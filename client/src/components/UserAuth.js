@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './UserAuth.css'
 
 const UserAuth = () => {
+  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [signupUser, singU] = useState('');
@@ -50,7 +52,7 @@ const UserAuth = () => {
   if (user) {
     return (
       <div className='loggedIn'>
-        {user} is loggged in
+        {username}
         <button onClick={handleLogout}>logout</button>
       </div>
     );
