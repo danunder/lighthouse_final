@@ -75,7 +75,7 @@ export default function useApplicationData(initial) {
     };
     console.log(reviewData);
     axios.post(`http://localhost:3001/api/review`, { reviewData }).then(res => {
-      console.log('AXIOS PUT SUCCESS ', res);
+      console.log('Saved to the DB');
     });
   };
 
