@@ -40,17 +40,28 @@ module.exports = db => {
       .catch(err => err);
   };
 
-  const signup = (signupUser, signupPass) => {
+  const signup = (firstName, lastName, userName, email, password) => {
     const query = {
-      text: `INSERT INTO users(username, password) VALUES($1, $2)
-      RETURNING *;
-      `,
-      values: [signupUser, signupPass],
+      text: `SELECT * FROM users WHERE username = $1 AND email = $2`,
+      values: [userName, email],
     };
-
     return db
       .query(query)
-      .then(result => result.rows)
+      .then(res => {
+        if (res.rows.length) {
+          throw new Error('Null');
+        } else {
+          const insertQuery = `INSERT INTO users(username, first_name, last_name, email, password, is_landlord)VALUES($1, $2, $3, $4, $5, false) RETURNING*`;
+          const newValues = [
+            userName,
+            firstName,
+            lastName,
+            email,
+            bcrypt.hashSync(password, 10),
+          ];
+          return db.query(insertQuery, newValues).then(res => res.rows[0]);
+        }
+      })
       .catch(e => e);
   };
 

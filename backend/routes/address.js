@@ -119,8 +119,8 @@ Review Data:  {
 */
 
   router.post('/signup', (req, res) => {
-    const { signupUser, signupPass } = req.body;
-    signup(signupUser, signupPass)
+    const { firstName, lastName, userName, email, password } = req.body;
+    signup(firstName, lastName, userName, email, password)
       .then(jj => res.json(jj))
       .catch(e => console.log('Signup error ', e.message));
   });
