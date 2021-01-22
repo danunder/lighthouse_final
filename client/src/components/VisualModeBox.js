@@ -28,7 +28,6 @@ export default function VisualModeBox(props) {
   const CREATE_LANDLORD_REVIEW = 'CREATE_LANDLORD_REVIEW';
   const CREATE_NEIGHBOURHOOD_REVIEW = 'CREATE_NEIGHBOURHOOD_REVIEW';
   const SUBMIT_REVIEW = 'SUBMIT_REVIEW';
- 
 
   // declare helper functions from hooks
   const { mode, transition, back } = useVisualMode(SHOW_REVIEWS);
@@ -63,10 +62,8 @@ export default function VisualModeBox(props) {
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
           data={props.reviewData}
-          addNew={
-            () =>
-              transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)
-            
+          addNew={() =>
+            transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)
           }
           onClick={tenancyID => {
             setTenancyID(tenancyID);
@@ -83,10 +80,12 @@ export default function VisualModeBox(props) {
           tenancyID={tenancyID}
         />
       )}
-      {mode === LOG_IN && <LoginCard
-        onSuccess={() => transition(CREATE_TENANCY, true)}
-        onBack={() => back()}
-      />}
+      {mode === LOG_IN && (
+        <LoginCard
+          onSuccess={() => transition(CREATE_TENANCY, true)}
+          onBack={() => back()}
+        />
+      )}
       {mode === CREATE_TENANCY && (
         <TenancyForm
           startDate={state.tenancyStartDate || ''}

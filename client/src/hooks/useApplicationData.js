@@ -75,13 +75,16 @@ export default function useApplicationData(initial) {
 
   // MOVE THIS to useApplicationData
   const postNewReview = async () => {
+    const foundUser = JSON.parse(localStorage.getItem('user'));
+    const { userID } = foundUser;
     const reviewData = {
       //localStorage.getItem(‘user’).id
-      user: localStorage.getItem('user').userID,
+      user: userID,
       place: state.place,
       review: state.newReview,
     };
-    console.log(reviewData);
+    console.log('review data, ', reviewData);
+    // console.log(reviewData);
     await axios
       .post(`http://localhost:3001/api/review`, { reviewData })
       .then(res => {
