@@ -20,10 +20,9 @@ export default function LoginCard(props) {
         </h5>
         <div className='card-body'>
           <Form
-            onClick={() => {
-              reset()
+            onClick={() =>      
               setMode(SIGN_IN)
-            }}
+            }
             onSubmit={() => handleSignIn()}
           >
             <h5>Sign in to an existing account</h5>
@@ -54,7 +53,6 @@ export default function LoginCard(props) {
           <br/>
           <Form
             onClick={() => {
-              reset()
               setMode(REGISTER)
             }}
             onSubmit={() => handleRegister()}>

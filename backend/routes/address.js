@@ -21,6 +21,7 @@ module.exports = ({
   });
   router.post('/login', (req, res) => {
     const { username, password } = req.body;
+    // console.log('JARED TEST ', req.body)
     login(username, password)
       .then(bb => res.json(bb))
       .catch(e => console.log('Backend error ', e.message));

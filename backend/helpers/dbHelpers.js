@@ -31,8 +31,13 @@ module.exports = db => {
         if (
           result.rows.length &&
           bcrypt.compareSync(password, result.rows[0].password)
-        )
-          return result.rows[0];
+        ) {
+          const response = {
+            userID: result.rows[0].id,
+            userName: result.rows[0].username
+          }
+          return response;
+        }
         else {
           throw new Error('Null');
         }

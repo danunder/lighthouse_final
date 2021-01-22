@@ -4,6 +4,7 @@ import axios from 'axios';
 export default function useApplicationData(initial) {
   // defines actions for reducer function
   const SET_USER_ID = 'SET_USER_ID';
+  const SET_USER_NAME = "SET_USER_NAME";
   const SET_PLACE = 'SET_PLACE';
   const SET_PLACE_REVIEW_DATA = 'SET_PLACE_REVIEW_DATA';
   const SET_NEW_REVIEW = 'SET_NEW_REVIEW';
@@ -14,6 +15,11 @@ export default function useApplicationData(initial) {
         return {
           ...state,
           userID: action.userID,
+        };
+      case SET_USER_NAME:
+        return {
+          ...state,
+          userName: action.userName,
         };
       case SET_PLACE:
         return {
@@ -41,6 +47,7 @@ export default function useApplicationData(initial) {
   // sets initial state for the application
   const [state, dispatch] = useReducer(reducer, {
     userID: null,
+    userName: null,
     place: null,
     placeReviewData: [],
     newReview: null,
@@ -48,6 +55,7 @@ export default function useApplicationData(initial) {
 
   //helper functions to modify state
   const setUserID = userID => dispatch({ type: 'SET_USER_ID', userID });
+  const setUserName = userName => dispatch({ type: 'SET_USER_NAME', userName });
   const setPlace = place => dispatch({ type: 'SET_PLACE', place });
   const setPlaceReviewData = placeReviewData =>
     dispatch({ type: 'SET_PLACE_REVIEW_DATA', placeReviewData });
@@ -94,5 +102,15 @@ export default function useApplicationData(initial) {
     }
   }, [state.newReview]);
 
-  return { state, setUserID, setPlace, setPlaceReviewData, setNewReview };
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('user');
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      const { userID, userName } = foundUser
+      setUserID(userID);
+      setUserName(userName);
+    }
+  }, []);
+
+  return { state, setUserID, setUserName, setPlace, setPlaceReviewData, setNewReview };
 }
