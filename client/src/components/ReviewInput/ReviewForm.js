@@ -13,6 +13,7 @@ export default function ReviewForm(props) {
             onRatingClick={props.onRatingChange}
             rating={props.rating}/>
           <div className='form-group'>
+            <p>{props.previewWarning}</p>
             <input
               className='form-control'
               rows='5'
