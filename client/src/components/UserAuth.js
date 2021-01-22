@@ -19,6 +19,8 @@ const UserAuth = () => {
     setUser('');
     setUsername('');
     setPassword('');
+    singU('');
+    singP('');
     localStorage.clear();
   };
   // login the user
