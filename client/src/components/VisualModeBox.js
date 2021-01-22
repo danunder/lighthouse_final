@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Reviews from './Reviews';
 import ReviewForm from './ReviewInput/ReviewForm';
@@ -20,7 +20,7 @@ export default function VisualModeBox(props) {
   };
 
   const LOG_IN = 'LOG_IN';
-  const CREATE_ACCOUNT = 'CREATE_ACCOUNT';
+  // const CREATE_ACCOUNT = 'CREATE_ACCOUNT';
   const SHOW_REVIEWS = 'SHOW_REVIEWS';
   const SHOW_FULL_REVIEW = 'SHOW_FULL_REVIEW';
   const CREATE_TENANCY = 'CREATE_TENANCY';
@@ -31,6 +31,8 @@ export default function VisualModeBox(props) {
 
   // declare helper functions from hooks
   const { mode, transition, back } = useVisualMode(LOG_IN);
+
+  const [tenancyID, setTenancyID] = useState();
 
   const {
     state,
@@ -44,6 +46,19 @@ export default function VisualModeBox(props) {
     setNeighbourhoodReview,
   } = useReviewBuilder();
 
+
+  const resetForm = () => {
+    setTenancyStartDate('');
+    setTenancyEndDate('');
+    setPropertyRating(null);
+    setPropertyReview('');
+    setLandlordRating(null);
+    setLandlordReview('');
+    setNeighbourhoodRating(null);
+    setNeighbourhoodReview('');
+  }
+
+
   return (
     <Container style={containerStyle}>
       {mode === SHOW_REVIEWS && props.selectedPlace && (
@@ -53,13 +68,19 @@ export default function VisualModeBox(props) {
             transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)
             // transition(CREATE_TENANCY)
           }
-          onClick={() => transition(SHOW_FULL_REVIEW)}
+          onClick={tenancyID => {
+            setTenancyID(tenancyID);
+            transition(SHOW_FULL_REVIEW);
+          }}
         />
       )}
       {mode === SHOW_FULL_REVIEW && (
         <ReviewShow
-          onClose={() => transition(SHOW_REVIEWS)}
+          onClose={() => {
+            transition(SHOW_REVIEWS);
+          }}
           data={props.reviewData}
+          tenancyID={tenancyID}
         />
       )}
       {mode === LOG_IN && <LoginCard />}
@@ -116,7 +137,11 @@ export default function VisualModeBox(props) {
           landlordReview={state.landlordReview}
           neighbourhoodRating={state.neighbourhoodRating}
           neighbourhoodReview={state.neighbourhoodReview}
-          onSubmit={() => props.onSubmit(state)}
+          onSubmit={() => {
+            props.onSubmit(state);
+            transition(SHOW_REVIEWS);
+            resetForm();
+          }}
           onBack={() => back()}
           buttonName={'Submit'}
         />

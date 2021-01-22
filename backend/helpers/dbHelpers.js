@@ -29,7 +29,6 @@ module.exports = db => {
       .catch(err => err);
   };
 
-
   const signup = (signupUser, signupPass) => {
     const query = {
       text: `INSERT INTO users(username, password) VALUES($1, $2)
@@ -67,7 +66,15 @@ module.exports = db => {
     return db.query(text, values);
   };
 
-  const createReviews = (tenancyID, propertyRating, propertyReview, landlordRating, landlordReview, neighbourhoodRating, neighbourhoodReview) => {
+  const createReviews = (
+    tenancyID,
+    propertyRating,
+    propertyReview,
+    landlordRating,
+    landlordReview,
+    neighbourhoodRating,
+    neighbourhoodReview
+  ) => {
     const text = `
       INSERT INTO reviews(review, rating, category_id, tenancy_id)
       VALUES
@@ -75,7 +82,15 @@ module.exports = db => {
       ($5, $4, 3, $1),      
       ($7, $6, 2, $1);
     `;
-    const values = [tenancyID, propertyRating, propertyReview, landlordRating, landlordReview, neighbourhoodRating,neighbourhoodReview ];
+    const values = [
+      tenancyID,
+      propertyRating,
+      propertyReview,
+      landlordRating,
+      landlordReview,
+      neighbourhoodRating,
+      neighbourhoodReview,
+    ];
     return db.query(text, values);
   };
 
@@ -126,10 +141,10 @@ module.exports = db => {
     };
     createPropertyReview(tenancyID, propertyRating, propertyReview)
     createLandlordReview(tenancyID, landlordRating, landlordReview)
-    createNeighbourhoodReview(tenancyID, neighbourhoodRating, neighbourhoodReview)  
+    createNeighbourhoodReview(tenancyID, neighbourhoodRating, neighbourhoodReview)
   };
   */
-  
+
   return {
     getReviews,
     login,
@@ -138,6 +153,6 @@ module.exports = db => {
     findPropertyID,
     createProperty,
     createTenancy,
-    createReviews
+    createReviews,
   };
 };
