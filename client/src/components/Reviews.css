@@ -1,4 +1,7 @@
 .review-card {
+  -moz-box-shadow:    3px 3px 5px 6px rgba(226, 226, 226, 0.582);
+  -webkit-box-shadow: 3px 3px 5px 6px rgba(226, 226, 226, 0.582);
+  box-shadow:         3px 3px 5px 6px rgba(226, 226, 226, 0.582);
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 30px;
@@ -6,6 +9,12 @@
   min-height: 200px;
   max-width: 200px;
   min-width: 200px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .card-title {
