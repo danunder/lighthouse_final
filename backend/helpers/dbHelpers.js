@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 module.exports = db => {
   // eslint-disable-next-line no-unused-vars
   const getReviews = (lng, lat) => {
@@ -20,12 +22,21 @@ module.exports = db => {
 
   const login = (username, password) => {
     const query = {
-      text: `SELECT * FROM users where username = $1 and password = $2`,
-      values: [username, password],
+      text: `SELECT * FROM users where username = $1`,
+      values: [username],
     };
     return db
       .query(query)
-      .then(result => result.rows[0])
+      .then(result => {
+        if (
+          result.rows.length &&
+          bcrypt.compareSync(password, result.rows[0].password)
+        )
+          return result.rows[0];
+        else {
+          throw new Error('Null');
+        }
+      })
       .catch(err => err);
   };
 
