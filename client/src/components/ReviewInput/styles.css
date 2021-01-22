@@ -1,18 +1,18 @@
-.card {
-  font-size: large;
-  font-family: 'Montserrat', sans-serif;
-  /* margin: 30px; */
+.card-show {
+  display: flex;
+  height: 75%;
 }
 
-.card-header {
+.show-header {
   font-size: large;
 }
+
 h5 {
   font-size: large;
 }
 
 .card-body {
-  font-size: large;
+  font-size: larger;
 }
 
 textarea {
@@ -33,6 +33,6 @@ textarea {
   justify-content: space-evenly;
 }
 
-.card-body-processing {
+.show-body-processing {
   background-color: rgb(230, 230, 230);
 }
