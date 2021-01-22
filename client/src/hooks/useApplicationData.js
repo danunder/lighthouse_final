@@ -74,9 +74,7 @@ export default function useApplicationData(initial) {
       review: state.newReview,
     };
     console.log(reviewData);
-    axios.post(`http://localhost:3001/api/review`, { reviewData }).then(res => {
-      console.log('AXIOS PUT SUCCESS ', res);
-    });
+    axios.post(`http://localhost:3001/api/review`, { reviewData }).then(res => console.log('AXIOS PUT SUCCESS ', res));
   };
 
   useEffect(() => {
