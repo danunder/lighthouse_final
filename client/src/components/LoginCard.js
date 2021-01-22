@@ -12,6 +12,8 @@ export default function LoginCard(props) {
   const  [ mode, setMode ]  = useState(SELECT)
   const { state, setFirstName, setLastName, setUserName, setEmail, setPassword, reset, handleSignIn, handleRegister } = useUserAuth()
 
+  const { onSuccess, onBack } = props; 
+
   return (
     <section className='card'>
       <div className='card'>
@@ -23,7 +25,7 @@ export default function LoginCard(props) {
             onClick={() =>      
               setMode(SIGN_IN)
             }
-            onSubmit={() => handleSignIn()}
+            onSubmit={() => handleSignIn(onSuccess)}
           >
             <h5>Sign in to an existing account</h5>
             {mode === SIGN_IN &&
@@ -55,7 +57,7 @@ export default function LoginCard(props) {
             onClick={() => {
               setMode(REGISTER)
             }}
-            onSubmit={() => handleRegister()}>
+            onSubmit={() => handleRegister(onSuccess)}>
             <h5>Create a new account</h5>
             {mode === REGISTER &&
               <>

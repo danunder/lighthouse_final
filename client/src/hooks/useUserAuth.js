@@ -66,7 +66,7 @@ export default function useUserAuth (initial) {
   const reset = () => dispatch({type: RESET})
   
 
-  const handleSignIn = async () => {
+  const handleSignIn = async (onSuccess) => {
   
     const username = state.userName;
     const password = state.password
@@ -74,15 +74,17 @@ export default function useUserAuth (initial) {
     const response = await axios.post('http://localhost:3001/api/login', { username, password });
     // store the user in localStorage
     localStorage.setItem('user', JSON.stringify(response.data));
+    onSuccess()
     
   };
   
-  const handleRegister = async () => {
+  const handleRegister = async (onSuccess) => {
     
     const user = state
     const response = await axios.post('http://localhost:3001/api/signup', user);
     
-    localStorage.setItem('user', JSON.stringify(response.data.id));
+    localStorage.setItem('user', JSON.stringify(response.data));
+    onSuccess()
   };
 
   

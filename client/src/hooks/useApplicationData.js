@@ -3,24 +3,24 @@ import axios from 'axios';
 
 export default function useApplicationData(initial) {
   // defines actions for reducer function
-  const SET_USER_ID = 'SET_USER_ID';
-  const SET_USER_NAME = "SET_USER_NAME";
+  // const SET_USER_ID = 'SET_USER_ID';
+  // const SET_USER_NAME = "SET_USER_NAME";
   const SET_PLACE = 'SET_PLACE';
   const SET_PLACE_REVIEW_DATA = 'SET_PLACE_REVIEW_DATA';
   const SET_NEW_REVIEW = 'SET_NEW_REVIEW';
 
   function reducer(state, action) {
     switch (action.type) {
-      case SET_USER_ID:
-        return {
-          ...state,
-          userID: action.userID,
-        };
-      case SET_USER_NAME:
-        return {
-          ...state,
-          userName: action.userName,
-        };
+      // case SET_USER_ID:
+      //   return {
+      //     ...state,
+      //     userID: action.userID,
+      //   };
+      // case SET_USER_NAME:
+      //   return {
+      //     ...state,
+      //     userName: action.userName,
+      //   };
       case SET_PLACE:
         return {
           ...state,
@@ -46,16 +46,16 @@ export default function useApplicationData(initial) {
 
   // sets initial state for the application
   const [state, dispatch] = useReducer(reducer, {
-    userID: null,
-    userName: null,
+    // userID: null,
+    // userName: null,
     place: null,
     placeReviewData: [],
     newReview: null,
   });
 
   //helper functions to modify state
-  const setUserID = userID => dispatch({ type: 'SET_USER_ID', userID });
-  const setUserName = userName => dispatch({ type: 'SET_USER_NAME', userName });
+  // const setUserID = userID => dispatch({ type: 'SET_USER_ID', userID });
+  // const setUserName = userName => dispatch({ type: 'SET_USER_NAME', userName });
   const setPlace = place => dispatch({ type: 'SET_PLACE', place });
   const setPlaceReviewData = placeReviewData =>
     dispatch({ type: 'SET_PLACE_REVIEW_DATA', placeReviewData });
@@ -77,7 +77,7 @@ export default function useApplicationData(initial) {
   const postNewReview = async () => {
     const reviewData = {
       //localStorage.getItem(‘user’).id
-      user: localStorage.getItem('user'),
+      user: localStorage.getItem('user').userID,
       place: state.place,
       review: state.newReview,
     };
@@ -102,15 +102,22 @@ export default function useApplicationData(initial) {
     }
   }, [state.newReview]);
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem('user');
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-      const { userID, userName } = foundUser
-      setUserID(userID);
-      setUserName(userName);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const checkForUser = () => {
+  //     const loggedInUser = localStorage.getItem('user');
+  //     if (loggedInUser) {
+  //       const foundUser = JSON.parse(loggedInUser);
+  //       const { userID, userName } = foundUser
+  //       setUserID(userID);
+  //       setUserName(userName);
+  //     }
+  //   }
+  //   checkForUser()
+  //   window.addEventListener('storage', checkForUser())
 
-  return { state, setUserID, setUserName, setPlace, setPlaceReviewData, setNewReview };
+  //   return () => window.removeEventListener('storage', checkForUser())
+
+  // }, []);
+
+  return { state, setPlace, setPlaceReviewData, setNewReview };
 }
