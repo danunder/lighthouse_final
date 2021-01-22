@@ -10,6 +10,7 @@ export default function AddReview(props) {
         <Card.Link href='#'>
           <FaPlus size={50} onClick={props.onClick}/>
         </Card.Link>
+        <div></div>
       </Card.Body>
     </Card>
   );
