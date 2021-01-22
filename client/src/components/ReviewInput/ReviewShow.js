@@ -4,6 +4,8 @@ import StarRatingShow from '../StarRatingShow';
 // import Dislike from '../Dislike';
 // import PhotoCarousel from '../PhotoCarousel';
 
+import './styles.css'
+
 // The button needs fixing to work as a form submitter
 
 export default function ReviewShow(props) {
@@ -32,7 +34,7 @@ export default function ReviewShow(props) {
 
   return (
     <section className='card'>
-      <div className='card'>
+      <div className='card-show'>
         <h5 className='card-header'>{reviewData[0].user}'s review</h5>
         <button
           type='button'
