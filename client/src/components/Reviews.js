@@ -34,16 +34,22 @@ export default function Reviews(props) {
   const mapData = findPropertyReviews().map(data => {
     return (
       <Card style={{ width: '18rem' }} id={data.id} className='review-card'>
-        <Card.Body>
+        <Card.Body className='card-body'>
+          <div>
           <Card.Title>{data.user}</Card.Title>
           {/* <Card.Subtitle className='mb-2 text-muted'>5 Stars</Card.Subtitle> */}
           {[...Array(averageStarRating(data.tenancy_id))].map((e, index) => (
             <FaStar />
           ))}
+          </div>
+          <div>
           <Card.Text className='text'>{data.review.substr(0, 80)}</Card.Text>
+          </div>
+          <div>
           <Card.Link href='#' onClick={() => props.onClick(data.tenancy_id)} className='link'>
             View More
           </Card.Link>
+          </div>
         </Card.Body>
       </Card>
     );

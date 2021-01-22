@@ -16,7 +16,7 @@ export default function VisualModeBox(props) {
     width: '100%',
     position: 'absolute',
     // top: '60vh',
-    zIndex: '1',
+    zIndex: '20',
   };
 
   const LOG_IN = 'LOG_IN';
@@ -30,7 +30,7 @@ export default function VisualModeBox(props) {
   const SUBMIT_REVIEW = 'SUBMIT_REVIEW';
 
   // declare helper functions from hooks
-  const { mode, transition, back } = useVisualMode(LOG_IN);
+  const { mode, transition, back } = useVisualMode(SHOW_REVIEWS);
 
   const [tenancyID, setTenancyID] = useState();
 
