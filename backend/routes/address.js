@@ -85,6 +85,7 @@ module.exports = ({
           neighbourhoodReview
         );
       })
+      .then(fff => res.json(fff))
       .catch(e => e.message);
 
     // return db.query(insertCommentsQuery, values);
