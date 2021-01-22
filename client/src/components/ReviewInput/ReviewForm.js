@@ -5,7 +5,7 @@ import StarRating from '../StarRating';
 
 export default function ReviewForm(props) {
   return (
-    <section className='card'>
+    <section className='card-show'>
       <div className='card'>
         <h5 className='card-header'>Rate this {props.title}</h5>
         <div className='card-body'>
