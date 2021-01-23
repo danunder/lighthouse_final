@@ -79,17 +79,18 @@ export default function useUserAuth(initial) {
       // handles transition to next view
       onSuccess();
     } else {
-      console.log('NO PASS ', response);
       onError();
     }
   };
 
-  const handleRegister = async onSuccess => {
+  const handleRegister = async (onSuccess, onError) => {
     const user = state;
     const response = await axios.post('http://localhost:3001/api/signup', user);
     if (response.data.userName) {
       localStorage.setItem('user', JSON.stringify(response.data));
       onSuccess();
+    } else {
+      onError()
     }
   };
 
