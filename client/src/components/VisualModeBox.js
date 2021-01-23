@@ -61,7 +61,15 @@ export default function VisualModeBox(props) {
 
   return (
     <Container style={containerStyle}>
-      <Logout />
+      <Logout
+        transition={() => {
+          transition(SHOW_REVIEWS);
+          resetForm();
+        }}
+        transitionLogin={() => {
+          transition(LOG_IN);
+        }}
+      />
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
           data={props.reviewData}
