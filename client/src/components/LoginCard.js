@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useUserAuth from '../hooks/useUserAuth';
 import { Card, Form, Button } from 'react-bootstrap';
+import './ReviewInput/styles.css'
 
 export default function LoginCard(props) {
   const SELECT = 'SELECT';
@@ -22,7 +23,7 @@ export default function LoginCard(props) {
   const { onSuccess, onBack } = props;
 
   return (
-    <section className='card'>
+    <section className='card-show'>
       <div className='card'>
         <h5 className='card-header'>
           Sign in or register to continue adding your review
@@ -60,6 +61,7 @@ export default function LoginCard(props) {
               </>
             )}
           </Form>
+          <h4>or</h4>
           <br />
           <Form
             onClick={() => {
