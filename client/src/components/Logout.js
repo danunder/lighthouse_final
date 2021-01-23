@@ -10,7 +10,7 @@ export default function Logout(props) {
 
   return (
     <section className='logout-area'>
-      <Button variant='primary' className='logout-button' onClick={handleClick}>
+      <Button variant='primary' className='logout-button' size="sm" onClick={handleClick}>
         Logout
       </Button>
     </section>
