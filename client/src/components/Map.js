@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { Map, Marker, GoogleApiWrapper, InfoWindow } from 'google-maps-react';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -22,6 +22,14 @@ const inputStyles = {
   zIndex: '10',
 };
 
+const infoWindowStyles = {
+  position: 'absolute',
+  width: '40vw',
+  top: '30vw',
+  left: '30vw',
+  zIndex: '10',
+};
+
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +47,7 @@ export class MapContainer extends Component {
     };
   }
 
-  // onSelect = () => this.props.onSelect
+  
 
   handleChange = address => {
     this.setState({ address });
@@ -50,7 +58,7 @@ export class MapContainer extends Component {
     geocodeByAddress(address)
       .then(results => {
         // populates placeID
-        this.setState({ placeID: results[0].place_id });
+        this.setState({ placeID: results[0].place_id, selectedPlace: results[0] });
         return getLatLng(results[0]);
       })
 
@@ -68,6 +76,22 @@ export class MapContainer extends Component {
       })
       .catch(error => console.error('Error', error));
   };
+   onMarkerClick = (props, marker, e) =>
+    this.setState({
+      selectedPlace: props,
+      activeMarker: marker,
+      showingInfoWindow: true
+    });
+ 
+  onMapClicked = (props) => {
+    if (this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      })
+    }
+  };
+ 
 
   render() {
     return (
@@ -119,6 +143,7 @@ export class MapContainer extends Component {
         <Map
           google={this.props.google}
           zoom={18}
+          onClick={this.onMapClicked}
           initialCenter={{
             lat: this.state.mapCenter.lat,
             lng: this.state.mapCenter.lng,
@@ -130,7 +155,17 @@ export class MapContainer extends Component {
           defaultOptions={{ styles: mapStyles }}
           disableDefaultUI
         >
-          <Marker
+          <InfoWindow 
+            style={infoWindowStyles}
+          marker={this.state.activeMarker}
+          visible={this.state.showingInfoWindow}>
+            <div>
+              <h1>{this.state.selectedPlace.name}</h1>
+            </div>
+        </InfoWindow>
+         <Marker
+            onClick={this.onMarkerClick}
+            name={'Current Location'}
             position={{
               lat: this.state.mapCenter.lat,
               lng: this.state.mapCenter.lng,

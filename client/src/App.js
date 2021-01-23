@@ -19,11 +19,11 @@ function App() {
     <div className='App'>
       {/* <UserAuth /> */}
       <Map onSelect={setPlace}></Map>
-      <VisualModeBox
+      {/* <VisualModeBox
         selectedPlace={state.place}
         reviewData={state.placeReviewData}
         onSubmit={(val) => setNewReview(val)}
-      />
+      /> */}
     </div>
   );
 }

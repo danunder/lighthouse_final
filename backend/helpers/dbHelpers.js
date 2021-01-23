@@ -20,6 +20,30 @@ module.exports = db => {
       .catch(err => err);
   };
 
+  const getNeighbourhoodReviews = (lng, lat) => {
+    // convert latitude and longitude into a range. within 500m? slider?
+
+    // qquery to find
+    // reviews WHERE category neighbourhood WHERE lat BETWEEN this and this and 
+    
+    const query = {
+      text: `SELECT users.username AS user, tenancies.property_id AS propertyID, reviews.*
+      FROM categories
+      JOIN reviews ON categories.id = reviews.category_id
+      JOIN tenancies ON tenancies.id = reviews.tenancy_id
+      JOIN properties ON properties.id = tenancies.property_id
+      JOIN users ON users.id = tenancies.user_id
+      WHERE properties.longitude = $1
+      AND properties.latitude = $2;`,
+      values: [lng, lat],
+    };
+    return db
+      .query(query)
+      .then(result => result.rows)
+      .catch(err => err);
+  };
+
+
   const login = (username, password) => {
     const query = {
       text: `SELECT * FROM users where username = $1;`,
