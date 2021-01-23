@@ -5,6 +5,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 
+
 const mapStyles = {
   position: 'absolute',
   top: '0',

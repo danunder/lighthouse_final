@@ -22,6 +22,7 @@ export default function VisualModeBox(props) {
   };
 
   const LOG_IN = 'LOG_IN';
+  const LOG_IN_TO_REVIEW = 'LOG_IN_TO_REVIEW';
   // const CREATE_ACCOUNT = 'CREATE_ACCOUNT';
   const SHOW_REVIEWS = 'SHOW_REVIEWS';
   const SHOW_FULL_REVIEW = 'SHOW_FULL_REVIEW';
@@ -74,7 +75,7 @@ export default function VisualModeBox(props) {
         <Reviews
           data={props.reviewData}
           addNew={() =>
-            transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)
+            transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN_TO_REVIEW)
           }
           onClick={tenancyID => {
             setTenancyID(tenancyID);
@@ -93,7 +94,13 @@ export default function VisualModeBox(props) {
       )}
       {mode === LOG_IN && (
         <LoginCard
-          onSuccess={() => transition(CREATE_TENANCY, true)}
+          onSuccess={() => transition(SHOW_REVIEWS, true) }
+          onBack={() => back()}
+        />
+      )}
+       {mode === LOG_IN_TO_REVIEW && (
+        <LoginCard
+          onSuccess={() => transition(CREATE_TENANCY, true) }
           onBack={() => back()}
         />
       )}
