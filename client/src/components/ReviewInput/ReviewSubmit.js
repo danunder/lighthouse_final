@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import StarRatingShow from '../StarRatingShow';
+import './styles.css'
 
 export default function ReviewSubmit(props) {
   return (
-    <section className='card'>
+    <section className='card-show'>
       <div className='card'>
-        <h5 className='card-header'>
+        <h5 className='header'>
           Full Review - tenant lived here between {props.tenancyStartDate} and{' '}
           {props.tenancyEndDate}
         </h5>

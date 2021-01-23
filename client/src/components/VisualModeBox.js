@@ -22,6 +22,8 @@ export default function VisualModeBox(props) {
   };
 
   const LOG_IN = 'LOG_IN';
+  const LOG_IN_FROM_NAV = 'LOG_IN_FROM_NAV';
+  const LOG_IN_FROM_CREATE = 'LOG_IN_FROM_CREATE';
   // const CREATE_ACCOUNT = 'CREATE_ACCOUNT';
   const SHOW_REVIEWS = 'SHOW_REVIEWS';
   const SHOW_FULL_REVIEW = 'SHOW_FULL_REVIEW';
@@ -67,14 +69,14 @@ export default function VisualModeBox(props) {
           resetForm();
         }}
         transitionLogin={() => {
-          transition(LOG_IN);
+          transition(LOG_IN_FROM_NAV);
         }}
       />
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
           data={props.reviewData}
           addNew={() =>
-            transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)
+            transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN_FROM_CREATE)
           }
           onClick={tenancyID => {
             setTenancyID(tenancyID);
@@ -91,11 +93,17 @@ export default function VisualModeBox(props) {
           tenancyID={tenancyID}
         />
       )}
-      {mode === LOG_IN && (
+      {mode === LOG_IN_FROM_CREATE && (
         <LoginCard
-          onSuccess={() => transition(CREATE_TENANCY, true)}
-          onBack={() => back()}
-        />
+        onSuccess={() => transition(CREATE_TENANCY, true) }
+        onBack={() => back()}
+      />
+      )}
+      {mode === LOG_IN_FROM_NAV && (
+        <LoginCard
+        onSuccess={() => back() }
+        onBack={() => back()}
+      />
       )}
       {mode === CREATE_TENANCY && (
         <TenancyForm
