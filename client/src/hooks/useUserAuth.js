@@ -64,7 +64,7 @@ export default function useUserAuth(initial) {
   const setPassword = password => dispatch({ type: SET_PASSWORD, password });
   const reset = () => dispatch({ type: RESET });
 
-  const handleSignIn = async onSuccess => {
+  const handleSignIn = async (onSuccess, onError) => {
     const username = state.userName;
     const password = state.password;
     // send the username and password to the server
@@ -72,20 +72,25 @@ export default function useUserAuth(initial) {
       username,
       password,
     });
-    console.log('RESPONES ', response);
-    // store the user in localStorage
+    // console.log('RESPONES ', response.data);
     if (response.data.userName) {
+      console.log('PASS ', response.data);
       localStorage.setItem('user', JSON.stringify(response.data));
+      // handles transition to next view
       onSuccess();
+    } else {
+      onError();
     }
   };
 
-  const handleRegister = async onSuccess => {
+  const handleRegister = async (onSuccess, onError) => {
     const user = state;
     const response = await axios.post('http://localhost:3001/api/signup', user);
     if (response.data.userName) {
       localStorage.setItem('user', JSON.stringify(response.data));
       onSuccess();
+    } else {
+      onError()
     }
   };
 

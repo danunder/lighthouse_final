@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import useUserAuth from '../hooks/useUserAuth';
-import { Card, Form, Button } from 'react-bootstrap';
+import { Card, Form, Button, Alert } from 'react-bootstrap';
 import './ReviewInput/styles.css'
 
 export default function LoginCard(props) {
+
+  // render error message function
+
   const SELECT = 'SELECT';
   const SIGN_IN = 'SIGN_IN';
   const REGISTER = 'REGISTER';
   const [mode, setMode] = useState(SELECT);
+  const [error, setError] = useState(false);
+
   const {
     state,
     setFirstName,
@@ -22,18 +27,45 @@ export default function LoginCard(props) {
 
   const { onSuccess, onBack } = props;
 
+  // setTimeout(function(){ alert("Hello"); }, 3000);
+
+  const showError = () => {
+    if (error) {
+      return (
+        <div className="alert alert-danger">Incorrect username or password</div>
+      )
+    }
+  }
+
+  const onError = () => {
+    setError(true);
+    setTimeout(() => {
+      setError(false);
+    }, 3000);
+  }
+
   return (
     <section className='card-show'>
       <div className='card'>
-        <h5 className='card-header'>
-          Sign in or register to continue adding your review
-        </h5>
+
+      <div className='header'>
+        <h5 className='card-title'>{props.title}</h5>
+        <button
+          type='button'
+          className='close'
+          aria-label='Close'
+          onClick={props.onClose}
+        >
+          <span aria-hidden='true'>&times;</span>
+        </button>
+        </div>
         <div className='card-body'>
           <Form
             onClick={() => setMode(SIGN_IN)}
-            onSubmit={() => handleSignIn(onSuccess)}
+            onSubmit={() => handleSignIn(onSuccess, onError)}
           >
             <h5>Sign in to an existing account</h5>
+            {showError()}
             {mode === SIGN_IN && (
               <>
                 <Form.Group controlId='userName'>
