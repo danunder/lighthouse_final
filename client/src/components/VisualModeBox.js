@@ -5,16 +5,18 @@ import ReviewForm from './ReviewInput/ReviewForm';
 import ReviewShow from './ReviewInput/ReviewShow';
 import ReviewSubmit from './ReviewInput/ReviewSubmit';
 import LoginCard from './LoginCard';
-import UserAuth from './UserAuth';
+// import UserAuth from './UserAuth';
 import useVisualMode from '../hooks/useVisualMode';
 import useReviewBuilder from '../hooks/useReviewBuilder';
 import TenancyForm from './ReviewInput/TenancyForm';
+import Logout from '../components/Logout';
 
 export default function VisualModeBox(props) {
   // Keeps container overtop of map
   const containerStyle = {
     width: '100%',
     position: 'absolute',
+    // pointerEvents: 'none',
     // top: '60vh',
     // zIndex: '10',
   };
@@ -28,7 +30,6 @@ export default function VisualModeBox(props) {
   const CREATE_LANDLORD_REVIEW = 'CREATE_LANDLORD_REVIEW';
   const CREATE_NEIGHBOURHOOD_REVIEW = 'CREATE_NEIGHBOURHOOD_REVIEW';
   const SUBMIT_REVIEW = 'SUBMIT_REVIEW';
- 
 
   // declare helper functions from hooks
   const { mode, transition, back } = useVisualMode(SHOW_REVIEWS);
@@ -60,13 +61,12 @@ export default function VisualModeBox(props) {
 
   return (
     <Container style={containerStyle}>
+      <Logout />
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
           data={props.reviewData}
-          addNew={
-            () =>
-              transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)
-            
+          addNew={() =>
+            transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN)
           }
           onClick={tenancyID => {
             setTenancyID(tenancyID);
@@ -83,10 +83,12 @@ export default function VisualModeBox(props) {
           tenancyID={tenancyID}
         />
       )}
-      {mode === LOG_IN && <LoginCard
-        onSuccess={() => transition(CREATE_TENANCY, true)}
-        onBack={() => back()}
-      />}
+      {mode === LOG_IN && (
+        <LoginCard
+          onSuccess={() => transition(CREATE_TENANCY, true)}
+          onBack={() => back()}
+        />
+      )}
       {mode === CREATE_TENANCY && (
         <TenancyForm
           startDate={state.tenancyStartDate || ''}
@@ -103,7 +105,9 @@ export default function VisualModeBox(props) {
       {mode === CREATE_PROPERTY_REVIEW && (
         <ReviewForm
           title={'property'}
-          previewWarning={'The preview card will only display the first 80 characters... So make them catchy!'}
+          previewWarning={
+            'The preview card will only display the first 80 characters... So make them catchy!'
+          }
           rating={state.propertyRating || null}
           onRatingChange={value => setPropertyRating(value)}
           review={state.propertyReview || null}

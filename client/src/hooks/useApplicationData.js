@@ -71,17 +71,16 @@ export default function useApplicationData(initial) {
     ]).then(res => setPlaceReviewData(res[0].data));
   };
 
-   
   const postNewReview = async () => {
-    const user = JSON.parse(localStorage.getItem('user')).userID
+    const user = JSON.parse(localStorage.getItem('user')).userID;
     const reviewData = {
-      
       //localStorage.getItem(‘user’).id
       user: user,
       place: state.place,
       review: state.newReview,
     };
-    console.log(reviewData);
+    console.log('review data, ', reviewData);
+    // console.log(reviewData);
     await axios
       .post(`http://localhost:3001/api/review`, { reviewData })
       .then(res => {
@@ -103,19 +102,19 @@ export default function useApplicationData(initial) {
   }, [state.newReview]);
 
   // useEffect(() => {
-    // const checkForUser = () => {
-      // const loggedInUser = localStorage.getItem('user');
-      // if (loggedInUser) {
-      //   const foundUser = JSON.parse(loggedInUser);
-      //   const { userID, userName } = foundUser
-      //   setUserID(userID);
-      //   setUserName(userName);
-      // }
-    // }
-    // checkForUser()
-    // window.addEventListener('storage', checkForUser())
+  // const checkForUser = () => {
+  // const loggedInUser = localStorage.getItem('user');
+  // if (loggedInUser) {
+  //   const foundUser = JSON.parse(loggedInUser);
+  //   const { userID, userName } = foundUser
+  //   setUserID(userID);
+  //   setUserName(userName);
+  // }
+  // }
+  // checkForUser()
+  // window.addEventListener('storage', checkForUser())
 
-    // return () => window.removeEventListener('storage', checkForUser())
+  // return () => window.removeEventListener('storage', checkForUser())
 
   // }, []);
 

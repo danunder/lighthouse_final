@@ -1,0 +1,10 @@
+.logout-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.logout-button {
+  z-index: 50;
+  margin: 10px;
+}
