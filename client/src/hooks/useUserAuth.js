@@ -64,7 +64,7 @@ export default function useUserAuth(initial) {
   const setPassword = password => dispatch({ type: SET_PASSWORD, password });
   const reset = () => dispatch({ type: RESET });
 
-  const handleSignIn = async onSuccess => {
+  const handleSignIn = async (onSuccess, onError) => {
     const username = state.userName;
     const password = state.password;
     // send the username and password to the server
@@ -72,11 +72,14 @@ export default function useUserAuth(initial) {
       username,
       password,
     });
-    console.log('RESPONES ', response);
-    // store the user in localStorage
+    // console.log('RESPONES ', response.data);
     if (response.data.userName) {
+      console.log('PASS ', response.data);
       localStorage.setItem('user', JSON.stringify(response.data));
+      // handles transition to next view
       onSuccess();
+    } else {
+      console.log('NO PASS ', response);
     }
   };
 

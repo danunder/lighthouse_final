@@ -4,10 +4,15 @@ import { Card, Form, Button } from 'react-bootstrap';
 import './ReviewInput/styles.css'
 
 export default function LoginCard(props) {
+
+  // render error message function
+
   const SELECT = 'SELECT';
   const SIGN_IN = 'SIGN_IN';
   const REGISTER = 'REGISTER';
   const [mode, setMode] = useState(SELECT);
+  const [error, setError] = useState(null);
+
   const {
     state,
     setFirstName,
@@ -22,20 +27,32 @@ export default function LoginCard(props) {
 
   const { onSuccess, onBack } = props;
 
+  const onError = (error) => setError(error)
+
   return (
     <section className='card-show'>
       <div className='card'>
-        <h5 className='card-header'>
-          Sign in or register to continue adding your review
-        </h5>
+
+      <div className='header'>
+        <h5 className='card-title'>{props.title}</h5>
+        <button
+          type='button'
+          className='close'
+          aria-label='Close'
+          onClick={props.onClose}
+        >
+          <span aria-hidden='true'>&times;</span>
+        </button>
+        </div>
         <div className='card-body'>
           <Form
             onClick={() => setMode(SIGN_IN)}
-            onSubmit={() => handleSignIn(onSuccess)}
+            onSubmit={() => handleSignIn(onSuccess, onError)}
           >
             <h5>Sign in to an existing account</h5>
             {mode === SIGN_IN && (
               <>
+                {error && <p>{error}</p>}
                 <Form.Group controlId='userName'>
                   <Form.Label>Username</Form.Label>
                   <Form.Control

@@ -69,14 +69,14 @@ export default function VisualModeBox(props) {
           resetForm();
         }}
         transitionLogin={() => {
-          transition(LOG_IN_FROM_NAV);
+          transition(LOG_IN_FROM_NAV, true);
         }}
       />
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
           data={props.reviewData}
           addNew={() =>
-            transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN_FROM_CREATE)
+            transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN_FROM_CREATE, true)
           }
           onClick={tenancyID => {
             setTenancyID(tenancyID);
@@ -95,14 +95,18 @@ export default function VisualModeBox(props) {
       )}
       {mode === LOG_IN_FROM_CREATE && (
         <LoginCard
+        title={'Please login to write a review'}
         onSuccess={() => transition(CREATE_TENANCY, true) }
         onBack={() => back()}
+        onClose={() => back()}
       />
       )}
       {mode === LOG_IN_FROM_NAV && (
         <LoginCard
+        title={'Login or Register'}
         onSuccess={() => back() }
         onBack={() => back()}
+        onClose={() => back()}
       />
       )}
       {mode === CREATE_TENANCY && (
