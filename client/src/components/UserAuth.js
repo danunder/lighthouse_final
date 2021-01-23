@@ -15,14 +15,14 @@
 //     }
 //   }, []);
 //   // logout the user
-//   const handleLogout = () => {
-//     setUser('');
-//     setUsername('');
-//     setPassword('');
-//     singU('');
-//     singP('');
-//     localStorage.clear();
-//   };
+// const handleLogout = () => {
+//   setUser('');
+//   setUsername('');
+//   setPassword('');
+//   singU('');
+//   singP('');
+//   localStorage.clear();
+// };
 //   // login the user
 //   const handleSubmit = async e => {
 //     e.preventDefault();

@@ -8,12 +8,7 @@ import VisualModeBox from './components/VisualModeBox';
 import UserAuth from './components/UserAuth';
 
 function App() {
-  const {
-    state,
-    setPlace,
-    setNewReview
-  }
-    = useApplicationData();
+  const { state, setPlace, setNewReview } = useApplicationData();
 
   return (
     <div className='App'>
@@ -22,7 +17,7 @@ function App() {
       <VisualModeBox
         selectedPlace={state.place}
         reviewData={state.placeReviewData}
-        onSubmit={(val) => setNewReview(val)}
+        onSubmit={val => setNewReview(val)}
       />
     </div>
   );

@@ -5,16 +5,18 @@ import ReviewForm from './ReviewInput/ReviewForm';
 import ReviewShow from './ReviewInput/ReviewShow';
 import ReviewSubmit from './ReviewInput/ReviewSubmit';
 import LoginCard from './LoginCard';
-import UserAuth from './UserAuth';
+// import UserAuth from './UserAuth';
 import useVisualMode from '../hooks/useVisualMode';
 import useReviewBuilder from '../hooks/useReviewBuilder';
 import TenancyForm from './ReviewInput/TenancyForm';
+import Logout from '../components/Logout';
 
 export default function VisualModeBox(props) {
   // Keeps container overtop of map
   const containerStyle = {
     width: '100%',
     position: 'absolute',
+    // pointerEvents: 'none',
     // top: '60vh',
     // zIndex: '10',
   };
@@ -59,6 +61,12 @@ export default function VisualModeBox(props) {
 
   return (
     <Container style={containerStyle}>
+      <Logout
+        transition={() => {
+          transition(SHOW_REVIEWS);
+          resetForm();
+        }}
+      />
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
           data={props.reviewData}
