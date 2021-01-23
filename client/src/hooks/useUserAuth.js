@@ -80,6 +80,7 @@ export default function useUserAuth(initial) {
       onSuccess();
     } else {
       console.log('NO PASS ', response);
+      onError();
     }
   };
 

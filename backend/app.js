@@ -27,9 +27,9 @@ app.use(
 app.use('/api/', address(dbHelpers));
 
 // maybe?? default error handling
-app.use(function (err, req, res, next) {
-  console.error(err.stack)
-  res.status(500).send(err)
-})
+// app.use(function (err, req, res, next) {
+//   console.error(err.stack)
+//   res.status(500).send(err)
+// })
 
 module.exports = app;

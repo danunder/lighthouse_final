@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useUserAuth from '../hooks/useUserAuth';
-import { Card, Form, Button } from 'react-bootstrap';
+import { Card, Form, Button, Alert } from 'react-bootstrap';
 import './ReviewInput/styles.css'
 
 export default function LoginCard(props) {
@@ -11,7 +11,7 @@ export default function LoginCard(props) {
   const SIGN_IN = 'SIGN_IN';
   const REGISTER = 'REGISTER';
   const [mode, setMode] = useState(SELECT);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
 
   const {
     state,
@@ -27,7 +27,22 @@ export default function LoginCard(props) {
 
   const { onSuccess, onBack } = props;
 
-  const onError = (error) => setError(error)
+  // setTimeout(function(){ alert("Hello"); }, 3000);
+
+  const showError = () => {
+    if (error) {
+      return (
+        <div className="alert alert-danger">Incorrect username or password</div>
+      )
+    }
+  }
+
+  const onError = () => {
+    setError(true);
+    setTimeout(() => {
+      setError(false);
+    }, 3000);
+  }
 
   return (
     <section className='card-show'>
@@ -50,9 +65,9 @@ export default function LoginCard(props) {
             onSubmit={() => handleSignIn(onSuccess, onError)}
           >
             <h5>Sign in to an existing account</h5>
+            {showError()}
             {mode === SIGN_IN && (
               <>
-                {error && <p>{error}</p>}
                 <Form.Group controlId='userName'>
                   <Form.Label>Username</Form.Label>
                   <Form.Control
