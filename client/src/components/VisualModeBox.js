@@ -61,6 +61,14 @@ export default function VisualModeBox(props) {
     setNeighbourhoodReview('');
   };
 
+  const verify = (rating, review, mode) => {
+    if (!rating || review === "") {
+      console.log('y no rating or review?');
+    } else {
+      transition(mode)
+    }
+  };
+
   return (
     <Container style={containerStyle}>
       <Logout
@@ -132,7 +140,7 @@ export default function VisualModeBox(props) {
           onRatingChange={value => setPropertyRating(value)}
           review={state.propertyReview || null}
           onChange={value => setPropertyReview(value)}
-          onNext={() => transition(CREATE_LANDLORD_REVIEW)}
+          onNext={() => verify(state.propertyRating, state.propertyReview, CREATE_LANDLORD_REVIEW)}
           onBack={() => back()}
         />
       )}
@@ -143,7 +151,7 @@ export default function VisualModeBox(props) {
           onRatingChange={value => setLandlordRating(value)}
           review={state.landlordReview || null}
           onChange={value => setLandlordReview(value)}
-          onNext={() => transition(CREATE_NEIGHBOURHOOD_REVIEW)}
+          onNext={() => verify(state.landlordRating, state.landlordReview, CREATE_NEIGHBOURHOOD_REVIEW)}
           onBack={() => back()}
         />
       )}
@@ -154,7 +162,7 @@ export default function VisualModeBox(props) {
           onRatingChange={value => setNeighbourhoodRating(value)}
           review={state.neighbourhoodReview || null}
           onChange={value => setNeighbourhoodReview(value)}
-          onNext={() => transition(SUBMIT_REVIEW)}
+          onNext={() => verify(state.neighbourhoodRating, state.neighbourhoodReview, SUBMIT_REVIEW)}
           onBack={() => back()}
         />
       )}

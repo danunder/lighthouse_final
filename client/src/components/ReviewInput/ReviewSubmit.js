@@ -14,7 +14,7 @@ export default function ReviewSubmit(props) {
         </h5>
         <div className='card-body'>
           <div className='property-review'>
-            <h5>Property Review {checkDate()}</h5>
+            <h5>Property Review</h5>
             <StarRatingShow rating={props.propertyRating} />
             <p>{props.propertyReview}</p>
           </div>
