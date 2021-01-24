@@ -31,15 +31,20 @@ export default function Reviews(props) {
     return averageRating;
   };
 
-  const mapData = findPropertyReviews().map(data => {
+  const mapData = findPropertyReviews().map((data, i) => {
     return (
-      <Card style={{ width: '18rem' }} id={data.id} className='review-card'>
+      <Card
+        style={{ width: '18rem' }}
+        id={data.id}
+        className='review-card'
+        key={i}
+      >
         <Card.Body className='card-body'>
           <div>
             <Card.Title>{data.user}</Card.Title>
             {/* <Card.Subtitle className='mb-2 text-muted'>5 Stars</Card.Subtitle> */}
             {[...Array(averageStarRating(data.tenancy_id))].map((e, index) => (
-              <FaStar />
+              <FaStar key={index} />
             ))}
           </div>
           <div>

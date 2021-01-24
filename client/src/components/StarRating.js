@@ -11,17 +11,18 @@ export default function StarRating(props) {
       {[...Array(5)].map((star, i) => {
         const ratingValue = i + 1;
         return (
-          <label>
+          <label key={i}>
             <input
               type='radio'
               name='rating'
               value={ratingValue}
               onClick={() => {
                 setRating(ratingValue);
-                props.onRatingClick(ratingValue)
+                props.onRatingClick(ratingValue);
               }}
             />
             <FaStar
+              key={i}
               className='star'
               color={
                 ratingValue <= (hover || rating)
