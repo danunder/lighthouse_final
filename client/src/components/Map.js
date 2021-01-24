@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { Map, Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -23,6 +23,8 @@ const inputStyles = {
   zIndex: '10',
 };
 
+
+
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
@@ -30,18 +32,43 @@ export class MapContainer extends Component {
       // for google map places autocomplete
       address: '',
       showingInfoWindow: true,
+      displayName: '',
       activeMarker: {},
       selectedPlace: {},
       placeID: '',
       mapCenter: {
-        lat: 49.2827291,
-        lng: -123.1207375,
+        lat: 43.644175,
+        lng: -79.402204,
       },
+      
     };
   }
 
-  // onSelect = () => this.props.onSelect
+  getStreetViewURL = () => {
+    return `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${this.state.mapCenter.lat},${this.state.mapCenter.lng}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
 
+  }
+
+  onMarkerClick = (props, marker) =>
+    this.setState({
+      activeMarker: marker,
+      selectedPlace: props,
+      showingInfoWindow: true
+    });
+
+  onInfoWindowClose = () =>
+    this.setState({
+      activeMarker: null,
+      showingInfoWindow: false
+    });
+
+  onMapClicked = () => {
+    if (this.state.showingInfoWindow)
+      this.setState({
+        activeMarker: null,
+        showingInfoWindow: false
+      });
+  }
   handleChange = address => {
     this.setState({ address });
   };
@@ -51,7 +78,10 @@ export class MapContainer extends Component {
     geocodeByAddress(address)
       .then(results => {
         // populates placeID
-        this.setState({ placeID: results[0].place_id });
+        this.setState({
+          selectedPlace: results[0],
+          placeID: results[0].place_id
+        });
         return getLatLng(results[0]);
       })
 
@@ -65,7 +95,10 @@ export class MapContainer extends Component {
           placeID: this.state.placeID,
         });
         // update center state
-        this.setState({ mapCenter: latLng });
+        this.setState({
+          displayName: address,
+          mapCenter: latLng
+        });
       })
       .catch(error => console.error('Error', error));
   };
@@ -118,7 +151,9 @@ export class MapContainer extends Component {
           )}
         </PlacesAutocomplete>
         <Map
+          className="map"
           google={this.props.google}
+          onClick={this.onMapClicked}
           zoom={18}
           initialCenter={{
             lat: this.state.mapCenter.lat,
@@ -137,6 +172,20 @@ export class MapContainer extends Component {
               lng: this.state.mapCenter.lng,
             }}
           />
+          {this.state.address && <InfoWindow
+            position={this.state.mapCenter}
+            onClose={this.onInfoWindowClose}
+            visible={this.state.showingInfoWindow}
+          >
+            <div>
+              <h4>{this.state.displayName}</h4>
+              <img
+                src={this.getStreetViewURL()}
+                alt={"Google Streetview"}
+                />
+            </div>
+          </InfoWindow>}
+            
         </Map>
       </div>
     );
