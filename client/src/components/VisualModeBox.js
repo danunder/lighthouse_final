@@ -21,7 +21,6 @@ export default function VisualModeBox(props) {
     // zIndex: '10',
   };
 
-  const LOG_IN = 'LOG_IN';
   const LOG_IN_FROM_NAV = 'LOG_IN_FROM_NAV';
   const LOG_IN_FROM_CREATE = 'LOG_IN_FROM_CREATE';
   // const CREATE_ACCOUNT = 'CREATE_ACCOUNT';
