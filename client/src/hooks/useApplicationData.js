@@ -7,6 +7,7 @@ export default function useApplicationData(initial) {
   // const SET_USER_NAME = "SET_USER_NAME";
   const SET_PLACE = 'SET_PLACE';
   const SET_PLACE_REVIEW_DATA = 'SET_PLACE_REVIEW_DATA';
+  const SET_NEIGHBOURHOOD_REVIEW_DATA = 'SET_NEIGHBOURHOOD_REVIEW_DATA'
   const SET_NEW_REVIEW = 'SET_NEW_REVIEW';
 
   function reducer(state, action) {
@@ -31,6 +32,11 @@ export default function useApplicationData(initial) {
           ...state,
           placeReviewData: action.placeReviewData,
         };
+      case SET_NEIGHBOURHOOD_REVIEW_DATA:
+        return {
+          ...state,
+          neighbourhoodReviewData: action.neighbourhoodReviewData,
+        };
       case SET_NEW_REVIEW:
         return {
           ...state,
@@ -50,6 +56,7 @@ export default function useApplicationData(initial) {
     // userName: null,
     place: null,
     placeReviewData: [],
+    neighbourhoodReviewData: [],
     newReview: null,
   });
 
@@ -59,6 +66,8 @@ export default function useApplicationData(initial) {
   const setPlace = place => dispatch({ type: 'SET_PLACE', place });
   const setPlaceReviewData = placeReviewData =>
     dispatch({ type: 'SET_PLACE_REVIEW_DATA', placeReviewData });
+  const setNeighbourhoodReviewData = neighbourhoodReviewData =>
+    dispatch({ type: 'SET_NEIGHBOURHOOD_REVIEW_DATA', neighbourhoodReviewData });
   const setNewReview = newReview =>
     dispatch({ type: 'SET_NEW_REVIEW', newReview });
 
@@ -68,7 +77,11 @@ export default function useApplicationData(initial) {
     const lng = parseFloat(state.place.latLng.lng).toFixed(5);
     Promise.all([
       axios.get(`http://localhost:3001/api/${lat}/${lng}`),
-    ]).then(res => setPlaceReviewData(res[0].data[0]));
+    ]).then(res => {
+      console.log(res[0].data);
+      setPlaceReviewData(res[0].data[0]);
+      setNeighbourhoodReviewData(res[0].data[1])
+    });
   };
 
   const postNewReview = async () => {
