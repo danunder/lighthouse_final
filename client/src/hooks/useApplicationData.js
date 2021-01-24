@@ -68,7 +68,7 @@ export default function useApplicationData(initial) {
     const lng = parseFloat(state.place.latLng.lng).toFixed(5);
     Promise.all([
       axios.get(`http://localhost:3001/api/${lat}/${lng}`),
-    ]).then(res => setPlaceReviewData(res[0].data));
+    ]).then(res => setPlaceReviewData(res[0].data[0]));
   };
 
   const postNewReview = async () => {

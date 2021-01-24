@@ -17,7 +17,7 @@ function App() {
       <Map
         onSelect={setPlace}>
         </Map>
-      <Logout />
+      
       <VisualModeBox
         selectedPlace={state.place}
         reviewData={state.placeReviewData}
