@@ -61,11 +61,34 @@ export default function VisualModeBox(props) {
     setNeighbourhoodReview('');
   };
 
-  const verify = (rating, review, mode) => {
+  // verifies that the review and rating are not empty on next
+  const validateReview = (rating, review, mode) => {
     if (!rating || review === "") {
       console.log('y no rating or review?');
     } else {
       transition(mode)
+    }
+  };
+  
+  // verifies that the dates check out (lines 74 to)
+  const validateDate = () => {
+    const months = ["buffer", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const currentYear = Math.floor((new Date()).toString().split(' ')[3]);
+    const currentMonth = months.indexOf((new Date()).toString().split(' ')[1]);
+    const startYear = Math.floor((state.tenancyStartDate).split('-')[0]);
+    const startMonth = Math.floor((state.tenancyStartDate).split('-')[1]);
+    const endYear = Math.floor((state.tenancyEndDate).split('-')[0]);
+    const endMonth = Math.floor((state.tenancyEndDate).split('-')[1]);
+    // verifies that moving out date doesn't surpass present date
+    if (!startYear || !startMonth || !endYear || !endMonth) {
+      console.log('cannot be empty');
+    } else if (endYear >= currentYear && endMonth > currentMonth) {
+      console.log("Move out date cannot be set in the future");
+    // verifies that moving in date doesn't surpass moving out date
+    } else if (startYear >= endYear && startMonth > endMonth) {
+      console.log("You are a time traveler! You moved out of your flat before you even moved in!");
+    } else {
+      transition(CREATE_PROPERTY_REVIEW)
     }
   };
 
@@ -123,7 +146,7 @@ export default function VisualModeBox(props) {
           endDate={state.tenancyEndDate || ''}
           onStartChange={value => setTenancyStartDate(value)}
           onEndChange={value => setTenancyEndDate(value)}
-          onNext={() => transition(CREATE_PROPERTY_REVIEW)}
+          onNext={() => validateDate()}
           onBack={() => {
             back();
             resetForm();
@@ -140,7 +163,7 @@ export default function VisualModeBox(props) {
           onRatingChange={value => setPropertyRating(value)}
           review={state.propertyReview || null}
           onChange={value => setPropertyReview(value)}
-          onNext={() => verify(state.propertyRating, state.propertyReview, CREATE_LANDLORD_REVIEW)}
+          onNext={() => validateReview(state.propertyRating, state.propertyReview, CREATE_LANDLORD_REVIEW)}
           onBack={() => back()}
         />
       )}
@@ -151,7 +174,7 @@ export default function VisualModeBox(props) {
           onRatingChange={value => setLandlordRating(value)}
           review={state.landlordReview || null}
           onChange={value => setLandlordReview(value)}
-          onNext={() => verify(state.landlordRating, state.landlordReview, CREATE_NEIGHBOURHOOD_REVIEW)}
+          onNext={() => validateReview(state.landlordRating, state.landlordReview, CREATE_NEIGHBOURHOOD_REVIEW)}
           onBack={() => back()}
         />
       )}
@@ -162,7 +185,7 @@ export default function VisualModeBox(props) {
           onRatingChange={value => setNeighbourhoodRating(value)}
           review={state.neighbourhoodReview || null}
           onChange={value => setNeighbourhoodReview(value)}
-          onNext={() => verify(state.neighbourhoodRating, state.neighbourhoodReview, SUBMIT_REVIEW)}
+          onNext={() => validateReview(state.neighbourhoodRating, state.neighbourhoodReview, SUBMIT_REVIEW)}
           onBack={() => back()}
         />
       )}
