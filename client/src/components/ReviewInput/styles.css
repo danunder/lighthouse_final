@@ -27,6 +27,10 @@
   /* padding-left: 50%; */
 }
 
+.form-control {
+  margin-bottom: 10px;
+}
+
 h5 {
   font-size: large;
 }

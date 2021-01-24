@@ -8,7 +8,8 @@ export default function TenancyForm(props) {
     <section className='card-show'>
       <div className='card'>
         <h5 className='card-header'>When did you live here?</h5>
-        <div className='card-body'>          
+        <div className='card-body'>
+          <h5>Moved in on:</h5>      
           <div className='form-group'>
             <input
               className="form-control"
@@ -16,6 +17,7 @@ export default function TenancyForm(props) {
               value={props.startDate}
               id="tenancy-start-date"
               onChange={e => props.onStartChange(e.target.value)} />
+              <h5>Moved out on:</h5>
             <input
               className="form-control"
               type="month"
