@@ -64,13 +64,13 @@ export default function VisualModeBox(props) {
   // verifies that the review and rating are not empty on next
   const validateReview = (rating, review, mode) => {
     if (!rating || review === "") {
-      console.log('y no rating or review?');
+      return "missing field";
     } else {
       transition(mode)
     }
   };
   
-  // verifies that the dates check out (lines 74 to)
+  // verifies that the dates check out
   const validateDate = () => {
     const months = ["buffer", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     const currentYear = Math.floor((new Date()).toString().split(' ')[3]);
@@ -79,16 +79,18 @@ export default function VisualModeBox(props) {
     const startMonth = Math.floor((state.tenancyStartDate).split('-')[1]);
     const endYear = Math.floor((state.tenancyEndDate).split('-')[0]);
     const endMonth = Math.floor((state.tenancyEndDate).split('-')[1]);
-    // verifies that moving out date doesn't surpass present date
+
     if (!startYear || !startMonth || !endYear || !endMonth) {
-      console.log('cannot be empty');
+      return "missing field";
+
     } else if (endYear >= currentYear && endMonth > currentMonth) {
-      console.log("Move out date cannot be set in the future");
-    // verifies that moving in date doesn't surpass moving out date
+      return "future date";
+
     } else if (startYear >= endYear && startMonth > endMonth) {
-      console.log("You are a time traveler! You moved out of your flat before you even moved in!");
+      return "time travel";
+
     } else {
-      transition(CREATE_PROPERTY_REVIEW)
+      transition(CREATE_PROPERTY_REVIEW);
     }
   };
 
@@ -208,10 +210,6 @@ export default function VisualModeBox(props) {
           buttonName={'Submit'}
         />
       )}
-      {/* {mode === SHOW_FULL_REVIEW && (
-        <ReviewShow onClose={() => transition(SHOW_REVIEWS)} />
-      )} */}
-      {/* {mode === LOG_IN && <UserAuth />} */}
     </Container>
   );
 }

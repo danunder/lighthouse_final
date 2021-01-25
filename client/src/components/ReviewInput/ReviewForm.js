@@ -4,6 +4,13 @@ import StarRating from '../StarRating';
 // The button needs fixing to work as a form submitter
 
 export default function ReviewForm(props) {
+
+  const errorMessage = () => {
+    if (props.onNext === "missing field") {
+      return <p>hello</p>
+    }
+  }
+
   return (
     <section className='card-show'>
       <div className='card'>
@@ -12,6 +19,7 @@ export default function ReviewForm(props) {
           <StarRating
             onRatingClick={props.onRatingChange}
             rating={props.rating}/>
+            {errorMessage()}
           <div className='form-group'>
             <p>{props.previewWarning}</p>
             <input
