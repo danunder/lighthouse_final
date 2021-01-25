@@ -70,13 +70,12 @@ export default function VisualModeBox(props) {
     <Container style={containerStyle}>
       <Logout
         style={childStyle}
-        transition={() => {
+        onLogout={() => {
           transition(SHOW_REVIEWS);
           resetForm();
         }}
-        transitionLogin={() => {
-          transition(LOG_IN_FROM_NAV);
-        }}
+        onLogin={() => mode === LOG_IN_FROM_NAV? null :   transition(LOG_IN_FROM_NAV)
+        }
       />
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
