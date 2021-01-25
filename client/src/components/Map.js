@@ -41,7 +41,7 @@ export class MapContainer extends Component {
   }
 
   getStreetViewURL = () => {
-    return `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${this.state.mapCenter.lat},${this.state.mapCenter.lng}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+    return `https://maps.googleapis.com/maps/api/streetview?size=400x200&location=${this.state.mapCenter.lat},${this.state.mapCenter.lng}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
   };
 
   onMarkerClick = (props, marker) =>
@@ -168,18 +168,18 @@ export class MapContainer extends Component {
               lng: this.state.mapCenter.lng,
             }}
           />
-          {/* {this.state.address && (
-            // <InfoWindow
-            //   position={this.state.mapCenter}
-            //   onClose={this.onInfoWindowClose}
-            //   visible={this.state.showingInfoWindow}
-            // >
-            //   <div>
-            //     <h4>{this.state.displayName}</h4>
-            //     <img src={this.getStreetViewURL()} alt={'Google Streetview'} />
-            //   </div>
-            // </InfoWindow>
-          )} */}
+          {this.state.address && (
+            <InfoWindow
+              position={this.state.mapCenter}
+              onClose={this.onInfoWindowClose}
+              visible={this.state.showingInfoWindow}
+            >
+              <div>
+                <h4>{this.state.displayName}</h4>
+                <img src={this.getStreetViewURL()} alt={'Google Streetview'} />
+              </div>
+            </InfoWindow>
+          )}
         </Map>
       </div>
     );

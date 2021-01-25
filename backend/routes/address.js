@@ -4,6 +4,7 @@ const cookieSession = require('cookie-session');
 
 module.exports = ({
   getReviews,
+  getNeighbourhoodReviews,
   login,
   checkUsername,
   findPropertyID,
@@ -15,8 +16,10 @@ module.exports = ({
   router.get('/:lat/:lng', (req, res) => {
     const lng = req.params.lng;
     const lat = req.params.lat;
-    getReviews(lng, lat)
-      .then(aa => res.json(aa))
+    return Promise.all([
+      getReviews(lng, lat),
+      getNeighbourhoodReviews(lng, lat)
+    ]) .then(aa => res.json(aa))
       .catch(e => console.log('Backend error', e.message));
   });
   router.post('/login', (req, res) => {
