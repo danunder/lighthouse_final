@@ -69,32 +69,7 @@ export default function VisualModeBox(props) {
     }
   };
   
-  // verifies that the dates check out
-  const validateDate = () => {
-    const months = ["buffer", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    const currentYear = Math.floor((new Date()).toString().split(' ')[3]);
-    const currentMonth = months.indexOf((new Date()).toString().split(' ')[1]);
-    const startYear = Math.floor((state.tenancyStartDate).split('-')[0]);
-    const startMonth = Math.floor((state.tenancyStartDate).split('-')[1]);
-    const endYear = Math.floor((state.tenancyEndDate).split('-')[0]);
-    const endMonth = Math.floor((state.tenancyEndDate).split('-')[1]);
-
-    if (!startYear || !startMonth || !endYear || !endMonth) {
-      return "missing field";
-
-    } else if (endYear > currentYear) {
-      return "future date";
-      
-    } else if (endYear >= currentYear && endMonth > currentMonth) {
-      return "future date";
-
-    } else if (startYear >= endYear && startMonth > endMonth) {
-      return "time travel";
-
-    } else {
-      transition(CREATE_PROPERTY_REVIEW);
-    }
-  };
+  
 
   return (
     <Container style={containerStyle}>
@@ -153,7 +128,7 @@ export default function VisualModeBox(props) {
           endDate={state.tenancyEndDate || ''}
           onStartChange={value => setTenancyStartDate(value)}
           onEndChange={value => setTenancyEndDate(value)}
-          onNext={() => validateDate()}
+          onNext={() => transition(CREATE_PROPERTY_REVIEW)}
           onBack={() => {
             back();
             resetForm();

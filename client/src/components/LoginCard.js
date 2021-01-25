@@ -44,7 +44,6 @@ export default function LoginCard(props) {
     }, 3000);
   };
 
-  // What if: create error array, and when error exists inside arr, make error message appear on setTimeout 3s.
 
   const onRegisterError = () => {
     if (!state.firstName || !state.lastName) {
