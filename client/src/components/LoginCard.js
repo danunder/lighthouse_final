@@ -96,7 +96,7 @@ export default function LoginCard(props) {
             onClick={() => {
               setMode(REGISTER);
             }}
-            onSubmit={() => handleRegister(onSuccess)}
+            onSubmit={() => handleRegister(onSuccess, onError)}
           >
             <h5>Create a new account</h5>
             {mode === REGISTER && (

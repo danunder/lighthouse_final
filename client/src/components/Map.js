@@ -41,7 +41,7 @@ export class MapContainer extends Component {
   }
 
   getStreetViewURL = () => {
-    return `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${this.state.mapCenter.lat},${this.state.mapCenter.lng}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+    return `https://maps.googleapis.com/maps/api/streetview?size=400x200&location=${this.state.mapCenter.lat},${this.state.mapCenter.lng}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
   };
 
   onMarkerClick = (props, marker) =>
@@ -147,7 +147,6 @@ export class MapContainer extends Component {
           )}
         </PlacesAutocomplete>
         <Map
-          className='map'
           google={this.props.google}
           onClick={this.onMapClicked}
           zoom={18}
@@ -170,6 +169,7 @@ export class MapContainer extends Component {
           />
           {this.state.address && (
             <InfoWindow
+              className='info-window'
               position={this.state.mapCenter}
               onClose={this.onInfoWindowClose}
               visible={this.state.showingInfoWindow}
