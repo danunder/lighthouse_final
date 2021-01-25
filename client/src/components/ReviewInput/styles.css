@@ -14,7 +14,7 @@
 
 .header {
   display: flex;
- justify-content: space-between;
+ justify-content: center;
  background-color: rgba(0,0,0,.03);
  border-bottom: 1px solid rgba(0,0,0,.125);
  padding: 10px;
