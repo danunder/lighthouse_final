@@ -5,7 +5,6 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 
-
 const mapStyles = {
   position: 'absolute',
   top: '0',
@@ -23,8 +22,6 @@ const inputStyles = {
   zIndex: '10',
 };
 
-
-
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
@@ -40,35 +37,33 @@ export class MapContainer extends Component {
         lat: 43.644175,
         lng: -79.402204,
       },
-      
     };
   }
 
   getStreetViewURL = () => {
-    return `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${this.state.mapCenter.lat},${this.state.mapCenter.lng}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
-
-  }
+    return `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${this.state.mapCenter.lat},${this.state.mapCenter.lng}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`;
+  };
 
   onMarkerClick = (props, marker) =>
     this.setState({
       activeMarker: marker,
       selectedPlace: props,
-      showingInfoWindow: true
+      showingInfoWindow: true,
     });
 
   onInfoWindowClose = () =>
     this.setState({
       activeMarker: null,
-      showingInfoWindow: false
+      showingInfoWindow: false,
     });
 
   onMapClicked = () => {
     if (this.state.showingInfoWindow)
       this.setState({
         activeMarker: null,
-        showingInfoWindow: false
+        showingInfoWindow: false,
       });
-  }
+  };
   handleChange = address => {
     this.setState({ address });
   };
@@ -80,7 +75,7 @@ export class MapContainer extends Component {
         // populates placeID
         this.setState({
           selectedPlace: results[0],
-          placeID: results[0].place_id
+          placeID: results[0].place_id,
         });
         return getLatLng(results[0]);
       })
@@ -97,7 +92,7 @@ export class MapContainer extends Component {
         // update center state
         this.setState({
           displayName: address,
-          mapCenter: latLng
+          mapCenter: latLng,
         });
       })
       .catch(error => console.error('Error', error));
@@ -127,7 +122,7 @@ export class MapContainer extends Component {
               />
               <div className='autocomplete-dropdown-container'>
                 {loading && <div>Loading...</div>}
-                {suggestions.map(suggestion => {
+                {suggestions.map((suggestion, index) => {
                   const className = suggestion.active
                     ? 'suggestion-item--active'
                     : 'suggestion-item';
@@ -141,6 +136,7 @@ export class MapContainer extends Component {
                         className,
                         style,
                       })}
+                      key={index}
                     >
                       <span>{suggestion.description}</span>
                     </div>
@@ -151,7 +147,7 @@ export class MapContainer extends Component {
           )}
         </PlacesAutocomplete>
         <Map
-          className="map"
+          className='map'
           google={this.props.google}
           onClick={this.onMapClicked}
           zoom={18}
@@ -172,20 +168,18 @@ export class MapContainer extends Component {
               lng: this.state.mapCenter.lng,
             }}
           />
-          {this.state.address && <InfoWindow
-            position={this.state.mapCenter}
-            onClose={this.onInfoWindowClose}
-            visible={this.state.showingInfoWindow}
-          >
-            <div>
-              <h4>{this.state.displayName}</h4>
-              <img
-                src={this.getStreetViewURL()}
-                alt={"Google Streetview"}
-                />
-            </div>
-          </InfoWindow>}
-            
+          {/* {this.state.address && (
+            // <InfoWindow
+            //   position={this.state.mapCenter}
+            //   onClose={this.onInfoWindowClose}
+            //   visible={this.state.showingInfoWindow}
+            // >
+            //   <div>
+            //     <h4>{this.state.displayName}</h4>
+            //     <img src={this.getStreetViewURL()} alt={'Google Streetview'} />
+            //   </div>
+            // </InfoWindow>
+          )} */}
         </Map>
       </div>
     );

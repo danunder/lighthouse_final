@@ -6,18 +6,20 @@ import Map from './components/Map';
 import useApplicationData from './hooks/useApplicationData';
 import VisualModeBox from './components/VisualModeBox';
 
-import Logout from './components/Logout';
+// import Logout from './components/Logout';
 
 function App() {
   const { state, setPlace, setNewReview } = useApplicationData();
 
   return (
     <div className='App'>
+
       
       <Map
         onSelect={setPlace}>
         </Map>
       
+
       <VisualModeBox
         selectedPlace={state.place}
         reviewData={state.placeReviewData}
