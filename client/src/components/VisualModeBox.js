@@ -126,13 +126,7 @@ export default function VisualModeBox(props) {
       )}
       {mode === SHOW_FULL_REVIEW && (
         <ReviewShow
-<<<<<<< HEAD
           onClose={() => back()}
-=======
-          onClose={() => {
-            back()
-          }}
->>>>>>> 03e3ecca85c181b0cba944dddf48ef81176984be
           data={props.reviewData}
           tenancyID={tenancyID}
         />

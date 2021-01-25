@@ -9,7 +9,7 @@ import VisualModeBox from './components/VisualModeBox';
 // import Logout from './components/Logout';
 
 function App() {
-  const { state, setPlace, setNewReview } = useApplicationData();
+  const { state, setPlace, setNewReview, placeReviewData } = useApplicationData();
 
   return (
     <div className='App'>
