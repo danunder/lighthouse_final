@@ -19,7 +19,7 @@ const inputStyles = {
   width: '80vw',
   top: '10vw',
   left: '10vw',
-  zIndex: '10',
+  zIndex: '9',
 };
 
 export class MapContainer extends Component {

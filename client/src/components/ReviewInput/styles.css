@@ -9,6 +9,7 @@
   flex-direction: column;
   margin: 30px 0px;
   align-items: flex-end;
+  pointer-events: all;
 }
 
 .header {

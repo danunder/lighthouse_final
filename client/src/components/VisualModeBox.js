@@ -16,9 +16,14 @@ export default function VisualModeBox(props) {
   const containerStyle = {
     width: '100%',
     position: 'absolute',
-    // pointerEvents: 'none'
+    pointerEvents: 'none',
     // top: '60vh',
-    // zIndex: '10',
+    zIndex: '1',
+  };
+
+  const childStyle = {
+    pointerEvents: 'auto',
+    zIndex: '10'
   };
 
   const LOG_IN_FROM_NAV = 'LOG_IN_FROM_NAV';
@@ -63,6 +68,7 @@ export default function VisualModeBox(props) {
   return (
     <Container style={containerStyle}>
       <Logout
+        style={childStyle}
         transition={() => {
           transition(SHOW_REVIEWS);
           resetForm();
