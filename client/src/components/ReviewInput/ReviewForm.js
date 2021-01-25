@@ -1,9 +1,23 @@
-import React from 'react';
+import { React, useState } from 'react';
 import StarRating from '../StarRating';
 
 // The button needs fixing to work as a form submitter
 
 export default function ReviewForm(props) {
+
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const validateReview = (rating, review) => {
+    if (!rating || review === "") {
+      setErrorMessage(<div className='alert alert-danger'>Something is missing! You need to add a review <b>AND</b> a rating to continue.</div>);
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
+    } else {
+      props.onNext()
+    }
+  };
+
   return (
     <section className='card-show'>
       <div className='card'>
@@ -12,6 +26,7 @@ export default function ReviewForm(props) {
           <StarRating
             onRatingClick={props.onRatingChange}
             rating={props.rating}/>
+            {errorMessage}
           <div className='form-group'>
             <p>{props.previewWarning}</p>
             <input
@@ -25,7 +40,7 @@ export default function ReviewForm(props) {
             <button className='btn btn-outline-dark' onClick={props.onBack}>
               Back
             </button>
-            <button type='submit' className='btn btn-outline-dark' onClick={props.onNext}>
+            <button type='submit' className='btn btn-outline-dark' onClick={() => validateReview(props.rating, props.review)}>
               Next
             </button>
           </div>

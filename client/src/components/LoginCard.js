@@ -10,7 +10,11 @@ export default function LoginCard(props) {
   const SIGN_IN = 'SIGN_IN';
   const REGISTER = 'REGISTER';
   const [mode, setMode] = useState(SELECT);
-  const [error, setError] = useState(false);
+  const [loginError, setLoginError] = useState(false);
+  const [nameError, setNameError] = useState(false);
+  const [usernameError, setUsernameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   const {
     state,
@@ -25,21 +29,74 @@ export default function LoginCard(props) {
 
   const { onSuccess, onBack } = props;
 
-  // setTimeout(function(){ alert("Hello"); }, 3000);
-
-  const showError = () => {
-    if (error) {
+  const showLoginError = () => {
+    if (loginError) {
       return (
         <div className='alert alert-danger'>Incorrect username or password</div>
       );
     }
   };
 
-  const onError = () => {
-    setError(true);
+  const onLoginError = () => {
+    setLoginError(true);
     setTimeout(() => {
-      setError(false);
+      setLoginError(false);
     }, 3000);
+  };
+
+
+  const onRegisterError = () => {
+    if (!state.firstName || !state.lastName) {
+      console.log('name error')
+      setNameError(true);
+      setTimeout(() => {
+        setNameError(false);
+      }, 3000);
+    };
+    if (!state.userName) {
+      console.log('username error')
+      setUsernameError(true);
+      setTimeout(() => {
+        setUsernameError(false);
+      }, 3000);
+    };
+    if (!state.email) {
+      console.log('email error')
+      setEmailError(true);
+      setTimeout(() => {
+        setEmailError(false);
+      }, 3000);
+    };
+    if (!state.password) {
+      console.log('password error')
+      setPasswordError(true);
+      setTimeout(() => {
+        setPasswordError(false);
+      }, 3000);
+    }
+  };
+
+  const showRegisterError = (state, errorType) => {
+    if (state && errorType === 'name') {
+      return (
+        <div className="alert alert-danger">Name and last name cannot be blank</div>
+      );
+    };
+    if (state && errorType === 'username') {
+      return (
+        <div className="alert alert-danger">You need a username to register -- Your username is the only thing other users will see</div>
+      );
+    };
+    if (state && errorType === 'email') {
+      return (
+        <div className="alert alert-danger">Invalid email</div>
+      );
+    };
+    if (state && errorType === 'password') {
+      return (
+        <div className="alert alert-danger">Invalid password</div>
+      );
+    };
   };
 
   return (
@@ -61,11 +118,11 @@ export default function LoginCard(props) {
             onClick={() => setMode(SIGN_IN)}
             onSubmit={(e) => {
               e.preventDefault();
-              handleSignIn(onSuccess, onError)
+              handleSignIn(onSuccess, onLoginError)
             }}
           >
             <h5>Sign in to an existing account</h5>
-            {showError()}
+            {showLoginError()}
             {mode === SIGN_IN && (
               <>
                 <Form.Group controlId='formUserName'>
@@ -103,10 +160,11 @@ export default function LoginCard(props) {
             }}
             onSubmit={(e) => {
               e.preventDefault();
-              handleRegister(onSuccess, onError)
+              handleRegister(onSuccess, onRegisterError())
             }}
           >
             <h5>Create a new account</h5>
+            {showRegisterError(nameError, 'name')}
             {mode === REGISTER && (
               <>
                 <Form.Group controlId='firstName'>
@@ -127,6 +185,7 @@ export default function LoginCard(props) {
                     onChange={e => setLastName(e.target.value)}
                   />
                 </Form.Group>
+                  {showRegisterError(usernameError, 'username')}
                 <Form.Group controlId='userName'>
                   <Form.Label>Username</Form.Label>
                   <Form.Control
@@ -139,6 +198,7 @@ export default function LoginCard(props) {
                     Only your username will be attached to your reviews.
                   </Form.Text>
                 </Form.Group>
+                {showRegisterError(emailError, 'email')}
                 <Form.Group controlId='email'>
                   <Form.Label>Email address</Form.Label>
                   <Form.Control
@@ -151,6 +211,7 @@ export default function LoginCard(props) {
                     We'll never share your name or email with anyone else.
                   </Form.Text>
                 </Form.Group>
+                {showRegisterError(passwordError, 'password')}
                 <Form.Group controlId='password'>
                   <Form.Label>Password</Form.Label>
                   <Form.Control
