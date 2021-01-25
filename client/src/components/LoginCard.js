@@ -59,13 +59,16 @@ export default function LoginCard(props) {
         <div className='card-body'>
           <Form
             onClick={() => setMode(SIGN_IN)}
-            onSubmit={() => handleSignIn(onSuccess, onError)}
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSignIn(onSuccess, onError)
+            }}
           >
             <h5>Sign in to an existing account</h5>
             {showError()}
             {mode === SIGN_IN && (
               <>
-                <Form.Group controlId='userName'>
+                <Form.Group controlId='formUserName'>
                   <Form.Label>Username</Form.Label>
                   <Form.Control
                     type='userName'
@@ -83,7 +86,7 @@ export default function LoginCard(props) {
                     onChange={e => setPassword(e.target.value)}
                   />
                 </Form.Group>
-                <Button variant='danger' type='cancel' onClick={onBack}>
+                <Button variant='danger' type='button' onClick={onBack}>
                   Cancel
                 </Button>
                 <Button variant='primary' type='submit'>
@@ -98,7 +101,10 @@ export default function LoginCard(props) {
             onClick={() => {
               setMode(REGISTER);
             }}
-            onSubmit={() => handleRegister(onSuccess, onError)}
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleRegister(onSuccess, onError)
+            }}
           >
             <h5>Create a new account</h5>
             {mode === REGISTER && (
@@ -154,7 +160,7 @@ export default function LoginCard(props) {
                     onChange={e => setPassword(e.target.value)}
                   />
                 </Form.Group>
-                <Button variant='danger' type='cancel' onClick={onBack}>
+                <Button variant='danger' type='button' onClick={onBack}>
                   Cancel
                 </Button>
                 <Button variant='primary' type='submit'>
