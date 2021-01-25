@@ -85,8 +85,7 @@ export default function VisualModeBox(props) {
             transition(
               localStorage.getItem('user')
                 ? CREATE_TENANCY
-                : (LOG_IN_FROM_CREATE,
-              true)
+                : LOG_IN_FROM_CREATE
             )
           }
           onClick={tenancyID => {
