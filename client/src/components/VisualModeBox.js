@@ -16,7 +16,7 @@ export default function VisualModeBox(props) {
   const containerStyle = {
     width: '100%',
     position: 'absolute',
-    // pointerEvents: 'none',
+    // pointerEvents: 'none'
     // top: '60vh',
     // zIndex: '10',
   };
@@ -91,7 +91,7 @@ export default function VisualModeBox(props) {
       {mode === SHOW_FULL_REVIEW && (
         <ReviewShow
           onClose={() => {
-            transition(SHOW_REVIEWS);
+            back()
           }}
           data={props.reviewData}
           tenancyID={tenancyID}
