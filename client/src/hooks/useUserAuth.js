@@ -91,7 +91,7 @@ export default function useUserAuth(initial) {
       localStorage.setItem('user', JSON.stringify(response.data));
       onSuccess();
     } else {
-      onError()
+      onError();
     }
   };
 
