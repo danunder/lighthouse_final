@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import useUserAuth from '../hooks/useUserAuth';
-import { Card, Form, Button, Alert } from 'react-bootstrap';
-import './ReviewInput/styles.css'
+import { Form, Button } from 'react-bootstrap';
+import './ReviewInput/styles.css';
 
 export default function LoginCard(props) {
-
   // render error message function
 
   const SELECT = 'SELECT';
@@ -24,17 +23,16 @@ export default function LoginCard(props) {
     setUserName,
     setEmail,
     setPassword,
-    reset,
     handleSignIn,
     handleRegister,
   } = useUserAuth();
 
-  const { onSuccess, onBack } = props;
+  const { onSuccess } = props;
 
   const showLoginError = () => {
     if (loginError) {
       return (
-        <div className="alert alert-danger">Incorrect username or password</div>
+        <div className='alert alert-danger'>Incorrect username or password</div>
       );
     }
   };
@@ -103,17 +101,16 @@ export default function LoginCard(props) {
   return (
     <section className='card-show'>
       <div className='card'>
-
-      <div className='header'>
-        <h5 className='card-title'>{props.title}</h5>
-        <button
-          type='button'
-          className='close'
-          aria-label='Close'
-          onClick={props.onClose}
-        >
-          <span aria-hidden='true'>&times;</span>
-        </button>
+        <div className='header'>
+          <h5 className='card-title'>{props.title}</h5>
+          <button
+            type='button'
+            className='close'
+            aria-label='Close'
+            onClick={props.onClose}
+          >
+            <span aria-hidden='true'>&times;</span>
+          </button>
         </div>
         <div className='card-body'>
           <Form

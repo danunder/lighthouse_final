@@ -21,7 +21,6 @@ export default function VisualModeBox(props) {
     // zIndex: '10',
   };
 
-  const LOG_IN = 'LOG_IN';
   const LOG_IN_FROM_NAV = 'LOG_IN_FROM_NAV';
   const LOG_IN_FROM_CREATE = 'LOG_IN_FROM_CREATE';
   // const CREATE_ACCOUNT = 'CREATE_ACCOUNT';
@@ -109,7 +108,12 @@ export default function VisualModeBox(props) {
         <Reviews
           data={props.reviewData}
           addNew={() =>
-            transition(localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN_FROM_CREATE, true)
+            transition(
+              localStorage.getItem('user')
+                ? CREATE_TENANCY
+                : LOG_IN_FROM_CREATE,
+              true
+            )
           }
           onClick={tenancyID => {
             setTenancyID(tenancyID);
@@ -128,19 +132,19 @@ export default function VisualModeBox(props) {
       )}
       {mode === LOG_IN_FROM_CREATE && (
         <LoginCard
-        title={'Please login to write a review'}
-        onSuccess={() => transition(CREATE_TENANCY, true) }
-        onBack={() => back()}
-        onClose={() => back()}
-      />
+          title={'Please login to write a review'}
+          onSuccess={() => transition(CREATE_TENANCY, true)}
+          onBack={() => back()}
+          onClose={() => back()}
+        />
       )}
       {mode === LOG_IN_FROM_NAV && (
         <LoginCard
-        title={'Login or Register'}
-        onSuccess={() => back() }
-        onBack={() => back()}
-        onClose={() => back()}
-      />
+          title={'Login or Register'}
+          onSuccess={() => back()}
+          onBack={() => back()}
+          onClose={() => back()}
+        />
       )}
       {mode === CREATE_TENANCY && (
         <TenancyForm
@@ -163,7 +167,7 @@ export default function VisualModeBox(props) {
           }
           rating={state.propertyRating || null}
           onRatingChange={value => setPropertyRating(value)}
-          review={state.propertyReview || null}
+          review={state.propertyReview || ''}
           onChange={value => setPropertyReview(value)}
           onNext={() => validateReview(state.propertyRating, state.propertyReview, CREATE_LANDLORD_REVIEW)}
           onBack={() => back()}
@@ -174,7 +178,7 @@ export default function VisualModeBox(props) {
           title={'landlord'}
           rating={state.landlordRating || null}
           onRatingChange={value => setLandlordRating(value)}
-          review={state.landlordReview || null}
+          review={state.landlordReview || ''}
           onChange={value => setLandlordReview(value)}
           onNext={() => validateReview(state.landlordRating, state.landlordReview, CREATE_NEIGHBOURHOOD_REVIEW)}
           onBack={() => back()}
@@ -185,7 +189,7 @@ export default function VisualModeBox(props) {
           title={'neighbourhood'}
           rating={state.neighbourhoodRating}
           onRatingChange={value => setNeighbourhoodRating(value)}
-          review={state.neighbourhoodReview || null}
+          review={state.neighbourhoodReview || ''}
           onChange={value => setNeighbourhoodReview(value)}
           onNext={() => validateReview(state.neighbourhoodRating, state.neighbourhoodReview, SUBMIT_REVIEW)}
           onBack={() => back()}
