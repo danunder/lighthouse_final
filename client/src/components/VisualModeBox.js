@@ -90,9 +90,7 @@ export default function VisualModeBox(props) {
       )}
       {mode === SHOW_FULL_REVIEW && (
         <ReviewShow
-          onClose={() => {
-            transition(SHOW_REVIEWS);
-          }}
+          onClose={() => back()}
           data={props.reviewData}
           tenancyID={tenancyID}
         />

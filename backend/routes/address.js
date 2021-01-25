@@ -18,8 +18,9 @@ module.exports = ({
     const lat = req.params.lat;
     return Promise.all([
       getReviews(lng, lat),
-      getNeighbourhoodReviews(lng, lat)
-    ]) .then(aa => res.json(aa))
+      getNeighbourhoodReviews(lng, lat),
+    ])
+      .then(aa => res.json(aa))
       .catch(e => console.log('Backend error', e.message));
   });
   router.post('/login', (req, res) => {
@@ -35,9 +36,9 @@ module.exports = ({
     //Review has property review, landlord review, neighbourhood review, and tenancy dates
     const { user, place, review } = req.body.reviewData;
     const userID = user;
-    console.log('User ID: ', userID);
-    console.log('Place Data: ', place);
-    console.log('Review Data: ', review);
+    // console.log('User ID: ', userID);
+    // console.log('Place Data: ', place);
+    // console.log('Review Data: ', review);
 
     const lat = parseFloat(place.latLng.lat).toFixed(5);
     const lng = parseFloat(place.latLng.lng).toFixed(5);
@@ -58,18 +59,18 @@ module.exports = ({
       .then(a => {
         if (!a.rows.length) {
           //It didn't find the ID, create an entry
-          console.log('creating new property');
+          // console.log('creating new property');
           return createProperty(placeID, lat, lng).then(b => {
             console.log(b);
             return b;
           });
         }
-        console.log('this property exists');
+        // console.log('this property exists');
         return a;
       })
       .then(c => {
         const propertyID = c.rows[0].id;
-        console.log('property id: ', propertyID);
+        // console.log('property id: ', propertyID);
         return createTenancy(
           tenancyStartDate,
           tenancyEndDate,
@@ -79,7 +80,7 @@ module.exports = ({
       })
       .then(d => {
         const tenancyID = d.rows[0].id;
-        console.log('tenancy id: ', tenancyID);
+        // console.log('tenancy id: ', tenancyID);
         return createReviews(
           tenancyID,
           propertyRating,
@@ -101,7 +102,7 @@ module.exports = ({
     // const firstName = 'Lindsay';
     // const lastName = 'Hertzman';
     // const email = 'Lindsay@gmail.com';
-    const {userName, firstName, lastName, email, password} = req.body
+    const { userName, firstName, lastName, email, password } = req.body;
     // console.log('register info: ', req.body)
     checkUsername(userName)
       .then(response => {

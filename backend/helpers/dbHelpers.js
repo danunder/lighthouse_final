@@ -23,16 +23,16 @@ module.exports = db => {
   const getLngLatRange = (lng, lat) => {
     const lngLatRange = [];
     // hardcoded values = approx 1km in each direction
-    lngLatRange.push(((parseFloat(lng)*100 - 1) / 100 ).toFixed(5));
-    lngLatRange.push(((parseFloat(lng)*100 + 1) / 100 ).toFixed(5));
-    lngLatRange.push(((parseFloat(lat)*100 - 1) / 100 ).toFixed(5));
-    lngLatRange.push(((parseFloat(lat)*100 + 1) / 100 ).toFixed(5));
-    return lngLatRange
-  }
+    lngLatRange.push(((parseFloat(lng) * 100 - 1) / 100).toFixed(5));
+    lngLatRange.push(((parseFloat(lng) * 100 + 1) / 100).toFixed(5));
+    lngLatRange.push(((parseFloat(lat) * 100 - 1) / 100).toFixed(5));
+    lngLatRange.push(((parseFloat(lat) * 100 + 1) / 100).toFixed(5));
+    return lngLatRange;
+  };
 
   const getNeighbourhoodReviews = (lng, lat) => {
-    const lngLatRange = getLngLatRange(lng, lat)
-    console.log(lngLatRange);
+    const lngLatRange = getLngLatRange(lng, lat);
+    // console.log(lngLatRange);
     const query = {
       text: `SELECT users.username AS user, tenancies.property_id AS propertyID, reviews.*
       FROM categories
@@ -44,13 +44,12 @@ module.exports = db => {
       AND properties.longitude BETWEEN $1 AND $2
       AND properties.latitude BETWEEN $3 AND $4;
       `,
-      values: lngLatRange
+      values: lngLatRange,
     };
     return db
       .query(query)
       .then(result => result.rows)
       .catch(err => err);
-
   };
 
   const login = (username, password) => {
@@ -67,11 +66,10 @@ module.exports = db => {
         ) {
           const response = {
             userID: result.rows[0].id,
-            userName: result.rows[0].username
-          }
+            userName: result.rows[0].username,
+          };
           return response;
-        }
-        else {
+        } else {
           throw new Error('Null');
         }
       })
@@ -106,9 +104,9 @@ module.exports = db => {
       .then(res => {
         const response = {
           userID: res.rows[0].id,
-          userName: res.rows[0].username
-        }
-        return response
+          userName: res.rows[0].username,
+        };
+        return response;
       })
       .catch(e => e.message);
   };

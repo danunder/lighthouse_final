@@ -81,8 +81,8 @@ export class MapContainer extends Component {
       })
 
       .then(latLng => {
-        console.log('Success', latLng);
-        console.log('Address', address);
+        // console.log('Success', latLng);
+        // console.log('Address', address);
         // passes relevant address data UP to app state.
         this.props.onSelect({
           address: this.state.address,
@@ -168,18 +168,18 @@ export class MapContainer extends Component {
               lng: this.state.mapCenter.lng,
             }}
           />
-          {/* {this.state.address && (
-            // <InfoWindow
-            //   position={this.state.mapCenter}
-            //   onClose={this.onInfoWindowClose}
-            //   visible={this.state.showingInfoWindow}
-            // >
-            //   <div>
-            //     <h4>{this.state.displayName}</h4>
-            //     <img src={this.getStreetViewURL()} alt={'Google Streetview'} />
-            //   </div>
-            // </InfoWindow>
-          )} */}
+          {this.state.address && (
+            <InfoWindow
+              position={this.state.mapCenter}
+              onClose={this.onInfoWindowClose}
+              visible={this.state.showingInfoWindow}
+            >
+              <div>
+                <h4>{this.state.displayName}</h4>
+                <img src={this.getStreetViewURL()} alt={'Google Streetview'} />
+              </div>
+            </InfoWindow>
+          )}
         </Map>
       </div>
     );

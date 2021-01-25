@@ -7,7 +7,7 @@ export default function useApplicationData(initial) {
   // const SET_USER_NAME = "SET_USER_NAME";
   const SET_PLACE = 'SET_PLACE';
   const SET_PLACE_REVIEW_DATA = 'SET_PLACE_REVIEW_DATA';
-  const SET_NEIGHBOURHOOD_REVIEW_DATA = 'SET_NEIGHBOURHOOD_REVIEW_DATA'
+  const SET_NEIGHBOURHOOD_REVIEW_DATA = 'SET_NEIGHBOURHOOD_REVIEW_DATA';
   const SET_NEW_REVIEW = 'SET_NEW_REVIEW';
 
   function reducer(state, action) {
@@ -67,7 +67,10 @@ export default function useApplicationData(initial) {
   const setPlaceReviewData = placeReviewData =>
     dispatch({ type: 'SET_PLACE_REVIEW_DATA', placeReviewData });
   const setNeighbourhoodReviewData = neighbourhoodReviewData =>
-    dispatch({ type: 'SET_NEIGHBOURHOOD_REVIEW_DATA', neighbourhoodReviewData });
+    dispatch({
+      type: 'SET_NEIGHBOURHOOD_REVIEW_DATA',
+      neighbourhoodReviewData,
+    });
   const setNewReview = newReview =>
     dispatch({ type: 'SET_NEW_REVIEW', newReview });
 
@@ -75,13 +78,13 @@ export default function useApplicationData(initial) {
   const getReviewsFromCoords = () => {
     const lat = parseFloat(state.place.latLng.lat).toFixed(5);
     const lng = parseFloat(state.place.latLng.lng).toFixed(5);
-    Promise.all([
-      axios.get(`http://localhost:3001/api/${lat}/${lng}`),
-    ]).then(res => {
-      console.log(res[0].data);
-      setPlaceReviewData(res[0].data[0]);
-      setNeighbourhoodReviewData(res[0].data[1])
-    });
+    Promise.all([axios.get(`http://localhost:3001/api/${lat}/${lng}`)]).then(
+      res => {
+        // console.log(res[0].data);
+        setPlaceReviewData(res[0].data[0]);
+        setNeighbourhoodReviewData(res[0].data[1]);
+      }
+    );
   };
 
   const postNewReview = async () => {
@@ -92,7 +95,7 @@ export default function useApplicationData(initial) {
       place: state.place,
       review: state.newReview,
     };
-    console.log('review data, ', reviewData);
+    // console.log('review data, ', reviewData);
     // console.log(reviewData);
     await axios
       .post(`http://localhost:3001/api/review`, { reviewData })
