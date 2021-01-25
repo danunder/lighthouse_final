@@ -23,7 +23,7 @@ export default function VisualModeBox(props) {
 
   const childStyle = {
     pointerEvents: 'auto',
-    zIndex: '10'
+    zIndex: '10',
   };
 
   const LOG_IN_FROM_NAV = 'LOG_IN_FROM_NAV';
@@ -82,9 +82,7 @@ export default function VisualModeBox(props) {
           data={props.reviewData}
           addNew={() =>
             transition(
-              localStorage.getItem('user')
-                ? CREATE_TENANCY
-                : LOG_IN_FROM_CREATE
+              localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN_FROM_CREATE
             )
           }
           onClick={tenancyID => {
@@ -95,9 +93,7 @@ export default function VisualModeBox(props) {
       )}
       {mode === SHOW_FULL_REVIEW && (
         <ReviewShow
-          onClose={() => {
-            back();
-          }}
+          onClose={() => back()}
           data={props.reviewData}
           tenancyID={tenancyID}
         />
@@ -110,7 +106,6 @@ export default function VisualModeBox(props) {
             transition(CREATE_TENANCY);
           }}
           onBack={() => back()}
-          
         />
       )}
       {mode === LOG_IN_FROM_NAV && (
@@ -118,7 +113,6 @@ export default function VisualModeBox(props) {
           title={'Login or Register'}
           onSuccess={() => back()}
           onBack={() => back()}
-          
         />
       )}
       {mode === CREATE_TENANCY && (
@@ -189,10 +183,6 @@ export default function VisualModeBox(props) {
           buttonName={'Submit'}
         />
       )}
-      {/* {mode === SHOW_FULL_REVIEW && (
-        <ReviewShow onClose={() => transition(SHOW_REVIEWS)} />
-      )} */}
-      {/* {mode === LOG_IN && <UserAuth />} */}
     </Container>
   );
 }

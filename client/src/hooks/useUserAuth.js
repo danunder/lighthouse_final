@@ -79,6 +79,7 @@ export default function useUserAuth(initial) {
       // handles transition to next view
       onSuccess();
     } else {
+      console.log('sad')
       onError();
     }
   };
