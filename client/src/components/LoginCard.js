@@ -27,7 +27,7 @@ export default function LoginCard(props) {
     handleRegister,
   } = useUserAuth();
 
-  const { onSuccess } = props;
+  const { onSuccess, onBack } = props;
 
   const showLoginError = () => {
     if (loginError) {
@@ -108,7 +108,7 @@ export default function LoginCard(props) {
             type='button'
             className='close'
             aria-label='Close'
-            onClick={props.onClose}
+            onClick={onBack}
           >
             <span aria-hidden='true'>&times;</span>
           </button>
@@ -140,7 +140,9 @@ export default function LoginCard(props) {
                     onChange={e => setPassword(e.target.value)}
                   />
                 </Form.Group>
-
+                <Button variant='danger' type='cancel' onClick={onBack}>
+                  Cancel
+                </Button>
                 <Button variant='primary' type='submit'>
                   Sign in
                 </Button>
@@ -213,6 +215,9 @@ export default function LoginCard(props) {
                     onChange={e => setPassword(e.target.value)}
                   />
                 </Form.Group>
+                <Button variant='danger' type='cancel' onClick={onBack}>
+                  Cancel
+                </Button>
                 <Button variant='primary' type='submit'>
                   Submit
                 </Button>

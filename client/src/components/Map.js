@@ -19,7 +19,7 @@ const inputStyles = {
   width: '80vw',
   top: '10vw',
   left: '10vw',
-  zIndex: '10',
+  zIndex: '9',
 };
 
 export class MapContainer extends Component {
@@ -46,14 +46,13 @@ export class MapContainer extends Component {
 
   onMarkerClick = (props, marker) =>
     this.setState({
-      activeMarker: marker,
-      selectedPlace: props,
+      
       showingInfoWindow: true,
     });
 
   onInfoWindowClose = () =>
     this.setState({
-      activeMarker: null,
+      
       showingInfoWindow: false,
     });
 
@@ -163,12 +162,13 @@ export class MapContainer extends Component {
           disableDefaultUI
         >
           <Marker
+            onClick={this.onMarkerClick}
             position={{
               lat: this.state.mapCenter.lat,
               lng: this.state.mapCenter.lng,
             }}
           />
-          {this.state.address && (
+          {/* {this.state.address && ( */}
             <InfoWindow
               position={this.state.mapCenter}
               onClose={this.onInfoWindowClose}
@@ -179,7 +179,7 @@ export class MapContainer extends Component {
                 <img src={this.getStreetViewURL()} alt={'Google Streetview'} />
               </div>
             </InfoWindow>
-          )}
+          {/* )} */}
         </Map>
       </div>
     );

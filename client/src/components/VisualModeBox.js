@@ -16,9 +16,14 @@ export default function VisualModeBox(props) {
   const containerStyle = {
     width: '100%',
     position: 'absolute',
-    // pointerEvents: 'none'
+    pointerEvents: 'none',
     // top: '60vh',
-    // zIndex: '10',
+    zIndex: '1',
+  };
+
+  const childStyle = {
+    pointerEvents: 'auto',
+    zIndex: '10'
   };
 
   const LOG_IN_FROM_NAV = 'LOG_IN_FROM_NAV';
@@ -64,12 +69,13 @@ export default function VisualModeBox(props) {
   return (
     <Container style={containerStyle}>
       <Logout
+        style={childStyle}
         transition={() => {
           transition(SHOW_REVIEWS);
           resetForm();
         }}
         transitionLogin={() => {
-          transition(LOG_IN_FROM_NAV, true);
+          transition(LOG_IN_FROM_NAV);
         }}
       />
       {mode === SHOW_REVIEWS && props.selectedPlace && (
@@ -99,9 +105,12 @@ export default function VisualModeBox(props) {
       {mode === LOG_IN_FROM_CREATE && (
         <LoginCard
           title={'Please login to write a review'}
-          onSuccess={() => transition(CREATE_TENANCY)}
+          onSuccess={() => {
+            back();
+            transition(CREATE_TENANCY);
+          }}
           onBack={() => back()}
-          onClose={() => back()}
+          
         />
       )}
       {mode === LOG_IN_FROM_NAV && (
@@ -109,7 +118,7 @@ export default function VisualModeBox(props) {
           title={'Login or Register'}
           onSuccess={() => back()}
           onBack={() => back()}
-          onClose={() => back()}
+          
         />
       )}
       {mode === CREATE_TENANCY && (
