@@ -82,6 +82,9 @@ export default function VisualModeBox(props) {
     if (!startYear || !startMonth || !endYear || !endMonth) {
       return "missing field";
 
+    } else if (endYear > currentYear) {
+      return "future date";
+      
     } else if (endYear >= currentYear && endMonth > currentMonth) {
       return "future date";
 
@@ -111,8 +114,8 @@ export default function VisualModeBox(props) {
             transition(
               localStorage.getItem('user')
                 ? CREATE_TENANCY
-                : LOG_IN_FROM_CREATE,
-              true
+                : (LOG_IN_FROM_CREATE,
+              true)
             )
           }
           onClick={tenancyID => {
@@ -123,9 +126,7 @@ export default function VisualModeBox(props) {
       )}
       {mode === SHOW_FULL_REVIEW && (
         <ReviewShow
-          onClose={() => {
-            transition(SHOW_REVIEWS);
-          }}
+          onClose={() => back()}
           data={props.reviewData}
           tenancyID={tenancyID}
         />
@@ -133,7 +134,7 @@ export default function VisualModeBox(props) {
       {mode === LOG_IN_FROM_CREATE && (
         <LoginCard
           title={'Please login to write a review'}
-          onSuccess={() => transition(CREATE_TENANCY, true)}
+          onSuccess={() => transition(CREATE_TENANCY)}
           onBack={() => back()}
           onClose={() => back()}
         />
