@@ -59,16 +59,6 @@ export default function VisualModeBox(props) {
     setNeighbourhoodRating(null);
     setNeighbourhoodReview('');
   };
-
-  // verifies that the review and rating are not empty on next
-  const validateReview = (rating, review, mode) => {
-    if (!rating || review === "") {
-      return "missing field";
-    } else {
-      transition(mode)
-    }
-  };
-  
   
 
   return (
@@ -145,7 +135,7 @@ export default function VisualModeBox(props) {
           onRatingChange={value => setPropertyRating(value)}
           review={state.propertyReview || ''}
           onChange={value => setPropertyReview(value)}
-          onNext={() => validateReview(state.propertyRating, state.propertyReview, CREATE_LANDLORD_REVIEW)}
+          onNext={() => transition(CREATE_LANDLORD_REVIEW)}
           onBack={() => back()}
         />
       )}
@@ -156,7 +146,7 @@ export default function VisualModeBox(props) {
           onRatingChange={value => setLandlordRating(value)}
           review={state.landlordReview || ''}
           onChange={value => setLandlordReview(value)}
-          onNext={() => validateReview(state.landlordRating, state.landlordReview, CREATE_NEIGHBOURHOOD_REVIEW)}
+          onNext={() => transition(CREATE_NEIGHBOURHOOD_REVIEW)}
           onBack={() => back()}
         />
       )}
@@ -167,7 +157,7 @@ export default function VisualModeBox(props) {
           onRatingChange={value => setNeighbourhoodRating(value)}
           review={state.neighbourhoodReview || ''}
           onChange={value => setNeighbourhoodReview(value)}
-          onNext={() => validateReview(state.neighbourhoodRating, state.neighbourhoodReview, SUBMIT_REVIEW)}
+          onNext={() => transition(SUBMIT_REVIEW)}
           onBack={() => back()}
         />
       )}
