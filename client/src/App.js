@@ -13,8 +13,13 @@ function App() {
 
   return (
     <div className='App'>
-      <Map onSelect={setPlace}></Map>
-      {/* <Logout /> */}
+
+      
+      <Map
+        onSelect={setPlace}>
+        </Map>
+      
+
       <VisualModeBox
         selectedPlace={state.place}
         reviewData={state.placeReviewData}

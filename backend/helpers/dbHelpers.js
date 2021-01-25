@@ -20,6 +20,39 @@ module.exports = db => {
       .catch(err => err);
   };
 
+  const getLngLatRange = (lng, lat) => {
+    const lngLatRange = [];
+    // hardcoded values = approx 1km in each direction
+    lngLatRange.push(((parseFloat(lng)*100 - 1) / 100 ).toFixed(5));
+    lngLatRange.push(((parseFloat(lng)*100 + 1) / 100 ).toFixed(5));
+    lngLatRange.push(((parseFloat(lat)*100 - 1) / 100 ).toFixed(5));
+    lngLatRange.push(((parseFloat(lat)*100 + 1) / 100 ).toFixed(5));
+    return lngLatRange
+  }
+
+  const getNeighbourhoodReviews = (lng, lat) => {
+    const lngLatRange = getLngLatRange(lng, lat)
+    console.log(lngLatRange);
+    const query = {
+      text: `SELECT users.username AS user, tenancies.property_id AS propertyID, reviews.*
+      FROM categories
+      JOIN reviews ON categories.id = reviews.category_id
+      JOIN tenancies ON tenancies.id = reviews.tenancy_id
+      JOIN properties ON properties.id = tenancies.property_id
+      JOIN users ON users.id = tenancies.user_id
+      WHERE reviews.category_id = 2
+      AND properties.longitude BETWEEN $1 AND $2
+      AND properties.latitude BETWEEN $3 AND $4;
+      `,
+      values: lngLatRange
+    };
+    return db
+      .query(query)
+      .then(result => result.rows)
+      .catch(err => err);
+
+  };
+
   const login = (username, password) => {
     const query = {
       text: `SELECT * FROM users where username = $1;`,
@@ -133,6 +166,7 @@ module.exports = db => {
 
   return {
     getReviews,
+    getNeighbourhoodReviews,
     login,
     checkUsername,
     findPropertyID,
