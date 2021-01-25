@@ -64,6 +64,7 @@ export default function VisualModeBox(props) {
     setNeighbourhoodRating(null);
     setNeighbourhoodReview('');
   };
+  
 
   return (
     <Container style={containerStyle}>
@@ -95,9 +96,7 @@ export default function VisualModeBox(props) {
       )}
       {mode === SHOW_FULL_REVIEW && (
         <ReviewShow
-          onClose={() => {
-            back()
-          }}
+          onClose={() => back()}
           data={props.reviewData}
           tenancyID={tenancyID}
         />
@@ -189,10 +188,6 @@ export default function VisualModeBox(props) {
           buttonName={'Submit'}
         />
       )}
-      {/* {mode === SHOW_FULL_REVIEW && (
-        <ReviewShow onClose={() => transition(SHOW_REVIEWS)} />
-      )} */}
-      {/* {mode === LOG_IN && <UserAuth />} */}
     </Container>
   );
 }
