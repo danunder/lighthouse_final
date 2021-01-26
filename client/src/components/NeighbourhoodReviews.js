@@ -1,10 +1,8 @@
 import React from 'react';
-
 import { FaStar } from 'react-icons/fa';
 import { Card } from 'react-bootstrap';
-
 import './Reviews.css';
-
+import BackCard from './BackCard';
 
 export default function NeighbourhoodReviews(props) {
   const neighbourhoodReviewData = props.data;
@@ -20,7 +18,7 @@ export default function NeighbourhoodReviews(props) {
         <Card.Body className='card-body'>
           <div>
             <Card.Title>{data.user}</Card.Title>
-           
+
             {[...Array(data.rating)].map((e, index) => (
               <FaStar key={index} />
             ))}
@@ -30,7 +28,6 @@ export default function NeighbourhoodReviews(props) {
           </div>
           <div>
             <Card.Link
-              
               onClick={() => props.onClick(data.tenancy_id)}
               className='link'
             >
@@ -43,9 +40,8 @@ export default function NeighbourhoodReviews(props) {
   });
   return (
     <>
+      <BackCard onBack={props.onBack} />
       {mapData}
-      {/* <AddReview onClick={props.addNew} />
-      <SeeNeighbourhoodReviews onClick={props.seeMore} /> */}
     </>
   );
 }

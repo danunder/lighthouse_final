@@ -8,10 +8,6 @@ export default function Logout(props) {
     props.onLogout();
   };
 
-  const handleLogin = () => {
-    props.onLogin();
-  };
-
   let username;
   if (localStorage.getItem('user')) {
     username = JSON.parse(localStorage.getItem('user')).userName;
@@ -37,7 +33,7 @@ export default function Logout(props) {
         <Button
           variant='primary'
           className='logout-button'
-          onClick={handleLogin}
+          onClick={props.onLogin}
         >
           Login
         </Button>
