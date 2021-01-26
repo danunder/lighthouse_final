@@ -4,6 +4,7 @@ import { FaStar } from 'react-icons/fa';
 import { Card } from 'react-bootstrap';
 
 import './Reviews.css';
+import SeeNeighbourhoodReviews from './SeeNeigbourhoodReviews';
 
 export default function Reviews(props) {
   const reviewData = props.data;
@@ -67,6 +68,7 @@ export default function Reviews(props) {
     <>
       {mapData}
       <AddReview onClick={props.addNew} />
+      <SeeNeighbourhoodReviews onClick={props.seeMore} />
     </>
   );
 }
