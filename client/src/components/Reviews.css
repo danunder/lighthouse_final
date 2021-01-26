@@ -9,7 +9,9 @@
   min-height: 200px;
   max-width: 200px;
   min-width: 200px;
-  pointer-events: auto; 
+  pointer-events: all;
+  overflow-x: auto;
+  flex-wrap: nowrap;
 }
 
 .card-body {

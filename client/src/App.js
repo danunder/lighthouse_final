@@ -23,6 +23,7 @@ function App() {
       <VisualModeBox
         selectedPlace={state.place}
         reviewData={state.placeReviewData}
+        neighbourhoodReviewData={state.neighbourhoodReviewData}
         onSubmit={val => setNewReview(val)}
       />
     </div>
