@@ -117,7 +117,8 @@ export class MapContainer extends Component {
                   placeholder: 'Search Places ...',
                   className: 'location-search-input',
                 })}
-                style={{ width: '100%' }}
+                className='p-1 bg-light rounded rounded-pill shadow-sm mb-4'
+                style={{ width: '100%', border: 'transparent', outline: 'none', fontSize: 'larger' }}
               />
               <div className='autocomplete-dropdown-container'>
                 {loading && <div>Loading...</div>}
@@ -127,8 +128,8 @@ export class MapContainer extends Component {
                     : 'suggestion-item';
                   // inline style for demonstration purpose
                   const style = suggestion.active
-                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                    ? { backgroundColor: '#fafafa', cursor: 'pointer', fontSize: 'larger', fontWeight: '600' }
+                    : { backgroundColor: '#fafafa', cursor: 'pointer', fontSize: 'larger' };
                   return (
                     <div
                       {...getSuggestionItemProps(suggestion, {
