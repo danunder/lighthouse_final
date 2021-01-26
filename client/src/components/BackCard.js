@@ -1,14 +1,14 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { FaPlus } from 'react-icons/fa';
+import { FaChevronLeft } from 'react-icons/fa';
 
-export default function AddReview(props) {
+export default function BackCard(props) {
   return (
     <Card style={{ width: '18rem' }} className='review-card'>
       <Card.Body>
-        <Card.Title>Add A Review</Card.Title>
+        <Card.Title>Go back</Card.Title>
         <Card.Link >
-          <FaPlus size={50} onClick={props.onClick} />
+          <FaChevronLeft size={50} onClick={props.onBack} />
         </Card.Link>
         <div></div>
       </Card.Body>

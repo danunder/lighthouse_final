@@ -5,12 +5,10 @@ import Button from 'react-bootstrap/Button';
 export default function Logout(props) {
   const handleLogout = () => {
     localStorage.clear();
-    props.transition();
+    props.onLogout();
   };
 
-  const handleLogin = () => {
-    props.transitionLogin();
-  };
+  
 
   let username;
   if (localStorage.getItem('user')) {
@@ -37,7 +35,7 @@ export default function Logout(props) {
         <Button
           variant='primary'
           className='logout-button'
-          onClick={handleLogin}
+          onClick={props.onLogin}
         >
           Login
         </Button>
