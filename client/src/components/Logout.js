@@ -8,9 +8,7 @@ export default function Logout(props) {
     props.onLogout();
   };
 
-  const handleLogin = () => {
-    props.onLogin();
-  };
+  
 
   let username;
   if (localStorage.getItem('user')) {
@@ -37,7 +35,7 @@ export default function Logout(props) {
         <Button
           variant='primary'
           className='logout-button'
-          onClick={handleLogin}
+          onClick={props.onLogin}
         >
           Login
         </Button>

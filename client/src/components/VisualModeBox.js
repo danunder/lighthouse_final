@@ -70,6 +70,11 @@ export default function VisualModeBox(props) {
     setNeighbourhoodReview('');
   };
   
+  const loggingIn = () => {
+    if (mode === (LOG_IN_FROM_NAV || LOG_IN_FROM_CREATE)) {
+      return true
+    } return false
+  }; 
 
   return (
     <Container style={containerStyle}>
@@ -79,8 +84,11 @@ export default function VisualModeBox(props) {
           transition(SHOW_REVIEWS);
           resetForm();
         }}
-        onLogin={() => mode === LOG_IN_FROM_NAV? null :   transition(LOG_IN_FROM_NAV)
-        }
+        onLogin={() => {
+          if (!loggingIn) {
+            transition(LOG_IN_FROM_NAV)
+          }
+        }}
       />
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
