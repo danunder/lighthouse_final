@@ -28,6 +28,12 @@
     max-width: 100%;
 }
 
+h2 {
+
+  font-size: 2rem;
+
+}
+
 /*.review-input {
   display: flex;
   flex-direction: row;
