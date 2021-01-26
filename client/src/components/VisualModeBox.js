@@ -71,9 +71,13 @@ export default function VisualModeBox(props) {
   };
   
   const loggingIn = () => {
-    if (mode === (LOG_IN_FROM_NAV || LOG_IN_FROM_CREATE)) {
+    if (mode === LOG_IN_FROM_NAV) {
       return true
-    } return false
+    }
+    if (mode === LOG_IN_FROM_CREATE) {
+      return true
+    }
+    return false
   }; 
 
   return (
@@ -84,11 +88,7 @@ export default function VisualModeBox(props) {
           transition(SHOW_REVIEWS);
           resetForm();
         }}
-        onLogin={() => {
-          if (!loggingIn) {
-            transition(LOG_IN_FROM_NAV)
-          }
-        }}
+        onLogin={() => !loggingIn()? transition(LOG_IN_FROM_NAV) : null }
       />
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
