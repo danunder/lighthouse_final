@@ -30,7 +30,6 @@ export default function VisualModeBox(props) {
 
   const LOG_IN_FROM_NAV = 'LOG_IN_FROM_NAV';
   const LOG_IN_FROM_CREATE = 'LOG_IN_FROM_CREATE';
-  // const CREATE_ACCOUNT = 'CREATE_ACCOUNT';
   const SHOW_REVIEWS = 'SHOW_REVIEWS';
   const SHOW_FULL_REVIEW = 'SHOW_FULL_REVIEW';
   const CREATE_TENANCY = 'CREATE_TENANCY';
