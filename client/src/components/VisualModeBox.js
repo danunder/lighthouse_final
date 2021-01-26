@@ -108,6 +108,7 @@ export default function VisualModeBox(props) {
       )}
       {mode === SEE_NEIGHBOURHOOD_REVIEWS && (
         <NeighbourhoodReviews
+        onBack={() => back()}
           data={props.neighbourhoodReviewData}         
           onClick={tenancyID => {
             setTenancyID(tenancyID);
