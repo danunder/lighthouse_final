@@ -10,6 +10,7 @@ import useVisualMode from '../hooks/useVisualMode';
 import useReviewBuilder from '../hooks/useReviewBuilder';
 import TenancyForm from './ReviewInput/TenancyForm';
 import Logout from '../components/Logout';
+import NeighbourhoodReviews from './NeighbourhoodReviews';
 
 export default function VisualModeBox(props) {
   // Keeps container overtop of map
@@ -36,7 +37,8 @@ export default function VisualModeBox(props) {
   const CREATE_LANDLORD_REVIEW = 'CREATE_LANDLORD_REVIEW';
   const CREATE_NEIGHBOURHOOD_REVIEW = 'CREATE_NEIGHBOURHOOD_REVIEW';
   const SUBMIT_REVIEW = 'SUBMIT_REVIEW';
-  const SEE_NEIGHBOURHOOD_REVIEWS = "SEE_NEIGHBOURHOOD_REVIEWS"
+  const SEE_NEIGHBOURHOOD_REVIEWS = "SEE_NEIGHBOURHOOD_REVIEWS";
+  const SHOW_NEIGHBOURHOOD_REVIEW = "SHOW_NEIGHBOURHOOD_REVIEW";
 
   // declare helper functions from hooks
   const { mode, transition, back } = useVisualMode(SHOW_REVIEWS);
@@ -105,13 +107,7 @@ export default function VisualModeBox(props) {
       {mode === SEE_NEIGHBOURHOOD_REVIEWS && (
         <NeighbourhoodReviews
           data={props.neighbourhoodReviewData}
-          // addNew={() =>
-          //   transition(
-          //     localStorage.getItem('user')
-          //       ? CREATE_TENANCY
-          //       : LOG_IN_FROM_CREATE
-          //   )
-          // }
+         
           onClick={tenancyID => {
             setTenancyID(tenancyID);
             transition(SHOW_NEIGHBOURHOOD_REVIEW);
