@@ -21,6 +21,7 @@ export default function VisualModeBox(props) {
     pointerEvents: 'none',
     // top: '60vh',
     zIndex: '1',
+    padding: '0'
   };
 
   const childStyle = {

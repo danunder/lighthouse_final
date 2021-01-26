@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  font-family: 'Montserrat', sans-serif;;
+  font-family: "Montserrat", sans-serif;
 }
 
 /*.review-block {
@@ -22,16 +22,16 @@
   height: 100%;
   left: 0;
   top: 0;
+  /* padding: 0px, 0px; */
 }
 
-.container, .container-sm {
-    max-width: 100%;
+.container,
+.container-sm {
+  max-width: 100%;
 }
 
 h2 {
-
   font-size: 2rem;
-
 }
 
 /*.review-input {
@@ -62,4 +62,3 @@ h2 {
   display: flex;
   justify-content: center;
 } */
-
