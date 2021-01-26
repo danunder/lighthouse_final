@@ -53,7 +53,6 @@ export default function Reviews(props) {
           </div>
           <div>
             <Card.Link
-              href='#'
               onClick={() => props.onClick(data.tenancy_id)}
               className='link'
             >
