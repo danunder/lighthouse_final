@@ -64,9 +64,9 @@ export default function Reviews(props) {
     );
   });
   return (
-    <>
+    <div className='reviews'>
       {mapData}
       <AddReview onClick={props.addNew} />
-    </>
+    </div>
   );
 }
