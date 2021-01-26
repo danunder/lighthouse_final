@@ -105,14 +105,16 @@ export default function LoginCard(props) {
         <div className='header'>
           <h5 className='card-title'>{props.title}</h5>
           <button
+            fontSize='24px'
             type='button'
             className='close'
             aria-label='Close'
             onClick={onBack}
           >
-            <span aria-hidden='true'>&times;</span>
+            <span style={{ fontSize: '24px' }}aria-hidden='true'>&times;</span>
           </button>
         </div>
+        <br/>
         <div className='card-body'>
           <Form
             onClick={() => setMode(SIGN_IN)}
@@ -121,7 +123,7 @@ export default function LoginCard(props) {
               handleSignIn(onSuccess, onLoginError)
             }}
           >
-            <h5>Sign in to an existing account</h5>
+            <h2 style={mode === SIGN_IN ? { color: 'black' } : {color: '#007bff'}}>Sign in to an existing account</h2>
             {showLoginError()}
             {mode === SIGN_IN && (
               <>
@@ -152,8 +154,9 @@ export default function LoginCard(props) {
               </>
             )}
           </Form>
-          <h4>or</h4>
-          <br />
+          
+          <h4 style={{ margin: '1rem' }}>or</h4>
+          
           <Form
             onClick={() => {
               setMode(REGISTER);
@@ -163,7 +166,7 @@ export default function LoginCard(props) {
               handleRegister(onSuccess, onRegisterError())
             }}
           >
-            <h5>Create a new account</h5>
+            <h2 style={mode === REGISTER ? { color: 'black' } : {color: '#007BFF'}}>Create a new account</h2>
             {showRegisterError(nameError, 'name')}
             {mode === REGISTER && (
               <>
@@ -230,6 +233,7 @@ export default function LoginCard(props) {
               </>
             )}
           </Form>
+          <br/>
         </div>
       </div>
     </section>

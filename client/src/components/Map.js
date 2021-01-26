@@ -16,8 +16,9 @@ const mapStyles = {
 
 const inputStyles = {
   position: 'absolute',
+  height: '2rem',
   width: '80vw',
-  top: '10vw',
+  top: '15vw',
   left: '10vw',
   zIndex: '9',
 };
@@ -114,11 +115,11 @@ export class MapContainer extends Component {
             <div style={inputStyles}>
               <input
                 {...getInputProps({
-                  placeholder: 'Search Places ...',
+                  placeholder: ' Enter an address to view or add reviews...',
                   className: 'location-search-input',
                 })}
-                className='p-1 bg-light rounded rounded-pill shadow-sm mb-4'
-                style={{ width: '100%', border: 'transparent', outline: 'none', fontSize: 'larger' }}
+                className='p-1 bg-light rounded rounded-pill shadow-lg mb-4'
+                style={{ width: '100%', border: 'transparent', outline: 'none', fontSize: '1.4rem' }}
               />
               <div className='autocomplete-dropdown-container'>
                 {loading && <div>Loading...</div>}

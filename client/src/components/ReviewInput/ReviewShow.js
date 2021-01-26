@@ -33,7 +33,7 @@ export default function ReviewShow(props) {
   findFullReview();
 
   return (
-    <section className='card-show'>
+    <section className='card-show large'>
       <div className='card'>
         <div className='header'>
         <h5 className='card-title'>{reviewData[0].user}'s review</h5>
@@ -43,11 +43,12 @@ export default function ReviewShow(props) {
           aria-label='Close'
           onClick={props.onClose}
         >
-          <span aria-hidden='true'>&times;</span>
+            <span style={{ fontSize: '24px' }}
+              aria-hidden='true'>&times;</span>
         </button>
         </div>
         
-        <div className='card-body'>
+        <div className='card-body display'>
           {/* <div>
         <PhotoCarousel />
         </div> */}

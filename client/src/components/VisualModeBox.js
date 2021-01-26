@@ -21,6 +21,7 @@ export default function VisualModeBox(props) {
     pointerEvents: 'none',
     // top: '60vh',
     zIndex: '1',
+    padding: '0'
   };
 
   const childStyle = {
@@ -177,6 +178,7 @@ export default function VisualModeBox(props) {
       {mode === CREATE_LANDLORD_REVIEW && (
         <ReviewForm
           title={'landlord'}
+          previewWarning={' '}
           rating={state.landlordRating || null}
           onRatingChange={value => setLandlordRating(value)}
           review={state.landlordReview || ''}
@@ -188,6 +190,7 @@ export default function VisualModeBox(props) {
       {mode === CREATE_NEIGHBOURHOOD_REVIEW && (
         <ReviewForm
           title={'neighbourhood'}
+          previewWarning={' '}
           rating={state.neighbourhoodRating}
           onRatingChange={value => setNeighbourhoodRating(value)}
           review={state.neighbourhoodReview || ''}

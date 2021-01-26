@@ -1,23 +1,27 @@
 .card {
   width: 100%;
+  pointer-events: all;
+  max-height: 100%;
 }
 
 .card-show {
   display: flex;
   width: 100%;
-  height: 80%;
-  flex-direction: column;
+  max-height: 80vw;
+  /* justify-content: space-between; */
+  flex-direction: column-reverse;
   margin: 30px 0px;
   align-items: flex-end;
   pointer-events: all;
+  padding: 0px 15px;
 }
 
 .header {
   display: flex;
- justify-content: space-between;
- background-color: rgba(0,0,0,.03);
- border-bottom: 1px solid rgba(0, 0, 0, 0.125);
- padding: 10px;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 10px;
 }
 
 .card-title {
@@ -38,8 +42,18 @@ h5 {
 
 .card-body {
   font-size: larger;
+
+  pointer-events: all;
+}
+.submit {
+  overflow-y: scroll;
+  height: 60vh;
 }
 
+.display {
+  overflow-y: scroll;
+  height: 75vh;
+}
 textarea {
   resize: none;
 }
