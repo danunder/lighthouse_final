@@ -20,7 +20,7 @@ const inputStyles = {
   width: '80vw',
   top: '10vh',
   left: '10vw',
-  zIndex: '9',
+  zIndex: '1',
 };
 
 export class MapContainer extends Component {
@@ -122,6 +122,7 @@ export class MapContainer extends Component {
                   border: 'transparent',
                   outline: 'none',
                   fontSize: '1.4rem',
+                  zIndex: '9'
                 }}
               />
               <div className='autocomplete-dropdown-container'>
