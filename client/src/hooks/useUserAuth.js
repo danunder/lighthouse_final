@@ -74,7 +74,7 @@ export default function useUserAuth(initial) {
     });
     // console.log('RESPONES ', response.data);
     if (response.data.userName) {
-      console.log('PASS ', response.data);
+      // console.log('PASS ', response.data);
       localStorage.setItem('user', JSON.stringify(response.data));
       // handles transition to next view
       onSuccess();

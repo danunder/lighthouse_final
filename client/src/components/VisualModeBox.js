@@ -11,7 +11,7 @@ import useReviewBuilder from '../hooks/useReviewBuilder';
 import TenancyForm from './ReviewInput/TenancyForm';
 import Logout from '../components/Logout';
 import NeighbourhoodReviews from './NeighbourhoodReviews';
-import NeighbourhoodReviewDetail from './NeighbourhoodReviewDetail'
+import NeighbourhoodReviewDetail from './NeighbourhoodReviewDetail';
 
 export default function VisualModeBox(props) {
   // Keeps container overtop of map
@@ -26,7 +26,7 @@ export default function VisualModeBox(props) {
 
   const childStyle = {
     pointerEvents: 'auto',
-    zIndex: '10'
+    zIndex: '10',
   };
 
   const LOG_IN_FROM_NAV = 'LOG_IN_FROM_NAV';
@@ -38,9 +38,8 @@ export default function VisualModeBox(props) {
   const CREATE_LANDLORD_REVIEW = 'CREATE_LANDLORD_REVIEW';
   const CREATE_NEIGHBOURHOOD_REVIEW = 'CREATE_NEIGHBOURHOOD_REVIEW';
   const SUBMIT_REVIEW = 'SUBMIT_REVIEW';
-  const SEE_NEIGHBOURHOOD_REVIEWS = "SEE_NEIGHBOURHOOD_REVIEWS";
-  const SHOW_NEIGHBOURHOOD_REVIEW_DETAIL = "SHOW_NEIGHBOURHOOD_REVIEW_DETAIL";
-
+  const SEE_NEIGHBOURHOOD_REVIEWS = 'SEE_NEIGHBOURHOOD_REVIEWS';
+  const SHOW_NEIGHBOURHOOD_REVIEW_DETAIL = 'SHOW_NEIGHBOURHOOD_REVIEW_DETAIL';
 
   // declare helper functions from hooks
   const { mode, transition, back } = useVisualMode(SHOW_REVIEWS);
@@ -69,16 +68,16 @@ export default function VisualModeBox(props) {
     setNeighbourhoodRating(null);
     setNeighbourhoodReview('');
   };
-  
+
   const loggingIn = () => {
     if (mode === LOG_IN_FROM_NAV) {
-      return true
+      return true;
     }
     if (mode === LOG_IN_FROM_CREATE) {
-      return true
+      return true;
     }
-    return false
-  }; 
+    return false;
+  };
 
   return (
     <Container style={containerStyle}>
@@ -88,7 +87,7 @@ export default function VisualModeBox(props) {
           transition(SHOW_REVIEWS);
           resetForm();
         }}
-        onLogin={() => !loggingIn()? transition(LOG_IN_FROM_NAV) : null }
+        onLogin={() => (!loggingIn() ? transition(LOG_IN_FROM_NAV) : null)}
       />
       {mode === SHOW_REVIEWS && props.selectedPlace && (
         <Reviews
@@ -96,9 +95,7 @@ export default function VisualModeBox(props) {
           seeMore={() => transition(SEE_NEIGHBOURHOOD_REVIEWS)}
           addNew={() =>
             transition(
-              localStorage.getItem('user')
-                ? CREATE_TENANCY
-                : LOG_IN_FROM_CREATE
+              localStorage.getItem('user') ? CREATE_TENANCY : LOG_IN_FROM_CREATE
             )
           }
           onClick={tenancyID => {
@@ -116,19 +113,21 @@ export default function VisualModeBox(props) {
       )}
       {mode === SEE_NEIGHBOURHOOD_REVIEWS && (
         <NeighbourhoodReviews
-        onBack={() => back()}
-          data={props.neighbourhoodReviewData}         
+          onBack={() => back()}
+          data={props.neighbourhoodReviewData}
           onClick={tenancyID => {
             setTenancyID(tenancyID);
             transition(SHOW_NEIGHBOURHOOD_REVIEW_DETAIL);
           }}
-        />)}
-      {mode === SHOW_NEIGHBOURHOOD_REVIEW_DETAIL &&
+        />
+      )}
+      {mode === SHOW_NEIGHBOURHOOD_REVIEW_DETAIL && (
         <NeighbourhoodReviewDetail
           onClose={() => back()}
           data={props.neighbourhoodReviewData}
           tenancyID={tenancyID}
-        />}
+        />
+      )}
       {mode === LOG_IN_FROM_CREATE && (
         <LoginCard
           title={'Please login to write a review'}
@@ -137,7 +136,6 @@ export default function VisualModeBox(props) {
             transition(CREATE_TENANCY);
           }}
           onBack={() => back()}
-          
         />
       )}
       {mode === LOG_IN_FROM_NAV && (
@@ -145,7 +143,6 @@ export default function VisualModeBox(props) {
           title={'Login or Register'}
           onSuccess={() => back()}
           onBack={() => back()}
-          
         />
       )}
       {mode === CREATE_TENANCY && (

@@ -8,8 +8,6 @@ export default function Logout(props) {
     props.onLogout();
   };
 
-  
-
   let username;
   if (localStorage.getItem('user')) {
     username = JSON.parse(localStorage.getItem('user')).userName;
@@ -20,6 +18,7 @@ export default function Logout(props) {
   if (username) {
     return (
       <section className='logout-area'>
+        <strong className='brandName'>Rental Rants</strong>
         <Button
           variant='primary'
           className='logout-button'
@@ -32,6 +31,7 @@ export default function Logout(props) {
   } else {
     return (
       <section className='logout-area'>
+        <strong className='brandName'>Rental Rants</strong>
         <Button
           variant='primary'
           className='logout-button'
