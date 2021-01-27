@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect } from 'react';
+import { useReducer } from 'react';
 import axios from 'axios';
 
 export default function useUserAuth(initial) {
