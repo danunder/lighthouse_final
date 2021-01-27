@@ -1,5 +1,5 @@
 import { React } from 'react';
-import StarRating from './StarRating';
+import StarRatingShow from './StarRatingShow';
 
 // The button needs fixing to work as a form submitter
 
@@ -17,7 +17,7 @@ export default function NeighbourhoodReviewDetail(props) {
       <div className='card'>
         <h5 className='card-header'>{reviewData[0].user} said this about the neighbourhood...</h5>
         <div className='card-body'>
-          <StarRating
+          <StarRatingShow
             rating={reviewData[0].rating}/>
           <div className='form-group'>
             
