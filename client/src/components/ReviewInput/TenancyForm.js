@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FaCommentsDollar } from 'react-icons/fa';
 
 import './styles.css'
 
