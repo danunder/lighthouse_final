@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { FaCommentsDollar } from 'react-icons/fa';
 
 import './styles.css'
 
@@ -68,7 +67,7 @@ export default function TenancyForm(props) {
               Back
             </button>
             <button type='submit' className='btn btn-outline-dark' onClick={() => validateTenancy()} >
-              Next Review 
+              Next
             </button>
           </div>
         </div>
