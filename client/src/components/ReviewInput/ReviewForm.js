@@ -29,14 +29,14 @@ export default function ReviewForm(props) {
             {errorMessage}
           <div className='form-group'>
             <p>{props.previewWarning}</p>
-            <input
+            <textarea
               className='form-control'
-              rows='5'
+              rows='3'
               value={props.review}
               id='comment'
-              placeholder={`Write a review of this ${props.title}`}
+              placeholder={`Write a review of this ${props.title} ${props.title === 'property'? "including shared spaces. You'll get a chance to review your landlord and neighbourhood next." : "." }`}
               onChange={(e) => props.onChange(e.target.value)}
-            ></input>
+            ></textarea>
             <button className='btn btn-outline-dark' onClick={props.onBack}>
               Back
             </button>

@@ -1,7 +1,7 @@
 .reviews {
   display: flex;
-  pointer-events: auto !important;
-  overflow: scroll;
+  pointer-events: all !important;
+  overflow-x: scroll;
 }
 
 .review-card {

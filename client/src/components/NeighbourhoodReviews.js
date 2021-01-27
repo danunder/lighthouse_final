@@ -39,9 +39,9 @@ export default function NeighbourhoodReviews(props) {
     );
   });
   return (
-    <>
+    <div className='reviews'>
       <BackCard onBack={props.onBack} />
       {mapData}
-    </>
+    </div>
   );
 }
