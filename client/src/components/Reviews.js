@@ -67,7 +67,6 @@ export default function Reviews(props) {
     <div className='reviews'>
       <AddReview onClick={props.addNew} />
       {mapData}
-
       <SeeNeighbourhoodReviews onClick={props.seeMore} />
     </div>
   );
