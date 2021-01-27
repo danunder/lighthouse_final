@@ -18,7 +18,7 @@ const inputStyles = {
   position: 'absolute',
   height: '2rem',
   width: '80vw',
-  top: '15vw',
+  top: '10vh',
   left: '10vw',
   zIndex: '9',
 };
@@ -47,13 +47,11 @@ export class MapContainer extends Component {
 
   onMarkerClick = (props, marker) =>
     this.setState({
-      
       showingInfoWindow: true,
     });
 
   onInfoWindowClose = () =>
     this.setState({
-      
       showingInfoWindow: false,
     });
 
@@ -119,7 +117,12 @@ export class MapContainer extends Component {
                   className: 'location-search-input',
                 })}
                 className='p-1 bg-light rounded rounded-pill shadow-lg mb-4'
-                style={{ width: '100%', border: 'transparent', outline: 'none', fontSize: '1.4rem' }}
+                style={{
+                  width: '100%',
+                  border: 'transparent',
+                  outline: 'none',
+                  fontSize: '1.4rem',
+                }}
               />
               <div className='autocomplete-dropdown-container'>
                 {loading && <div>Loading...</div>}
@@ -129,8 +132,17 @@ export class MapContainer extends Component {
                     : 'suggestion-item';
                   // inline style for demonstration purpose
                   const style = suggestion.active
-                    ? { backgroundColor: '#fafafa', cursor: 'pointer', fontSize: 'larger', fontWeight: '600' }
-                    : { backgroundColor: '#fafafa', cursor: 'pointer', fontSize: 'larger' };
+                    ? {
+                        backgroundColor: '#fafafa',
+                        cursor: 'pointer',
+                        fontSize: 'larger',
+                        fontWeight: '600',
+                      }
+                    : {
+                        backgroundColor: '#fafafa',
+                        cursor: 'pointer',
+                        fontSize: 'larger',
+                      };
                   return (
                     <div
                       {...getSuggestionItemProps(suggestion, {
@@ -170,17 +182,17 @@ export class MapContainer extends Component {
             }}
           />
           {/* {this.state.address && ( */}
-            <InfoWindow
-              className='info-window'
-              position={this.state.mapCenter}
-              onClose={this.onInfoWindowClose}
-              visible={this.state.showingInfoWindow}
-            >
-              <div>
-                <h4>{this.state.displayName}</h4>
-                <img src={this.getStreetViewURL()} alt={'Google Streetview'} />
-              </div>
-            </InfoWindow>
+          <InfoWindow
+            className='info-window'
+            position={this.state.mapCenter}
+            onClose={this.onInfoWindowClose}
+            visible={this.state.showingInfoWindow}
+          >
+            <div>
+              <h4>{this.state.displayName}</h4>
+              <img src={this.getStreetViewURL()} alt={'Google Streetview'} />
+            </div>
+          </InfoWindow>
           {/* )} */}
         </Map>
       </div>
