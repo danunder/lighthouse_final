@@ -22,8 +22,10 @@
   margin-top: 10px;
   margin-left: 10px;
   color: #007bff;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: white;
+  /* -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white; */
+  background-color: white;
+  border-radius: 20px;
   /* text-shadow: 2px 2px black; */
   }
 }
@@ -35,6 +37,8 @@
     margin-top: 10px;
     margin-left: 10px;
     color: #007bff;
+    background-color: white;
+    border-radius: 20px;
     /* -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black; */
     /* text-shadow: 2px 2px black; */
