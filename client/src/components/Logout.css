@@ -18,25 +18,25 @@
 @media only screen and (min-width: 1024px){
 .brandName {
   font-size: 40pt;
-  font-weight: 500;
+  font-weight: 700;
   margin-top: 10px;
   margin-left: 10px;
   color: #007bff;
   -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
+  -webkit-text-stroke-color: white;
   /* text-shadow: 2px 2px black; */
   }
 }
 
 @media only screen and (max-width: 1024px){
   .brandName {
-    font-size: 20pt;
-    font-weight: 500;
+    font-size: 25pt;
+    font-weight: 700;
     margin-top: 10px;
     margin-left: 10px;
     color: #007bff;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
+    /* -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black; */
     /* text-shadow: 2px 2px black; */
     }
 }
