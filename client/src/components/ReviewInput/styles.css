@@ -52,7 +52,7 @@ h5 {
 
 .display {
   overflow-y: scroll;
-  height: 75vh;
+  max-height: 75vh;
 }
 textarea {
   resize: none;
