@@ -4,6 +4,10 @@
 
 Rental Rants is a single page, mobile first web application where users can view and submit reviews of rental properties they have lived in. The client side harnesses Google Maps API for location search suggestions and latitude + longitude coordinates and is rendered with ReactJS and bootstrap components overlaying google-maps-react library elements. Persistent storage is managed by a PostgreSQL database with a NodeJS Express server handling API calls to the db. 
 
+
+### [Go play with it here](https://thirsty-jang-ea95c4.netlify.app/)
+
+
 ### Application in use
 ![Animation of user searching for a property, selecting the propery and viewing reviews](media/view_reviews.gif)
 
@@ -21,8 +25,6 @@ Anyone can view reviews. To add a property review, login or create an account.
 
 Enter your tenancy dates, leave a brief review and rating in each of the three categories and submit when you're happy!
 
-
-### [Go play with it here](https://thirsty-jang-ea95c4.netlify.app/)
 
 ### Setup
 
